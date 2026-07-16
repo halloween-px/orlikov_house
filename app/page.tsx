@@ -5,6 +5,7 @@ import { Facts } from "@/components/Facts";
 import { About } from "@/components/About";
 import { Catalog } from "@/components/Catalog";
 import { Location } from "@/components/Location";
+import { Advantages } from "@/components/Advantages";
 import { Contacts, FloatingContact } from "@/components/Contacts";
 import { Footer } from "@/components/Footer";
 import styles from "./page.module.css";
@@ -18,6 +19,7 @@ export default function HomePage() {
       <Facts />
       <About />
       <Catalog />
+      {/* <Advantages /> */}
       <Contacts />
       <Location />
       <Footer />
