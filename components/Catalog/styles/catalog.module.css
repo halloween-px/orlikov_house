@@ -1,0 +1,222 @@
+.catalogHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.catalogTitle {
+  max-width: 22ch;
+}
+
+.catalogTitleAccent {
+  color: var(--color-heading-secondary);
+}
+
+.catalogLeadBtn {
+  flex-shrink: 0;
+  margin-bottom: 4px;
+}
+
+.catalogGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+.introCard,
+.catalogCard {
+  min-height: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.introCard {
+  position: relative;
+  isolation: isolate;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 20px;
+  background:
+    linear-gradient(
+      165deg,
+      rgba(201, 162, 78, 0.16) 0%,
+      rgba(18, 14, 10, 0.55) 42%,
+      rgba(10, 8, 6, 0.92) 100%
+    ),
+    rgba(12, 10, 8, 0.88);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    18px 0 40px -12px rgba(201, 162, 78, 0.22),
+    28px 12px 48px rgba(0, 0, 0, 0.45),
+    0 18px 36px rgba(0, 0, 0, 0.28);
+}
+
+.introTop,
+.introBottom {
+  position: relative;
+  z-index: 1;
+}
+
+.introTop {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+}
+
+.introTitle {
+  margin: 0;
+  font-family: var(--font-roboto), sans-serif;
+  font-size: clamp(18px, 1.5vw, 22px);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--color-heading-primary);
+}
+
+.introText {
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--color-subtitle);
+}
+
+.introBottom {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid color-mix(in srgb, var(--color-gold-border) 55%, transparent);
+}
+
+.introQuestion {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.introQuestionLabel {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-heading-secondary);
+}
+
+.introQuestionText {
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--color-text-muted);
+}
+
+.catalogCard {
+  composes: glass from "../../shared/landing/common.module.css";
+  animation: catalogCardIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes catalogCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.catalogMedia {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: #1a1a1a;
+  flex-shrink: 0;
+}
+
+.catalogMedia::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.75),
+    rgba(0, 0, 0, 0.15) 45%,
+    transparent
+  );
+}
+
+.catalogBody {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  flex: 1;
+}
+
+.catalogMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  font-size: 13px;
+  color: var(--color-secondary-text);
+}
+
+.catalogLot {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-heading-primary);
+}
+
+.catalogPrice {
+  margin-top: auto;
+  padding-top: 8px;
+  font-family: var(--font-roboto), sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-heading-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .catalogCard {
+    animation: none;
+  }
+}
+
+@media (max-width: 1200px) {
+  .catalogGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .catalogHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .catalogGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .introText,
+  .introQuestionText {
+    -webkit-line-clamp: unset;
+    display: block;
+    overflow: visible;
+  }
+}

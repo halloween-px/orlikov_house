@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+:root {
+  --background: #111111;
+  --foreground: #ffffff;
+  --header-height-top: 90px;
+  --header-height-bottom: 0px;
+  --header-height: var(--header-height-top);
+  --color-heading-primary: #f5f0e8;
+  --color-heading-secondary: #c9a876;
+  --color-subtitle: #d9d5ce;
+  --color-text-muted: #8a8580;
+  --color-button-secondary-text: #2b2118;
+  --color-button-secondary-bg: #c9a050;
+  --color-border-accent: #c9a24e;
+  --color-primary: #b8893a;
+  --color-theme: #b8893a;
+  --color-light-dark: #9a9a9a;
+  --color-dark: #111111;
+  --color-surface-dark: rgba(0, 0, 0, 0.6);
+  --color-gold-border: var(--color-border-accent);
+  --color-gold-border-active: var(--color-heading-secondary);
+  --color-cta: var(--color-theme);
+  --color-cta-hover: #d4a04a;
+  --color-secondary-text: var(--color-text-muted);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-open-sans);
+  --font-heading: var(--font-roboto);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height-top);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-open-sans), sans-serif;
+}
+
+/* Directional page navigation (non-apartment routes) */
+::view-transition-old(.nav-forward) {
+  animation: 280ms ease-out both apartment-nav-fade-out,
+    280ms ease-out both apartment-nav-slide-left;
+}
+
+::view-transition-new(.nav-forward) {
+  animation: 420ms ease-out 80ms both apartment-nav-fade-in,
+    420ms cubic-bezier(0.22, 1, 0.36, 1) 80ms both apartment-nav-slide-from-right;
+}
+
+::view-transition-old(.nav-back) {
+  animation: 280ms ease-out both apartment-nav-fade-out,
+    280ms ease-out both apartment-nav-slide-right;
+}
+
+::view-transition-new(.nav-back) {
+  animation: 420ms ease-out 80ms both apartment-nav-fade-in,
+    420ms cubic-bezier(0.22, 1, 0.36, 1) 80ms both apartment-nav-slide-from-left;
+}
+
+@keyframes apartment-nav-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes apartment-nav-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes apartment-nav-slide-left {
+  to {
+    transform: translateX(-28px);
+  }
+}
+
+@keyframes apartment-nav-slide-right {
+  to {
+    transform: translateX(28px);
+  }
+}
+
+@keyframes apartment-nav-slide-from-right {
+  from {
+    transform: translateX(40px);
+  }
+}
+
+@keyframes apartment-nav-slide-from-left {
+  from {
+    transform: translateX(-40px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

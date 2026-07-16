@@ -1,0 +1,248 @@
+.header {
+  position: relative;
+}
+
+.headerWrapper {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+  height: var(--header-height-top);
+}
+
+.headerTop {
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--color-heading-primary) 18%, transparent);
+  background: transparent;
+  transition:
+    background 0.4s ease,
+    backdrop-filter 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.headerTopScrolled {
+  background: rgba(12, 10, 8, 0.68);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom-color: color-mix(
+    in srgb,
+    var(--color-border-accent) 32%,
+    transparent
+  );
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.24);
+}
+
+.headerTopWrapper {
+  width: 100%;
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 24px;
+}
+
+.headerLeft,
+.headerRight {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.headerLeft {
+  flex: 0 1 auto;
+}
+
+.headerCenter {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+
+.headerRight {
+  justify-content: flex-end;
+  gap: 16px;
+  flex: 0 0 auto;
+}
+
+.headerCta {
+  color: var(--color-heading-primary) !important;
+  min-height: 44px;
+}
+
+.headerPhone {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  border: 1px solid
+    color-mix(in srgb, var(--color-gold-border) 70%, transparent);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.01)
+    ),
+    rgba(12, 10, 8, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 8px 20px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(10px);
+  text-decoration: none;
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.headerPhone:hover {
+  border-color: var(--color-gold-border-active);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.08),
+      rgba(255, 255, 255, 0.02)
+    ),
+    rgba(16, 13, 10, 0.62);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 12px 28px rgba(0, 0, 0, 0.24);
+  transform: translateY(-1px);
+}
+
+.headerPhoneLabel {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--color-heading-secondary);
+}
+
+.headerPhoneNumber {
+  font-family: var(--font-roboto), sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  color: var(--color-heading-primary);
+  white-space: nowrap;
+}
+
+.hamburgerWrap {
+  display: none;
+}
+
+.mobileMenu {
+  display: none;
+}
+
+.logo {
+  width: auto;
+  height: 42px;
+  flex-shrink: 0;
+}
+
+.logoLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.logoText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.logoTitle {
+  font-family: var(--font-roboto), sans-serif;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-heading-primary);
+}
+
+.logoTagline {
+  font-size: 10px;
+  line-height: 1.2;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.mobileContactLink {
+  color: var(--color-heading-primary);
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.mobileMenuActions {
+  display: flex;
+}
+
+@media (max-width: 991px) {
+  .headerCenter {
+    display: none;
+  }
+
+  .headerCta {
+    display: none !important;
+  }
+
+  .headerPhone {
+    display: none;
+  }
+
+  .hamburgerWrap {
+    display: flex;
+  }
+
+  .logoTitle {
+    font-size: 18px;
+  }
+
+  .logoTagline {
+    font-size: 8px;
+    letter-spacing: 0.08em;
+  }
+
+  .mobileMenu {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+    padding: 20px;
+    border: 1px solid var(--color-gold-border);
+    border-radius: 20px;
+    background: rgba(10, 10, 10, 0.92);
+    backdrop-filter: blur(14px);
+  }
+}
+
+@media (max-width: 640px) {
+  .logoTagline {
+    display: none;
+  }
+
+  .logo {
+    height: 34px;
+  }
+}

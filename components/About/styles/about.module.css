@@ -1,0 +1,94 @@
+.aboutSection {
+  overflow: hidden;
+}
+
+.aboutIntro {
+  max-width: 760px;
+  width: 100%;
+  margin-bottom: 72px;
+}
+
+.conceptLayout {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
+  gap: 40px;
+  align-items: stretch;
+}
+
+.aboutMedia {
+  position: relative;
+  min-height: 520px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--color-gold-border);
+}
+
+.aboutMedia::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.conceptContent {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  justify-content: center;
+  max-width: 715px;
+}
+
+.conceptOrb {
+  top: 42%;
+  right: -18%;
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+.conceptContent > * {
+  position: relative;
+  z-index: 1;
+}
+
+.conceptContent > .conceptOrb {
+  position: absolute;
+  z-index: 0;
+}
+
+.conceptTitlePrimary {
+  color: var(--color-heading-primary);
+}
+
+.conceptActions {
+  margin-top: 60px;
+}
+
+.conceptChips {
+  padding-right: 100px;
+}
+
+.conceptText {
+  margin-bottom: 12px;
+}
+
+@media (max-width: 1100px) {
+  .aboutIntro {
+    margin-bottom: 48px;
+  }
+
+  .conceptLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .aboutMedia {
+    min-height: 280px;
+  }
+
+  .conceptChips {
+    max-width: 400px;
+  }
+}
