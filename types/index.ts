@@ -10,9 +10,15 @@ export interface SiteParams {
   social: SocialLink[];
 }
 
+export type LeadModalVariant = "viewing" | "request";
+
 export interface MainContextValue {
   params: SiteParams[];
   loadParams: () => void;
   state: { sidebar: boolean };
   setState: (state: { sidebar: boolean }) => void;
+  leadModalOpen: boolean;
+  leadModalVariant: LeadModalVariant;
+  openLeadModal: (variant?: LeadModalVariant) => void;
+  closeLeadModal: () => void;
 }

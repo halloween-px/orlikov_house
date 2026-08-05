@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname, useRouter } from "next/navigation";
 import { navConfig } from "@/config";
 import { scrollToSection } from "@/lib/scroll-to-section";
 import { Button } from "@/components/ui/Button";
@@ -20,6 +21,9 @@ export default function Navigation({
   className,
   variant = "header",
 }: NavigationProps) {
+  const pathname = usePathname();
+  const router = useRouter();
+  const isHome = pathname === "/";
   const activeId = useActiveSection();
 
   return (
@@ -32,12 +36,13 @@ export default function Navigation({
       aria-label="Навигация по сайту"
     >
       {navConfig.map((item) => {
-        const isActive = activeId === item.id;
+        const isActive = isHome && activeId === item.id;
+        const href = `/${item.href}`;
 
         return (
           <Button
             key={item.id}
-            href={item.href}
+            href={href}
             variant="outline"
             size="md"
             active={isActive}
@@ -45,6 +50,11 @@ export default function Navigation({
             aria-current={isActive ? "true" : undefined}
             onClick={(event) => {
               event.preventDefault();
+              if (!isHome) {
+                router.push(`/#${item.id}`);
+                onNavigate?.();
+                return;
+              }
               scrollToSection(item.id);
               onNavigate?.();
             }}

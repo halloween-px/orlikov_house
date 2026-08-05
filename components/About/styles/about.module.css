@@ -89,6 +89,11 @@
   }
 
   .conceptChips {
-    max-width: 400px;
+    max-width: none;
+    padding-right: 0;
+  }
+
+  .conceptActions {
+    margin-top: 28px;
   }
 }

@@ -1,6 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 import { landingConfig, navConfig, siteConfig } from "@/config";
 import { Button } from "@/components/ui/Button";
+import { LeadButton } from "@/components/Contacts";
 import { LandingContainer } from "@/components/shared/landing";
 import { BackgroundOrb, FadeDivider } from "@/components/shared/decor";
 import styles from "./styles/footer.module.css";
@@ -18,7 +20,7 @@ export default function Footer() {
       <LandingContainer className={styles.inner}>
         <div className={styles.top}>
           <div className={styles.brand}>
-            <a href="#hero" className={styles.brandLink}>
+            <Link href="/" className={styles.brandLink}>
               <Image
                 src={assets.logoVector}
                 alt=""
@@ -27,8 +29,12 @@ export default function Footer() {
                 className={styles.brandLogo}
               />
               <span className={styles.brandName}>{brand.name}</span>
-            </a>
-            <p className={styles.brandText}>{brand.description}</p>
+            </Link>
+            <p className={styles.brandText}>
+              {brand.descriptionLine1}
+              <br />
+              {brand.descriptionLine2}
+            </p>
             <p className={styles.brandMeta}>
               {contacts.district} · {contacts.metro}
             </p>
@@ -48,7 +54,7 @@ export default function Footer() {
             <ul className={styles.navList}>
               {navConfig.map((item) => (
                 <li key={item.id}>
-                  <a href={item.href}>{item.label}</a>
+                  <Link href={`/${item.href}`}>{item.label}</Link>
                 </li>
               ))}
             </ul>
@@ -71,7 +77,7 @@ export default function Footer() {
 
             <div className={styles.messengers}>
               <Button
-                href="https://wa.me/79166181440"
+                href="https://wa.me/79936202736"
                 variant="outline"
                 size="sm"
                 target="_blank"
@@ -99,9 +105,7 @@ export default function Footer() {
             </p>
 
             <div className={styles.ctaActions}>
-              <Button href="#lead" variant="secondary" size="md" rounded="md">
-                Оставить заявку
-              </Button>
+              <LeadButton variant="secondary" size="md" rounded="md" />
               <Button
                 href={location.mapCta.href}
                 variant="outline"

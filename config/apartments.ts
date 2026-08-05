@@ -1,4 +1,5 @@
 export type ApartmentFinish = "turnkey" | "renovation";
+export type ApartmentAvailability = "available" | "sold" | "rental_business";
 
 export interface Apartment {
   id: string;
@@ -16,6 +17,7 @@ export interface Apartment {
   price: number;
   priceOld?: number;
   promo?: boolean;
+  availability: ApartmentAvailability;
   address: string;
   preview: string;
   images: string[];
@@ -35,6 +37,41 @@ function previewFor(index: number) {
 
 export const FLOORS_COUNT = 4;
 
+export const finishMeta = {
+  renovation: {
+    label: "Ремонт + сантехника",
+    includes: ["Ремонт", "Сантехника"] as const,
+  },
+  turnkey: {
+    label: "Готов для жизни",
+    includes: ["Ремонт", "Сантехника", "Мебель", "Техника"] as const,
+  },
+} as const;
+
+export const availabilityMeta = {
+  available: { label: "В продаже" },
+  sold: { label: "Продан" },
+  rental_business: { label: "Готовый арендный бизнес" },
+} as const;
+
+function floorLabel(floor: number) {
+  return `${floor} этаж`;
+}
+
+export function formatApartmentFloor(floor: number) {
+  return floorLabel(floor);
+}
+
+export function getApartmentFinish(finish: ApartmentFinish) {
+  return finishMeta[finish];
+}
+
+export function getApartmentAvailability(
+  availability: ApartmentAvailability = "available",
+) {
+  return availabilityMeta[availability];
+}
+
 export const apartmentsConfig = [
   {
     id: "spasskaya-1",
@@ -46,11 +83,12 @@ export const apartmentsConfig = [
     rooms: "1-комн студия",
     windows: "2 окна",
     finish: "turnkey",
-    finishLabel: "Под ключ",
-    description:
-      "1-комн студия под ключ — готово для проживания. Два окна, много света; ремонт, мебель, сантехника и кухня.",
-    highlights: ["Готово для проживания", "Два окна, много света"],
+    finishLabel: finishMeta.turnkey.label,
+    description: "17,7 м² · 1 этаж · Готов для жизни",
+    highlights: ["Готов для жизни", "Два окна"],
     price: 16_620_000,
+    availability: "available",
+
     address: ADDRESS,
     preview: previewFor(0),
     images: [],
@@ -65,11 +103,12 @@ export const apartmentsConfig = [
     rooms: "2-комн студия",
     windows: "2 окна",
     finish: "renovation",
-    finishLabel: "Ремонт + сантехника",
-    description:
-      "2-комн студия с ремонтом и сантехникой. Два больших окна, качественная отделка и новая инженерия.",
-    highlights: ["Ремонт и сантехника", "Два больших окна"],
+    finishLabel: finishMeta.renovation.label,
+    description: "17,5 м² · 1 этаж · Ремонт + сантехника",
+    highlights: ["Ремонт + сантехника", "Два окна"],
     price: 16_055_000,
+    availability: "available",
+
     address: ADDRESS,
     preview: previewFor(1),
     images: [],
@@ -84,11 +123,12 @@ export const apartmentsConfig = [
     rooms: "1-комн студия",
     windows: "1 окно",
     finish: "renovation",
-    finishLabel: "Ремонт + сантехника",
-    description:
-      "1-комн студия с ремонтом и сантехникой. Одно окно — уединённое тихое пространство и эффективная планировка.",
-    highlights: ["Уединённое пространство", "Новые коммуникации"],
+    finishLabel: finishMeta.renovation.label,
+    description: "18,1 м² · 1 этаж · Ремонт + сантехника",
+    highlights: ["Ремонт + сантехника", "Уединённое пространство"],
     price: 19_555_000,
+    availability: "available",
+
     address: ADDRESS,
     preview: previewFor(2),
     images: [],
@@ -103,11 +143,12 @@ export const apartmentsConfig = [
     rooms: "1-комн студия",
     windows: "2 окна",
     finish: "turnkey",
-    finishLabel: "Под ключ",
-    description:
-      "1-комн студия под ключ — готово для проживания. Два окна, много света; ремонт, мебель, сантехника и кухня.",
-    highlights: ["Готово для проживания", "Два окна, много света"],
+    finishLabel: finishMeta.turnkey.label,
+    description: "22,5 м² · 1 этаж · Готов для жизни",
+    highlights: ["Готов для жизни", "Два окна"],
     price: 17_387_000,
+    availability: "available",
+
     address: ADDRESS,
     preview: previewFor(0),
     images: [],
@@ -122,11 +163,12 @@ export const apartmentsConfig = [
     rooms: "2-комн студия",
     windows: "2 окна",
     finish: "turnkey",
-    finishLabel: "Под ключ",
-    description:
-      "2-комн студия под ключ. Два больших окна, мебель, кухня, сантехника и новые коммуникации.",
-    highlights: ["Под ключ", "Два больших окна"],
+    finishLabel: finishMeta.turnkey.label,
+    description: "19,5 м² · 1 этаж · Готов для жизни",
+    highlights: ["Готов для жизни", "Два окна"],
     price: 18_600_000,
+    availability: "available",
+
     address: ADDRESS,
     preview: previewFor(1),
     images: [],
@@ -141,11 +183,12 @@ export const apartmentsConfig = [
     rooms: "2-комн студия",
     windows: "2 окна",
     finish: "renovation",
-    finishLabel: "Ремонт + сантехника",
-    description:
-      "2-комн студия с ремонтом и сантехникой. Два больших окна и функциональное пространство.",
-    highlights: ["Функциональное пространство", "Два больших окна"],
+    finishLabel: finishMeta.renovation.label,
+    description: "23,2 м² · 2 этаж · Ремонт + сантехника",
+    highlights: ["Ремонт + сантехника", "Два окна"],
     price: 20_815_000,
+    availability: "available",
+
     address: ADDRESS,
     preview: previewFor(2),
     images: [],
@@ -160,11 +203,12 @@ export const apartmentsConfig = [
     rooms: "2-комн студия",
     windows: "3 окна",
     finish: "renovation",
-    finishLabel: "Ремонт + сантехника",
-    description:
-      "2-комн студия с ремонтом и сантехникой. Три больших окна на две стороны дома, продуманное пространство.",
-    highlights: ["Три окна на две стороны", "Качество материалов"],
+    finishLabel: finishMeta.renovation.label,
+    description: "20,9 м² · 2 этаж · Ремонт + сантехника",
+    highlights: ["Ремонт + сантехника", "Три окна"],
     price: 18_999_000,
+    availability: "available",
+
     address: ADDRESS,
     preview: previewFor(0),
     images: [],
@@ -179,11 +223,12 @@ export const apartmentsConfig = [
     rooms: "2-комн студия",
     windows: "2 окна",
     finish: "renovation",
-    finishLabel: "Ремонт + сантехника",
-    description:
-      "2-комн студия с ремонтом и сантехникой. Два больших окна, тишина и уединённая планировка.",
-    highlights: ["Тишина и свет", "Уединённая планировка"],
+    finishLabel: finishMeta.renovation.label,
+    description: "23,9 м² · 2 этаж · Ремонт + сантехника",
+    highlights: ["Ремонт + сантехника", "Два окна"],
     price: 20_420_000,
+    availability: "available",
+
     address: ADDRESS,
     preview: previewFor(1),
     images: [],
@@ -198,11 +243,12 @@ export const apartmentsConfig = [
     rooms: "1-комн студия",
     windows: "2 окна",
     finish: "turnkey",
-    finishLabel: "Под ключ",
-    description:
-      "1-комн студия, готово для проживания. Два больших окна, комфортное уединённое пространство.",
-    highlights: ["Готово для проживания", "Два больших окна"],
+    finishLabel: finishMeta.turnkey.label,
+    description: "23,3 м² · 3 этаж · Готов для жизни",
+    highlights: ["Готов для жизни", "Два окна"],
     price: 19_550_000,
+    availability: "available",
+
     address: ADDRESS,
     preview: previewFor(2),
     images: [],
@@ -217,11 +263,12 @@ export const apartmentsConfig = [
     rooms: "2-комн студия",
     windows: "2 окна",
     finish: "turnkey",
-    finishLabel: "Под ключ",
-    description:
-      "2-комн студия под ключ. Два окна, много мест хранения и стильная кухня.",
-    highlights: ["Много мест хранения", "Стильная кухня"],
+    finishLabel: finishMeta.turnkey.label,
+    description: "19,8 м² · 3 этаж · Готов для жизни",
+    highlights: ["Готов для жизни", "Места хранения"],
     price: 22_075_000,
+    availability: "available",
+
     address: ADDRESS,
     preview: previewFor(0),
     images: [],
@@ -236,11 +283,12 @@ export const apartmentsConfig = [
     rooms: "2-комн студия",
     windows: "2 окна",
     finish: "turnkey",
-    finishLabel: "Под ключ",
-    description:
-      "2-комн студия под ключ. Два окна, ремонт, мебель, сантехника и кухня.",
-    highlights: ["Под ключ", "Два окна, много света"],
+    finishLabel: finishMeta.turnkey.label,
+    description: "20,4 м² · 3 этаж · Готов для жизни",
+    highlights: ["Готов для жизни", "Два окна"],
     price: 19_940_000,
+    availability: "available",
+
     address: ADDRESS,
     preview: previewFor(1),
     images: [],
@@ -255,11 +303,12 @@ export const apartmentsConfig = [
     rooms: "1-комн студия",
     windows: "2 окна",
     finish: "renovation",
-    finishLabel: "Ремонт + сантехника",
-    description:
-      "1-комн студия с ремонтом и сантехникой. Два больших окна на обе стороны дома.",
-    highlights: ["Окна на обе стороны", "Новая инженерия"],
+    finishLabel: finishMeta.renovation.label,
+    description: "19,3 м² · 3 этаж · Ремонт + сантехника",
+    highlights: ["Ремонт + сантехника", "Окна на обе стороны"],
     price: 18_150_000,
+    availability: "available",
+
     address: ADDRESS,
     preview: previewFor(2),
     images: [],
@@ -274,12 +323,13 @@ export const apartmentsConfig = [
     rooms: "2-комн студия",
     windows: "2 окна",
     finish: "renovation",
-    finishLabel: "Ремонт + сантехника",
-    description:
-      "2-комн студия с ремонтом и сантехникой. Два больших окна и эргономичное пространство.",
-    highlights: ["Акция", "Эргономичный формат"],
+    finishLabel: finishMeta.renovation.label,
+    description: "22,3 м² · 3 этаж · Ремонт + сантехника",
+    highlights: ["Ремонт + сантехника", "Акция"],
     price: 15_300_000,
     promo: true,
+    availability: "available",
+
     address: ADDRESS,
     preview: previewFor(0),
     images: [],
@@ -294,13 +344,13 @@ export const apartmentsConfig = [
     rooms: "2-комн студия",
     windows: "2 окна",
     finish: "turnkey",
-    finishLabel: "Под ключ",
-    description:
-      "2-комн студия, готово для проживания. Два больших окна, качественная отделка и новая инженерия.",
-    highlights: ["Акция", "Готово для проживания"],
+    finishLabel: finishMeta.turnkey.label,
+    description: "21,2 м² · 3 этаж · Готов для жизни",
+    highlights: ["Готовый арендный бизнес", "С арендатором"],
     price: 15_440_000,
     priceOld: 18_600_000,
     promo: true,
+    availability: "rental_business",
     address: ADDRESS,
     preview: previewFor(1),
     images: [],
@@ -315,11 +365,12 @@ export const apartmentsConfig = [
     rooms: "1-комн студия",
     windows: "2 окна",
     finish: "turnkey",
-    finishLabel: "Под ключ",
-    description:
-      "1-комн студия, готово для проживания. Два больших окна на обе стороны дома, приватная планировка.",
-    highlights: ["Окна на обе стороны", "Приватный минимализм"],
+    finishLabel: finishMeta.turnkey.label,
+    description: "22,4 м² · 4 этаж · Готов для жизни",
+    highlights: ["Готов для жизни", "Окна на обе стороны"],
     price: 19_470_000,
+    availability: "available",
+
     address: ADDRESS,
     preview: previewFor(2),
     images: [],
@@ -334,11 +385,12 @@ export const apartmentsConfig = [
     rooms: "2-комн студия",
     windows: "3 окна",
     finish: "turnkey",
-    finishLabel: "Под ключ",
-    description:
-      "2-комн студия под ключ. Три окна, стильная кухня, вся техника и мебель.",
-    highlights: ["Три окна", "Техника и мебель"],
+    finishLabel: finishMeta.turnkey.label,
+    description: "19,8 м² · 4 этаж · Готов для жизни",
+    highlights: ["Готов для жизни", "Три окна"],
     price: 24_100_000,
+    availability: "available",
+
     address: ADDRESS,
     preview: previewFor(0),
     images: [],
@@ -353,11 +405,11 @@ export const apartmentsConfig = [
     rooms: "2-комн студия",
     windows: "3 окна",
     finish: "turnkey",
-    finishLabel: "Под ключ",
-    description:
-      "2-комн студия под ключ. Три окна, полная комплектация для проживания и много мест хранения.",
-    highlights: ["Три окна", "Полная комплектация"],
+    finishLabel: finishMeta.turnkey.label,
+    description: "21,2 м² · 4 этаж · Готов для жизни",
+    highlights: ["Готовый арендный бизнес", "С арендатором"],
     price: 22_560_000,
+    availability: "rental_business",
     address: ADDRESS,
     preview: previewFor(1),
     images: [],
@@ -372,11 +424,11 @@ export const apartmentsConfig = [
     rooms: "1-комн студия",
     windows: "2 окна",
     finish: "turnkey",
-    finishLabel: "Под ключ",
-    description:
-      "1-комн студия, готово для проживания. Два больших окна, качественная отделка и новая инженерия.",
-    highlights: ["Готово для проживания", "Два больших окна"],
+    finishLabel: finishMeta.turnkey.label,
+    description: "21 м² · 4 этаж · Готов для жизни",
+    highlights: ["Продан"],
     price: 20_830_000,
+    availability: "sold",
     address: ADDRESS,
     preview: previewFor(2),
     images: [],
@@ -391,11 +443,12 @@ export const apartmentsConfig = [
     rooms: "2-комн студия",
     windows: "2 окна",
     finish: "turnkey",
-    finishLabel: "Под ключ",
-    description:
-      "2-комн студия под ключ. Два больших окна, качественная отделка, сантехника и новая инженерия.",
-    highlights: ["Под ключ", "Два больших окна"],
+    finishLabel: finishMeta.turnkey.label,
+    description: "24,2 м² · 4 этаж · Готов для жизни",
+    highlights: ["Готов для жизни", "Два окна"],
     price: 19_110_000,
+    availability: "available",
+
     address: ADDRESS,
     preview: previewFor(0),
     images: [],
@@ -410,11 +463,12 @@ export const apartmentsConfig = [
     rooms: "2-комн студия",
     windows: "2 окна",
     finish: "turnkey",
-    finishLabel: "Под ключ",
-    description:
-      "2-комн студия под ключ. Два больших окна, тишина и уют, комфортная планировка.",
-    highlights: ["Тишина и уют", "Всё необходимое"],
+    finishLabel: finishMeta.turnkey.label,
+    description: "25,5 м² · 4 этаж · Готов для жизни",
+    highlights: ["Готов для жизни", "Два окна"],
     price: 20_340_000,
+    availability: "available",
+
     address: ADDRESS,
     preview: previewFor(1),
     images: [],
@@ -436,7 +490,10 @@ export function getApartmentGallery(apartment: Apartment): string[] {
     return [...apartment.images];
   }
 
-  const start = Math.max(0, PREVIEWS.indexOf(apartment.preview as (typeof PREVIEWS)[number]));
+  const start = Math.max(
+    0,
+    PREVIEWS.indexOf(apartment.preview as (typeof PREVIEWS)[number]),
+  );
 
   return Array.from({ length: 8 }, (_, index) => {
     return PREVIEWS[(start + index) % PREVIEWS.length];
@@ -445,8 +502,8 @@ export function getApartmentGallery(apartment: Apartment): string[] {
 
 export const finishPackages = {
   turnkey: {
-    label: "Под ключ",
-    summary: "Готово для проживания: ремонт, кухня, мебель, техника",
+    label: finishMeta.turnkey.label,
+    summary: "Ремонт, сантехника, мебель и техника",
     extras: "+ келлер в подарок",
     items: [
       {
@@ -464,7 +521,7 @@ export const finishPackages = {
     ],
   },
   renovation: {
-    label: "Ремонт + сантехника",
+    label: finishMeta.renovation.label,
     summary: "С ремонтом и сантехникой",
     extras: "+ келлер в подарок",
     items: [
@@ -483,4 +540,3 @@ export const finishPackages = {
     ],
   },
 } as const;
-

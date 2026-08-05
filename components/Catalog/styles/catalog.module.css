@@ -99,35 +99,13 @@
   border-top: 1px solid color-mix(in srgb, var(--color-gold-border) 55%, transparent);
 }
 
-.introQuestion {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.introQuestionLabel {
-  margin: 0;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-heading-secondary);
-}
-
-.introQuestionText {
-  margin: 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  font-size: 13px;
-  line-height: 1.45;
-  color: var(--color-text-muted);
-}
-
 .catalogCard {
   composes: glass from "../../shared/landing/common.module.css";
   animation: catalogCardIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.catalogCardSold {
+  opacity: 0.72;
 }
 
 @keyframes catalogCardIn {
@@ -160,6 +138,33 @@
   );
 }
 
+.statusBadge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  max-width: calc(100% - 24px);
+  padding: 8px 12px;
+  border-radius: 9999px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.statusSold {
+  color: var(--color-heading-primary);
+  background: rgba(28, 28, 28, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.statusRental {
+  color: #1a140c;
+  background: color-mix(in srgb, var(--color-primary) 88%, white);
+  border: 1px solid var(--color-gold-border-active);
+}
+
 .catalogBody {
   display: flex;
   flex-direction: column;
@@ -168,18 +173,54 @@
   flex: 1;
 }
 
-.catalogMeta {
+.catalogLotRow {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px 14px;
-  font-size: 13px;
-  color: var(--color-secondary-text);
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .catalogLot {
   font-size: 18px;
   font-weight: 600;
   color: var(--color-heading-primary);
+}
+
+.catalogFacts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--color-heading-primary);
+}
+
+.catalogDot {
+  color: var(--color-heading-secondary);
+  opacity: 0.7;
+}
+
+.finishBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.finishLabel {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-heading-secondary);
+}
+
+.finishIncludes {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--color-secondary-text);
 }
 
 .catalogPrice {
@@ -189,6 +230,14 @@
   font-size: 22px;
   font-weight: 600;
   color: var(--color-heading-primary);
+}
+
+.priceSold {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -213,8 +262,7 @@
     grid-template-columns: 1fr;
   }
 
-  .introText,
-  .introQuestionText {
+  .introText {
     -webkit-line-clamp: unset;
     display: block;
     overflow: visible;

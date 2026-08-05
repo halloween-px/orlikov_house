@@ -42,14 +42,20 @@ export type ButtonProps =
   | ButtonAsLinkProps
   | ButtonAsAnchorProps;
 
-function isSpecialHref(href: string) {
+function isExternalHref(href: string) {
   return (
-    href.startsWith("#") ||
     href.startsWith("tel:") ||
     href.startsWith("mailto:") ||
     href.startsWith("http://") ||
     href.startsWith("https://")
   );
+}
+
+function isFileDownload(
+  href: string,
+  download?: string | boolean,
+): download is string | true {
+  return Boolean(download) || /\.(pdf|zip|docx?|xlsx?|pptx?)$/i.test(href);
 }
 
 function getClassName({
@@ -100,7 +106,12 @@ export default function Button(props: ButtonProps) {
   });
 
   if (href) {
-    if (isSpecialHref(href)) {
+    const download =
+      "download" in rest
+        ? (rest as AnchorHTMLAttributes<HTMLAnchorElement>).download
+        : undefined;
+
+    if (isExternalHref(href) || isFileDownload(href, download)) {
       const anchorProps = rest as AnchorHTMLAttributes<HTMLAnchorElement>;
       return (
         <a href={href} className={classes} {...anchorProps}>

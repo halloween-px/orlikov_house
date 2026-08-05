@@ -1,6 +1,8 @@
 "use client";
 
-import type { AnchorHTMLAttributes, MouseEvent, ReactNode } from "react";
+import Link from "next/link";
+import type { ComponentProps, MouseEvent, ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import type { NavItem } from "@/config/nav";
 import { scrollToSection } from "@/lib/scroll-to-section";
 
@@ -9,7 +11,7 @@ type SectionNavLinkProps = {
   className?: string;
   children?: ReactNode;
   onNavigate?: () => void;
-} & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "children" | "onClick">;
+} & Omit<ComponentProps<typeof Link>, "href" | "children" | "onClick">;
 
 export default function SectionNavLink({
   item,
@@ -18,15 +20,28 @@ export default function SectionNavLink({
   onNavigate,
   ...rest
 }: SectionNavLinkProps) {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (!isHome) {
+      onNavigate?.();
+      return;
+    }
+
     event.preventDefault();
     scrollToSection(item.id);
     onNavigate?.();
   };
 
   return (
-    <a href={item.href} className={className} onClick={handleClick} {...rest}>
+    <Link
+      href={`/${item.href}`}
+      className={className}
+      onClick={handleClick}
+      {...rest}
+    >
       {children}
-    </a>
+    </Link>
   );
 }

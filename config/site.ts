@@ -3,17 +3,19 @@ import type { HeroSlide } from "@/types/hero";
 
 export const siteConfig = {
   brand: {
-    name: "Орликов Home",
+    name: "Орликов Хаус",
     logoLine1: "Орликов",
-    logoLine2: "Home",
-    tagline: "Орликов Home",
-    description: "Камерный дом апартаментов-студий",
+    logoLine2: "Хаус",
+    tagline: "Орликов Хаус",
+    descriptionLine1: "Камерный дом апартаментов",
+    descriptionLine2: "в центре Москвы",
   },
 
   meta: {
-    title: "Орликов Home",
+    title:
+      "Орликов Хаус — апартаменты у м. Красные Ворота в ЦАО | от 15,3 млн ₽",
     description:
-      "Камерный дом апартаментов-студий в тихом дворе Садового кольца. ЦАО, м. Красные Ворота, Садовая-Спасская 19к3.",
+      "Камерный дом апартаментов в центре Москвы: Садовая-Спасская 19к3, 1 минута до м. Красные Ворота. Лоты с ремонтом и сантехникой, часть — с мебелью. Гостиничный статус, показ ежедневно.",
   },
 
   header: {
@@ -25,8 +27,8 @@ export const siteConfig = {
 
   contacts: {
     phone: {
-      title: "+7 (916) 618-14-40",
-      link: "tel:+79166181440",
+      title: "+7 (993) 620-27-36",
+      link: "tel:+79936202736",
     },
     email: {
       title: "info@orlikovhome.ru",
@@ -54,21 +56,26 @@ export const siteConfig = {
 
   hero: {
     defaultImage: "/img/apartment-2094661_1920 1.png",
-    title: "Орликов Home",
-    subtitle: "Камерный дом апартаментов-студий в тихом дворе Садового кольца",
+    title: "Орликов Хаус",
+    subtitle: "Камерный дом апартаментов в центре Москвы",
     chips: [
-      "ЦАО",
-      "Красные Ворота",
-      "Садовая-Спасская 19к3",
-      "Стильные дизайнерские апартаменты",
+      "м. Красные Ворота — 2 минуты",
+      "от 15,3 млн ₽",
+      "Топ для аренды",
+      "17 лотов",
     ],
+    pdfCta: {
+      label: "Скачать PDF",
+      href: "/catalog.pdf",
+      download: "orlikov-haus-catalog.pdf",
+    },
     primaryCta: {
       label: "Смотреть апартаменты",
       href: "#catalog",
     },
     secondaryCta: {
       label: "Записаться на просмотр",
-      href: "#lead",
+      action: "lead" as const,
     },
     /** @deprecated use primaryCta */
     offersLink: {
@@ -78,16 +85,15 @@ export const siteConfig = {
     slides: [
       {
         id: "main",
-        label: "Орликов Home",
+        label: "Орликов Хаус",
         image: "/img/apartments/apartment-2094661_1920 1.png",
-        title: "Орликов Home",
-        subtitle:
-          "Камерный дом апартаментов-студий в тихом дворе Садового кольца",
+        title: "Орликов Хаус",
+        subtitle: "Камерный дом апартаментов в центре Москвы",
         chips: [
-          "ЦАО",
-          "Красные Ворота",
-          "Садовая-Спасская 19к3",
-          "Стильные дизайнерские апартаменты",
+          "м. Красные Ворота — 2 минуты",
+          "от 15,3 млн ₽",
+          "Топ для аренды",
+          "17 лотов",
         ],
         primaryCta: {
           label: "Смотреть апартаменты",
@@ -95,7 +101,7 @@ export const siteConfig = {
         },
         secondaryCta: {
           label: "Записаться на просмотр",
-          href: "#lead",
+          action: "lead",
         },
       },
       {
@@ -107,7 +113,7 @@ export const siteConfig = {
           "Дом расположен в тихом дворе на Садовой-Спасской, рядом с метро и Садовым кольцом",
         primaryCta: {
           label: "Записаться на просмотр",
-          href: "#lead",
+          action: "lead",
         },
       },
       {
@@ -131,11 +137,13 @@ export const siteConfig = {
 
   requestForm: {
     title: "Записаться на просмотр",
-    nameLabel: "Ваше имя",
+    requestTitle: "Оставить заявку",
+    nameLabel: "Имя",
     namePlaceholder: "Иван",
-    phoneLabel: "Номер телефона",
+    phoneLabel: "Телефон",
     phonePlaceholder: "+7 (999) 999-99-99",
     submitLabel: "Отправить",
+    successMessage: "Мы с вами свяжемся",
   },
 } as const;
 

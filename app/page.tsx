@@ -6,24 +6,28 @@ import { About } from "@/components/About";
 import { Catalog } from "@/components/Catalog";
 import { Location } from "@/components/Location";
 import { Advantages } from "@/components/Advantages";
-import { Contacts, FloatingContact } from "@/components/Contacts";
+import { Contacts, FloatingContact, LeadModal } from "@/components/Contacts";
 import { Footer } from "@/components/Footer";
+import { JsonLd } from "@/components/seo";
+import { getFaqJsonLd } from "@/lib/seo-schema";
 import styles from "./page.module.css";
 
 export default function HomePage() {
   return (
     <main className={styles.page}>
+      <JsonLd data={getFaqJsonLd()} />
       <HashScroll />
       <Header />
       <Hero />
       <Facts />
       <About />
       <Catalog />
-      {/* <Advantages /> */}
+      <Advantages />
       <Contacts />
       <Location />
       <Footer />
       <FloatingContact />
+      <LeadModal />
     </main>
   );
 }

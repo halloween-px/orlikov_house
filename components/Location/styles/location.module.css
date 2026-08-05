@@ -61,4 +61,12 @@
   .mapFrame iframe {
     min-height: 320px;
   }
+
+  .locationCard {
+    padding: 24px 20px;
+  }
+
+  .locationActions {
+    margin-top: 24px;
+  }
 }

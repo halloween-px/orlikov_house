@@ -26,7 +26,7 @@ export default function About() {
           <div className={styles.aboutMedia}>
             <Image
               src={about.image}
-              alt="Интерьер апартаментов Орликов Home"
+              alt="Интерьер апартаментов Орликов Хаус"
               fill
               className="object-cover"
               sizes="(max-width: 1100px) 100vw, 40vw"
@@ -64,6 +64,7 @@ export default function About() {
             <LandingActions className={styles.conceptActions}>
               <Button
                 href={about.presentationCta.href}
+                download={about.presentationCta.download}
                 variant="outline"
                 size="lg"
               >

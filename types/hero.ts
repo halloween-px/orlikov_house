@@ -1,3 +1,7 @@
+export type HeroCta =
+  | { label: string; href: string; action?: never }
+  | { label: string; action: "lead"; href?: never };
+
 export type HeroSlide = {
   id: string;
   label: string;
@@ -5,6 +9,6 @@ export type HeroSlide = {
   title: string;
   subtitle: string;
   chips?: readonly string[];
-  primaryCta: { label: string; href: string };
-  secondaryCta?: { label: string; href: string };
+  primaryCta: HeroCta;
+  secondaryCta?: HeroCta;
 };

@@ -1,7 +1,7 @@
 .fabWrap {
   position: fixed;
-  right: 24px;
-  bottom: 24px;
+  right: max(24px, env(safe-area-inset-right, 0px));
+  bottom: max(24px, env(safe-area-inset-bottom, 0px));
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -21,12 +21,19 @@
 
 .fabItem {
   display: block;
+  width: 100%;
+  min-height: 44px;
   padding: 12px 14px;
+  border: 0;
   border-radius: 10px;
+  background: transparent;
   color: #fff;
+  text-align: left;
   text-decoration: none;
+  font: inherit;
   font-size: 14px;
   font-weight: 600;
+  cursor: pointer;
   transition: background 0.25s ease;
 }
 
@@ -40,6 +47,7 @@
   backdrop-filter: blur(10px);
   color: #fff;
   border-radius: 9999px;
+  min-height: 48px;
   padding: 12px 18px;
   font-family: var(--font-open-sans), sans-serif;
   font-size: 11px;
@@ -64,8 +72,7 @@
 
 @media (max-width: 720px) {
   .fabWrap {
-    right: 16px;
-    bottom: 16px;
+    right: max(16px, env(safe-area-inset-right, 0px));
+    bottom: max(16px, env(safe-area-inset-bottom, 0px));
   }
 }
-

@@ -63,6 +63,7 @@
 
 .navMobile .link {
   justify-content: flex-start;
+  min-height: 44px;
   padding: 12px 14px !important;
   border-radius: 12px;
 }

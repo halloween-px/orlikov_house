@@ -2,11 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import { FiPhone } from "react-icons/fi";
-import { landingConfig } from "@/config";
+import Link from "next/link";
+import { landingConfig, siteConfig } from "@/config";
+import { useMainContext } from "@/context/MainProvider";
 import styles from "./styles/floating-contact.module.css";
 
 export default function FloatingContact() {
   const { fab } = landingConfig;
+  const { openLeadModal } = useMainContext();
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
 
@@ -35,19 +38,55 @@ export default function FloatingContact() {
     <div className={styles.fabWrap} ref={wrapRef}>
       {open && (
         <nav className={styles.fabMenu} aria-label="Способы связи">
-          {fab.items.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className={styles.fabItem}
-              {...(item.href.startsWith("http")
-                ? { target: "_blank", rel: "noopener noreferrer" }
-                : {})}
-              onClick={() => setOpen(false)}
-            >
-              {item.label}
-            </a>
-          ))}
+          {fab.items.map((item) => {
+            const isRequest =
+              item.label === siteConfig.requestForm.requestTitle;
+
+            if (isRequest) {
+              return (
+                <button
+                  key={item.label}
+                  type="button"
+                  className={styles.fabItem}
+                  onClick={() => {
+                    setOpen(false);
+                    openLeadModal("request");
+                  }}
+                >
+                  {item.label}
+                </button>
+              );
+            }
+
+            const isInternal = item.href.startsWith("#");
+
+            if (isInternal) {
+              return (
+                <Link
+                  key={item.label}
+                  href={`/${item.href}`}
+                  className={styles.fabItem}
+                  onClick={() => setOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              );
+            }
+
+            return (
+              <a
+                key={item.label}
+                href={item.href}
+                className={styles.fabItem}
+                {...(item.href.startsWith("http")
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+                onClick={() => setOpen(false)}
+              >
+                {item.label}
+              </a>
+            );
+          })}
         </nav>
       )}
 
@@ -66,4 +105,3 @@ export default function FloatingContact() {
     </div>
   );
 }
-

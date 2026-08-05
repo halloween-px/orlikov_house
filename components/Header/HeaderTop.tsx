@@ -31,6 +31,15 @@ export default function HeaderTop() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [mobileMenuOpen]);
+
   const siteParams = params[0];
   const phone = siteParams?.phone ?? siteConfig.contacts.phone;
 
@@ -38,7 +47,7 @@ export default function HeaderTop() {
     <div
       className={`${styles.headerTop} ${
         scrolled ? styles.headerTopScrolled : ""
-      }`}
+      } ${mobileMenuOpen ? styles.headerTopMenuOpen : ""}`}
     >
       <div className="mx-auto w-full max-w-[1700px] px-4">
         <div className={styles.headerTopWrapper}>
@@ -93,7 +102,8 @@ export default function HeaderTop() {
                   href={phone.link}
                   variant="secondary"
                   size="lg"
-                  className={styles.headerCta}
+                  fullWidth
+                  className={styles.mobileCta}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {phone.title}
