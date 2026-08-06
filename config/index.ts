@@ -19,6 +19,7 @@ export {
   finishMeta,
   finishPackages,
   FLOORS_COUNT,
+  TOTAL_APARTMENTS,
 } from "./apartments";
 export type {
   Apartment,

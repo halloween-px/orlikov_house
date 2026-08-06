@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import {
   apartmentsConfig,
   landingConfig,
+  TOTAL_APARTMENTS,
 } from "@/config";
 import { buildPageMetadata, seoConfig } from "@/config/seo";
 import Header from "@/components/Header";
@@ -89,7 +90,7 @@ export default function ApartmentsPage() {
                 дома
               </LandingTitle>
               <p className={styles.subtitle}>
-                {availableCount} из {apartments.length} лотов доступны к покупке.
+                {availableCount} из {TOTAL_APARTMENTS} лотов доступны к покупке.
                 Выберите апартамент по площади, этажу и формату готовности.
               </p>
             </div>
