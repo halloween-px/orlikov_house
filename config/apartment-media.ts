@@ -1,7 +1,7 @@
-/** Авто-пути к фото лотов из public/img/apartments */
+/** Пути к фото лотов из public/img/apartments (ASCII-папки, без encodeURI — next/image кодирует сам) */
 
 function mediaUrl(folder: string, file: string) {
-  return encodeURI(`/img/apartments/${folder}/${file}`);
+  return `/img/apartments/${folder}/${file}`;
 }
 
 type ApartmentMediaSource = {
@@ -12,7 +12,7 @@ type ApartmentMediaSource = {
 
 const mediaByUnit: Record<number, ApartmentMediaSource> = {
   1: {
-    folder: "1 с ремонтом и сантехникой 1 этаж +",
+    folder: "lot-1",
     previewFile: "1.webp",
     files: [
       "1.webp",
@@ -22,12 +22,12 @@ const mediaByUnit: Record<number, ApartmentMediaSource> = {
       "5.webp",
       "6.webp",
       "ca6ade9883718855bf97b2fa69ae59cd.png.webp",
-      "креатив ЛОТ1.webp",
-      "схема готова.webp",
+      "creative.webp",
+      "plan.webp",
     ],
   },
   3: {
-    folder: "3 готов для жизни  1 этаж +",
+    folder: "lot-3",
     previewFile: "01_room_to_entrance.webp",
     files: [
       "01_room_to_entrance.webp",
@@ -42,7 +42,7 @@ const mediaByUnit: Record<number, ApartmentMediaSource> = {
     ],
   },
   4: {
-    folder: "4 рем.тех 1 этаж +",
+    folder: "lot-4",
     previewFile: "01_room_window_cleaned.webp",
     files: [
       "01_room_window_cleaned.webp",
@@ -55,7 +55,7 @@ const mediaByUnit: Record<number, ApartmentMediaSource> = {
     ],
   },
   5: {
-    folder: "5 рем.тех 1 этаж +",
+    folder: "lot-5",
     previewFile: "01_room_door_cleaned.webp",
     files: [
       "01_room_door_cleaned.webp",
@@ -70,7 +70,7 @@ const mediaByUnit: Record<number, ApartmentMediaSource> = {
     ],
   },
   6: {
-    folder: "6 готов 1 этаж Хаюм +",
+    folder: "lot-6",
     previewFile: "1.webp",
     files: [
       "1.webp",
@@ -80,13 +80,13 @@ const mediaByUnit: Record<number, ApartmentMediaSource> = {
       "5ec6a5e63ecf33466e4847c5b46fa9ad.png.webp",
       "6.webp",
       "7.webp",
-      "дом.webp",
-      "Авито карточка.webp",
-      "схема 2.webp",
+      "building.webp",
+      "avito-card.webp",
+      "plan.webp",
     ],
   },
   8: {
-    folder: "8 рем.тех 2 этаж +",
+    folder: "lot-8",
     previewFile: "01_main_room.webp",
     files: [
       "01_main_room.webp",
@@ -107,7 +107,7 @@ const mediaByUnit: Record<number, ApartmentMediaSource> = {
     ],
   },
   9: {
-    folder: "9 рем.тех 2 этаж +",
+    folder: "lot-9",
     previewFile: "01_two_windows.webp",
     files: [
       "01_two_windows.webp",
@@ -125,7 +125,7 @@ const mediaByUnit: Record<number, ApartmentMediaSource> = {
     ],
   },
   10: {
-    folder: "10 рем.тех 2 этаж +",
+    folder: "lot-10",
     previewFile: "01_room_wide_cleaned.webp",
     files: [
       "01_room_wide_cleaned.webp",
@@ -143,7 +143,7 @@ const mediaByUnit: Record<number, ApartmentMediaSource> = {
     ],
   },
   14: {
-    folder: "14 готов 3 этаж +",
+    folder: "lot-14",
     previewFile: "1.webp",
     files: [
       "1.webp",
@@ -152,9 +152,9 @@ const mediaByUnit: Record<number, ApartmentMediaSource> = {
       "4.webp",
       "5.webp",
       "6.webp",
-      "дом2.webp",
-      "креативИТОГ.webp",
-      "готово схема.webp",
+      "building.webp",
+      "creative.webp",
+      "plan.webp",
     ],
   },
 };
