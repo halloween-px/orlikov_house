@@ -3,6 +3,8 @@
 import { FormEvent, useEffect, useId, useRef, useState } from "react";
 import { siteConfig } from "@/config";
 import { useMainContext } from "@/context/MainProvider";
+import { useLeadChallenge } from "@/hooks/useLeadChallenge";
+import { submitLead } from "@/lib/submit-lead";
 import { Button } from "@/components/ui/Button";
 import styles from "./styles/lead-modal.module.css";
 
@@ -13,12 +15,21 @@ export default function LeadModal() {
   const nameInputRef = useRef<HTMLInputElement>(null);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [website, setWebsite] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const { challenge, ready, refresh } = useLeadChallenge(leadModalOpen);
 
   const title =
     leadModalVariant === "request"
       ? requestForm.requestTitle
       : requestForm.title;
+
+  const source =
+    leadModalVariant === "request"
+      ? "Модалка: оставить заявку"
+      : "Модалка: запись на просмотр";
 
   useEffect(() => {
     if (!leadModalOpen) return;
@@ -42,14 +53,38 @@ export default function LeadModal() {
     if (!leadModalOpen) {
       setName("");
       setPhone("");
+      setWebsite("");
       setSubmitted(false);
+      setSubmitting(false);
+      setError("");
     }
   }, [leadModalOpen]);
 
   if (!leadModalOpen) return null;
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (submitting) return;
+
+    setError("");
+    setSubmitting(true);
+
+    const result = await submitLead({
+      name,
+      phone,
+      source,
+      website,
+      challenge,
+    });
+
+    setSubmitting(false);
+
+    if (!result.ok) {
+      setError(result.error);
+      void refresh();
+      return;
+    }
+
     setSubmitted(true);
   };
 
@@ -96,6 +131,7 @@ export default function LeadModal() {
                 placeholder={requestForm.namePlaceholder}
                 required
                 autoComplete="name"
+                disabled={submitting}
               />
             </label>
 
@@ -110,8 +146,25 @@ export default function LeadModal() {
                 placeholder={requestForm.phonePlaceholder}
                 required
                 autoComplete="tel"
+                disabled={submitting}
               />
             </label>
+
+            <div className={styles.honeypot} aria-hidden="true">
+              <label>
+                Не заполняйте это поле
+                <input
+                  type="text"
+                  name="website"
+                  value={website}
+                  onChange={(event) => setWebsite(event.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </label>
+            </div>
+
+            {error ? <p className={styles.error}>{error}</p> : null}
 
             <Button
               type="submit"
@@ -119,8 +172,9 @@ export default function LeadModal() {
               size="lg"
               fullWidth
               rounded="md"
+              disabled={submitting || !ready}
             >
-              {requestForm.submitLabel}
+              {submitting ? "Отправляем…" : requestForm.submitLabel}
             </Button>
           </form>
         )}

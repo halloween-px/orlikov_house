@@ -81,13 +81,37 @@
 
 .introText {
   margin: 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
   font-size: 13px;
   line-height: 1.55;
   color: var(--color-subtitle);
+}
+
+.introPoints {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.introPoints li {
+  position: relative;
+  padding-left: 14px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--color-secondary-text);
+}
+
+.introPoints li::before {
+  content: "";
+  position: absolute;
+  top: 0.55em;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-gold-border) 85%, transparent);
 }
 
 .introBottom {
@@ -121,15 +145,37 @@
 
 .catalogMedia {
   position: relative;
+  display: block;
   aspect-ratio: 4 / 3;
   background: #1a1a1a;
   flex-shrink: 0;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.catalogMediaSlides {
+  position: absolute;
+  inset: 0;
+}
+
+.catalogMediaImage {
+  opacity: 0;
+  transition: opacity 0.12s ease;
+  pointer-events: none;
+}
+
+.catalogMediaImageActive {
+  opacity: 1;
 }
 
 .catalogMedia::after {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
+  pointer-events: none;
   background: linear-gradient(
     to top,
     rgba(0, 0, 0, 0.75),
@@ -138,11 +184,33 @@
   );
 }
 
+.catalogMediaDots {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  z-index: 2;
+  display: grid;
+  gap: 3px;
+  pointer-events: none;
+}
+
+.catalogMediaDot {
+  height: 2px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.35);
+  transition: background 0.15s ease;
+}
+
+.catalogMediaDotActive {
+  background: rgba(255, 255, 255, 0.95);
+}
+
 .statusBadge {
   position: absolute;
   top: 12px;
   left: 12px;
-  z-index: 1;
+  z-index: 2;
   max-width: calc(100% - 24px);
   padding: 8px 12px;
   border-radius: 9999px;
@@ -184,6 +252,12 @@
   font-size: 18px;
   font-weight: 600;
   color: var(--color-heading-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.catalogLot:hover {
+  color: var(--color-heading-secondary);
 }
 
 .catalogFacts {
@@ -232,6 +306,17 @@
   color: var(--color-heading-primary);
 }
 
+.catalogActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.catalogActions:has(:only-child) {
+  grid-template-columns: 1fr;
+}
+
 .priceSold {
   font-size: 16px;
   font-weight: 500;
@@ -260,11 +345,5 @@
 
   .catalogGrid {
     grid-template-columns: 1fr;
-  }
-
-  .introText {
-    -webkit-line-clamp: unset;
-    display: block;
-    overflow: visible;
   }
 }

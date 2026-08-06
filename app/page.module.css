@@ -1,6 +1,5 @@
 .page {
   overflow-x: clip;
-  padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
   animation: pageReveal 0.55s ease both;
 }
 

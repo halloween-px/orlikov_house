@@ -1,3 +1,5 @@
+import { getApartmentMedia } from "./apartment-media";
+
 export type ApartmentFinish = "turnkey" | "renovation";
 export type ApartmentAvailability = "available" | "sold" | "rental_business";
 
@@ -25,14 +27,16 @@ export interface Apartment {
 
 const ADDRESS = "Москва, Садовая-Спасская 19к3";
 
-const PREVIEWS = [
-  "/img/apartments/apartment-2094661_1920 1.png",
-  "/img/apartments/interior-design-437204_1920 1.png",
-  "/img/apartments/outsite-co-R-LK3sqLiBw-unsplash 1@2x.png",
-] as const;
+export const DEFAULT_APARTMENT_IMAGE =
+  "/img/apartments/apartment-2094661_1920 1.webp";
 
-function previewFor(index: number) {
-  return PREVIEWS[index % PREVIEWS.length];
+function mediaFor(unit: number) {
+  return (
+    getApartmentMedia(unit) ?? {
+      preview: DEFAULT_APARTMENT_IMAGE,
+      images: [] as string[],
+    }
+  );
 }
 
 export const FLOORS_COUNT = 4;
@@ -82,16 +86,15 @@ export const apartmentsConfig = [
     area: "17,7 м²",
     rooms: "1-комн студия",
     windows: "2 окна",
-    finish: "turnkey",
-    finishLabel: finishMeta.turnkey.label,
-    description: "17,7 м² · 1 этаж · Готов для жизни",
-    highlights: ["Готов для жизни", "Два окна"],
+    finish: "renovation",
+    finishLabel: finishMeta.renovation.label,
+    description: "17,7 м² · 1 этаж · Ремонт + сантехника",
+    highlights: ["Ремонт + сантехника", "Два окна"],
     price: 16_620_000,
     availability: "available",
 
     address: ADDRESS,
-    preview: previewFor(0),
-    images: [],
+    ...mediaFor(1),
   },
   {
     id: "spasskaya-3",
@@ -102,16 +105,15 @@ export const apartmentsConfig = [
     area: "17,5 м²",
     rooms: "2-комн студия",
     windows: "2 окна",
-    finish: "renovation",
-    finishLabel: finishMeta.renovation.label,
-    description: "17,5 м² · 1 этаж · Ремонт + сантехника",
-    highlights: ["Ремонт + сантехника", "Два окна"],
+    finish: "turnkey",
+    finishLabel: finishMeta.turnkey.label,
+    description: "17,5 м² · 1 этаж · Готов для жизни",
+    highlights: ["Готов для жизни", "Два окна"],
     price: 16_055_000,
     availability: "available",
 
     address: ADDRESS,
-    preview: previewFor(1),
-    images: [],
+    ...mediaFor(3),
   },
   {
     id: "spasskaya-4",
@@ -130,8 +132,7 @@ export const apartmentsConfig = [
     availability: "available",
 
     address: ADDRESS,
-    preview: previewFor(2),
-    images: [],
+    ...mediaFor(4),
   },
   {
     id: "spasskaya-5",
@@ -142,16 +143,15 @@ export const apartmentsConfig = [
     area: "22,5 м²",
     rooms: "1-комн студия",
     windows: "2 окна",
-    finish: "turnkey",
-    finishLabel: finishMeta.turnkey.label,
-    description: "22,5 м² · 1 этаж · Готов для жизни",
-    highlights: ["Готов для жизни", "Два окна"],
+    finish: "renovation",
+    finishLabel: finishMeta.renovation.label,
+    description: "22,5 м² · 1 этаж · Ремонт + сантехника",
+    highlights: ["Ремонт + сантехника", "Два окна"],
     price: 17_387_000,
     availability: "available",
 
     address: ADDRESS,
-    preview: previewFor(0),
-    images: [],
+    ...mediaFor(5),
   },
   {
     id: "spasskaya-6",
@@ -170,8 +170,7 @@ export const apartmentsConfig = [
     availability: "available",
 
     address: ADDRESS,
-    preview: previewFor(1),
-    images: [],
+    ...mediaFor(6),
   },
   {
     id: "spasskaya-8",
@@ -190,8 +189,7 @@ export const apartmentsConfig = [
     availability: "available",
 
     address: ADDRESS,
-    preview: previewFor(2),
-    images: [],
+    ...mediaFor(8),
   },
   {
     id: "spasskaya-9",
@@ -210,8 +208,7 @@ export const apartmentsConfig = [
     availability: "available",
 
     address: ADDRESS,
-    preview: previewFor(0),
-    images: [],
+    ...mediaFor(9),
   },
   {
     id: "spasskaya-10",
@@ -230,8 +227,7 @@ export const apartmentsConfig = [
     availability: "available",
 
     address: ADDRESS,
-    preview: previewFor(1),
-    images: [],
+    ...mediaFor(10),
   },
   {
     id: "spasskaya-13",
@@ -250,8 +246,7 @@ export const apartmentsConfig = [
     availability: "available",
 
     address: ADDRESS,
-    preview: previewFor(2),
-    images: [],
+    ...mediaFor(13),
   },
   {
     id: "spasskaya-14",
@@ -270,8 +265,7 @@ export const apartmentsConfig = [
     availability: "available",
 
     address: ADDRESS,
-    preview: previewFor(0),
-    images: [],
+    ...mediaFor(14),
   },
   {
     id: "spasskaya-15",
@@ -290,8 +284,7 @@ export const apartmentsConfig = [
     availability: "available",
 
     address: ADDRESS,
-    preview: previewFor(1),
-    images: [],
+    ...mediaFor(15),
   },
   {
     id: "spasskaya-16",
@@ -310,8 +303,7 @@ export const apartmentsConfig = [
     availability: "available",
 
     address: ADDRESS,
-    preview: previewFor(2),
-    images: [],
+    ...mediaFor(16),
   },
   {
     id: "spasskaya-17",
@@ -331,8 +323,7 @@ export const apartmentsConfig = [
     availability: "available",
 
     address: ADDRESS,
-    preview: previewFor(0),
-    images: [],
+    ...mediaFor(17),
   },
   {
     id: "spasskaya-18",
@@ -352,8 +343,7 @@ export const apartmentsConfig = [
     promo: true,
     availability: "rental_business",
     address: ADDRESS,
-    preview: previewFor(1),
-    images: [],
+    ...mediaFor(18),
   },
   {
     id: "spasskaya-19",
@@ -372,8 +362,7 @@ export const apartmentsConfig = [
     availability: "available",
 
     address: ADDRESS,
-    preview: previewFor(2),
-    images: [],
+    ...mediaFor(19),
   },
   {
     id: "spasskaya-20",
@@ -392,8 +381,7 @@ export const apartmentsConfig = [
     availability: "available",
 
     address: ADDRESS,
-    preview: previewFor(0),
-    images: [],
+    ...mediaFor(20),
   },
   {
     id: "spasskaya-21",
@@ -411,8 +399,7 @@ export const apartmentsConfig = [
     price: 22_560_000,
     availability: "rental_business",
     address: ADDRESS,
-    preview: previewFor(1),
-    images: [],
+    ...mediaFor(21),
   },
   {
     id: "spasskaya-22",
@@ -430,8 +417,7 @@ export const apartmentsConfig = [
     price: 20_830_000,
     availability: "sold",
     address: ADDRESS,
-    preview: previewFor(2),
-    images: [],
+    ...mediaFor(22),
   },
   {
     id: "spasskaya-23",
@@ -450,8 +436,7 @@ export const apartmentsConfig = [
     availability: "available",
 
     address: ADDRESS,
-    preview: previewFor(0),
-    images: [],
+    ...mediaFor(23),
   },
   {
     id: "spasskaya-24",
@@ -470,8 +455,7 @@ export const apartmentsConfig = [
     availability: "available",
 
     address: ADDRESS,
-    preview: previewFor(1),
-    images: [],
+    ...mediaFor(24),
   },
 ] as const satisfies readonly Apartment[];
 
@@ -490,14 +474,19 @@ export function getApartmentGallery(apartment: Apartment): string[] {
     return [...apartment.images];
   }
 
-  const start = Math.max(
-    0,
-    PREVIEWS.indexOf(apartment.preview as (typeof PREVIEWS)[number]),
-  );
+  return [apartment.preview || DEFAULT_APARTMENT_IMAGE];
+}
 
-  return Array.from({ length: 8 }, (_, index) => {
-    return PREVIEWS[(start + index) % PREVIEWS.length];
-  });
+export function apartmentHasPhotos(apartment: Apartment) {
+  return apartment.images.length > 0;
+}
+
+/** Лоты для лендинга: сначала с фото, затем без — в пределах лимита. */
+export function getLandingCatalogApartments(limit: number) {
+  const ordered = [...apartmentsConfig].sort((a, b) => a.unit - b.unit);
+  const withPhotos = ordered.filter(apartmentHasPhotos);
+  const withoutPhotos = ordered.filter((apartment) => !apartmentHasPhotos(apartment));
+  return [...withPhotos, ...withoutPhotos].slice(0, limit);
 }
 
 export const finishPackages = {

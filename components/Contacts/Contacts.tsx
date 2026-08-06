@@ -2,6 +2,8 @@
 
 import { FormEvent, useState } from "react";
 import { getNavLabel, landingConfig } from "@/config";
+import { useLeadChallenge } from "@/hooks/useLeadChallenge";
+import { submitLead } from "@/lib/submit-lead";
 import { Button } from "@/components/ui/Button";
 import {
   LandingActions,
@@ -17,11 +19,42 @@ export default function Contacts() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [comment, setComment] = useState("");
+  const [website, setWebsite] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const { challenge, ready, refresh } = useLeadChallenge(true);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (submitting) return;
+
+    setError("");
+    setSubmitting(true);
+
+    const result = await submitLead({
+      name,
+      phone,
+      comment,
+      source: "Блок контактов",
+      website,
+      challenge,
+    });
+
+    setSubmitting(false);
+
+    if (!result.ok) {
+      setError(result.error);
+      void refresh();
+      return;
+    }
+
     setSubmitted(true);
+    setName("");
+    setPhone("");
+    setComment("");
+    setWebsite("");
+    void refresh();
   };
 
   return (
@@ -101,6 +134,7 @@ export default function Contacts() {
                   onChange={(event) => setName(event.target.value)}
                   placeholder={lead.fields.name.placeholder}
                   required
+                  disabled={submitting || submitted}
                 />
               </label>
 
@@ -114,6 +148,7 @@ export default function Contacts() {
                   onChange={(event) => setPhone(event.target.value)}
                   placeholder={lead.fields.phone.placeholder}
                   required
+                  disabled={submitting || submitted}
                 />
               </label>
 
@@ -127,8 +162,23 @@ export default function Contacts() {
                   value={comment}
                   onChange={(event) => setComment(event.target.value)}
                   placeholder={lead.fields.comment.placeholder}
+                  disabled={submitting || submitted}
                 />
               </label>
+
+              <div className={styles.honeypot} aria-hidden="true">
+                <label>
+                  Не заполняйте это поле
+                  <input
+                    type="text"
+                    name="website"
+                    value={website}
+                    onChange={(event) => setWebsite(event.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </label>
+              </div>
             </div>
 
             <div className={styles.formFooter}>
@@ -138,13 +188,15 @@ export default function Contacts() {
                 size="lg"
                 fullWidth
                 rounded="md"
+                disabled={submitting || !ready || submitted}
               >
-                {lead.submitLabel}
+                {submitting ? "Отправляем…" : lead.submitLabel}
               </Button>
 
-              {submitted && (
+              {error ? <p className={styles.error}>{error}</p> : null}
+              {submitted ? (
                 <p className={styles.success}>Заявка отправлена</p>
-              )}
+              ) : null}
             </div>
           </form>
         </div>

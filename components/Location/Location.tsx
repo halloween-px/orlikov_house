@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Home } from "lucide-react";
 import { getNavLabel, landingConfig } from "@/config";
 import { Button } from "@/components/ui/Button";
 import {
@@ -36,6 +37,14 @@ export default function Location() {
               allowFullScreen
               className={mapActive ? undefined : styles.mapInactive}
             />
+
+            <div className={styles.mapPin} aria-hidden="true">
+              <span className={styles.mapPinPulse} />
+              <span className={styles.mapPinBadge}>
+                <Home className={styles.mapPinIcon} strokeWidth={1.8} />
+              </span>
+            </div>
+
             {!mapActive && (
               <button
                 type="button"

@@ -1,4 +1,8 @@
-import { apartmentsConfig, formatApartmentPrice } from "@/config/apartments";
+import {
+  apartmentsConfig,
+  formatApartmentPrice,
+  type Apartment,
+} from "@/config/apartments";
 import { seoConfig } from "@/config/seo";
 import { siteConfig } from "@/config/site";
 
@@ -111,6 +115,48 @@ export function getWebsiteJsonLd() {
   };
 }
 
+export function getApartmentJsonLd(apartment: Apartment) {
+  const path = `/apartments/${apartment.id}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Apartment",
+    "@id": `${seoConfig.siteUrl}${path}#apartment`,
+    name: `Лот ${apartment.unit} — Орликов Хаус`,
+    description: apartment.description,
+    url: absoluteUrl(path),
+    image: absoluteUrl(apartment.preview),
+    floorSize: {
+      "@type": "QuantitativeValue",
+      value: Number.parseFloat(apartment.area.replace(",", ".")),
+      unitCode: "MTK",
+    },
+    numberOfRooms: apartment.rooms.includes("2") ? 2 : 1,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: seoConfig.address.street,
+      addressLocality: seoConfig.address.locality,
+      addressCountry: seoConfig.address.country,
+    },
+    offers: {
+      "@type": "Offer",
+      price: apartment.price,
+      priceCurrency: "RUB",
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: apartment.price,
+        priceCurrency: "RUB",
+        name: formatApartmentPrice(apartment.price),
+      },
+      availability:
+        apartment.availability === "sold"
+          ? "https://schema.org/SoldOut"
+          : "https://schema.org/InStock",
+      url: absoluteUrl(path),
+    },
+  };
+}
+
 export function getApartmentListJsonLd() {
   const items = [...apartmentsConfig]
     .sort((a, b) => a.unit - b.unit)
@@ -119,9 +165,10 @@ export function getApartmentListJsonLd() {
       position: index + 1,
       item: {
         "@type": "Apartment",
-        "@id": `${seoConfig.siteUrl}/apartments#lot-${apartment.unit}`,
+        "@id": `${seoConfig.siteUrl}/apartments/${apartment.id}#apartment`,
         name: `Лот ${apartment.unit} — Орликов Хаус`,
         description: apartment.description,
+        url: absoluteUrl(`/apartments/${apartment.id}`),
         floorSize: {
           "@type": "QuantitativeValue",
           value: Number.parseFloat(apartment.area.replace(",", ".")),
@@ -148,7 +195,7 @@ export function getApartmentListJsonLd() {
             apartment.availability === "sold"
               ? "https://schema.org/SoldOut"
               : "https://schema.org/InStock",
-          url: absoluteUrl("/apartments"),
+          url: absoluteUrl(`/apartments/${apartment.id}`),
         },
       },
     }));

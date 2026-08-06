@@ -1,8 +1,16 @@
 import type { MetadataRoute } from "next";
+import { apartmentsConfig } from "@/config";
 import { seoConfig } from "@/config/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
+
+  const apartmentPages = apartmentsConfig.map((apartment) => ({
+    url: `${seoConfig.siteUrl}/apartments/${apartment.id}`,
+    lastModified,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
 
   return [
     {
@@ -17,6 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 0.9,
     },
+    ...apartmentPages,
     {
       url: `${seoConfig.siteUrl}/catalog.pdf`,
       lastModified,

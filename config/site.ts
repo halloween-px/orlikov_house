@@ -55,7 +55,7 @@ export const siteConfig = {
   },
 
   hero: {
-    defaultImage: "/img/apartment-2094661_1920 1.png",
+    defaultImage: "/img/apartments/apartment-2094661_1920 1.webp",
     title: "Орликов Хаус",
     subtitle: "Камерный дом апартаментов в центре Москвы",
     chips: [
@@ -86,7 +86,7 @@ export const siteConfig = {
       {
         id: "main",
         label: "Орликов Хаус",
-        image: "/img/apartments/apartment-2094661_1920 1.png",
+        image: "/img/apartments/apartment-2094661_1920 1.webp",
         title: "Орликов Хаус",
         subtitle: "Камерный дом апартаментов в центре Москвы",
         chips: [

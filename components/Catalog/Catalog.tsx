@@ -2,6 +2,7 @@
 
 import {
   apartmentsConfig,
+  getLandingCatalogApartments,
   getNavLabel,
   landingConfig,
 } from "@/config";
@@ -17,15 +18,10 @@ import styles from "./styles/catalog.module.css";
 
 const INITIAL_VISIBLE = 7;
 
-function getOrderedApartments() {
-  return [...apartmentsConfig].sort((a, b) => a.unit - b.unit);
-}
-
 export default function Catalog() {
   const { catalog } = landingConfig;
-  const ordered = getOrderedApartments();
-  const apartments = ordered.slice(0, INITIAL_VISIBLE);
-  const hasMore = ordered.length > INITIAL_VISIBLE;
+  const apartments = getLandingCatalogApartments(INITIAL_VISIBLE);
+  const hasMore = apartmentsConfig.length > INITIAL_VISIBLE;
 
   return (
     <LandingSection id={catalog.id} labelledBy="catalog-title" variant="alt">
@@ -54,6 +50,11 @@ export default function Catalog() {
             <div className={styles.introTop}>
               <p className={styles.introTitle}>{catalog.subtitle}</p>
               <p className={styles.introText}>{catalog.text}</p>
+              <ul className={styles.introPoints}>
+                {catalog.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
             </div>
 
             <div className={styles.introBottom}>
@@ -78,6 +79,7 @@ export default function Catalog() {
               key={apartment.id}
               apartment={apartment}
               detailLabel={catalog.detailLabel}
+              requestLabel={catalog.requestLabel}
               delayMs={cardIndex * 40}
             />
           ))}

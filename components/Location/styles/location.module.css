@@ -22,7 +22,76 @@
   height: 100%;
   min-height: 480px;
   border: 0;
-  filter: grayscale(0.35) brightness(0.75) contrast(1.05);
+  filter: grayscale(0.2) brightness(0.88) contrast(1.04);
+}
+
+.mapPin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translate(-50%, calc(-100% + 6px));
+  pointer-events: none;
+}
+
+.mapPinPulse {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: rgba(201, 162, 78, 0.45);
+  animation: mapPinPulse 2.2s ease-out infinite;
+}
+
+.mapPinBadge {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50% 50% 50% 4px;
+  transform: rotate(-45deg);
+  border: 2px solid
+    color-mix(in srgb, var(--color-gold-border-active) 90%, white);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(232, 198, 112, 0.98) 0%,
+      rgba(184, 137, 58, 0.98) 100%
+    );
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.45),
+    0 0 0 6px rgba(201, 162, 78, 0.18);
+}
+
+.mapPinIcon {
+  width: 22px;
+  height: 22px;
+  color: #1a140c;
+  transform: rotate(45deg);
+}
+
+@keyframes mapPinPulse {
+  0% {
+    opacity: 0.7;
+    transform: translateX(-50%) scale(0.7);
+  }
+  70% {
+    opacity: 0;
+    transform: translateX(-50%) scale(2.4);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) scale(2.4);
+  }
 }
 
 .mapInactive {
@@ -62,11 +131,28 @@
     min-height: 320px;
   }
 
+  .mapPinBadge {
+    width: 46px;
+    height: 46px;
+  }
+
+  .mapPinIcon {
+    width: 20px;
+    height: 20px;
+  }
+
   .locationCard {
     padding: 24px 20px;
   }
 
   .locationActions {
     margin-top: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mapPinPulse {
+    animation: none;
+    opacity: 0.35;
   }
 }

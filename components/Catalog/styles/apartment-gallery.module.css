@@ -1,0 +1,200 @@
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.heroMedia {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid
+    color-mix(in srgb, var(--color-gold-border) 35%, transparent);
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.mainSwiper {
+  width: 100%;
+  height: 100%;
+}
+
+.mainSwiper :global(.swiper-wrapper),
+.mainSwiper :global(.swiper-slide) {
+  height: 100%;
+}
+
+.mainSlide {
+  position: relative;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.35);
+  cursor: zoom-in;
+}
+
+.mainSlide :global(img),
+.mainImage {
+  user-select: none;
+}
+
+.navButton {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid
+    color-mix(in srgb, var(--color-gold-border) 70%, transparent);
+  border-radius: 50%;
+  background: rgba(12, 10, 8, 0.72);
+  color: var(--color-heading-primary);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.navIcon {
+  width: 22px;
+  height: 22px;
+  display: block;
+  flex-shrink: 0;
+}
+
+.navButton:hover:not(:disabled) {
+  border-color: var(--color-gold-border-active);
+  background: rgba(20, 16, 12, 0.88);
+  color: var(--color-heading-secondary);
+}
+
+.navButton:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.navPrev {
+  left: 14px;
+}
+
+.navNext {
+  right: 14px;
+}
+
+.counter {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  z-index: 3;
+  margin: 0;
+  padding: 6px 10px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #f2ece4;
+  background: rgba(12, 10, 8, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+
+.statusBadge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 3;
+  padding: 8px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.statusSold {
+  color: #f2ece4;
+  background: rgba(20, 16, 12, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.statusRental {
+  color: #1a140c;
+  background: color-mix(in srgb, var(--color-primary) 88%, white);
+  border: 1px solid var(--color-gold-border-active);
+}
+
+.thumbs {
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(92px, 1fr);
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: thin;
+}
+
+.thumb {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  padding: 0;
+  border-radius: 12px;
+  border: 1px solid
+    color-mix(in srgb, var(--color-gold-border) 28%, transparent);
+  background: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  opacity: 0.68;
+  transition:
+    opacity 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.thumb:hover {
+  opacity: 1;
+  border-color: color-mix(in srgb, var(--color-gold-border) 70%, transparent);
+}
+
+.thumbActive {
+  opacity: 1;
+  border-color: var(--color-gold-border-active);
+  box-shadow: 0 0 0 1px var(--color-gold-border-active);
+}
+
+@media (max-width: 560px) {
+  .navButton {
+    width: 40px;
+    height: 40px;
+  }
+
+  .navIcon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .navPrev {
+    left: 10px;
+  }
+
+  .navNext {
+    right: 10px;
+  }
+
+  .thumbs {
+    grid-auto-columns: minmax(76px, 1fr);
+    gap: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mainSwiper {
+    --swiper-wrapper-transition-timing-function: linear;
+  }
+}

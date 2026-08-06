@@ -17,12 +17,13 @@
 .timeline {
   position: relative;
   list-style: none;
-  margin: 40px auto 44px;
+  margin: 40px auto 0;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: clamp(36px, 4vw, 64px);
   row-gap: 0;
+  align-items: stretch;
   width: 100%;
   max-width: 1080px;
 }
@@ -147,16 +148,41 @@
   color: var(--color-heading-secondary);
 }
 
-.timelineText {
+.timelinePoints {
   margin: 0;
-  width: 100%;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.timelinePoint {
+  position: relative;
+  padding-left: 14px;
   font-size: 15px;
-  line-height: 1.55;
+  line-height: 1.5;
   color: var(--color-secondary-text);
 }
 
-.advantagesCta {
-  justify-content: center;
+.timelinePoint::before {
+  content: "";
+  position: absolute;
+  top: 0.55em;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-gold-border) 85%, transparent);
+}
+
+.timelineFinale {
+  align-self: start;
+}
+
+.finaleButton {
+  width: 100%;
+  margin-top: 4px;
 }
 
 @keyframes timelineIn {
@@ -191,7 +217,7 @@
     padding-bottom: 24px;
   }
 
-  .timelineText {
-    max-width: none;
+  .timelinePoint {
+    font-size: 14px;
   }
 }

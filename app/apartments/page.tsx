@@ -107,6 +107,7 @@ export default function ApartmentsPage() {
                 key={apartment.id}
                 apartment={apartment}
                 detailLabel={catalog.detailLabel}
+                requestLabel={catalog.requestLabel}
                 delayMs={cardIndex * 35}
               />
             ))}

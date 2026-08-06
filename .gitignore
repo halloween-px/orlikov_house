@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# large raw apartment videos (not used in site; keep local)
+public/img/apartments/**/*.MOV
+public/img/apartments/**/*.mov
+public/img/apartments/**/*.mp4
+public/img/apartments/**/*.MP4

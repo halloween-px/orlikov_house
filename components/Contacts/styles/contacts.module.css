@@ -154,6 +154,7 @@
 }
 
 .formCard {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -225,6 +226,22 @@
 .textarea {
   min-height: 160px;
   resize: vertical;
+}
+
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.error {
+  margin: 0;
+  text-align: center;
+  color: #e8a090;
+  font-size: 14px;
+  line-height: 1.4;
 }
 
 .success {
