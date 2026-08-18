@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import { Home } from "lucide-react";
 import { getNavLabel, landingConfig } from "@/config";
 import { Button } from "@/components/ui/Button";
 import {
@@ -12,11 +10,11 @@ import {
   LandingSubtitle,
   LandingTitle,
 } from "@/components/shared/landing";
+import LocationMap from "./LocationMap";
 import styles from "./styles/location.module.css";
 
 export default function Location() {
   const { location } = landingConfig;
-  const [mapActive, setMapActive] = useState(false);
 
   return (
     <LandingSection
@@ -26,33 +24,13 @@ export default function Location() {
     >
       <LandingContainer>
         <div className={styles.locationGrid}>
-          <div
-            className={styles.mapFrame}
-            onMouseLeave={() => setMapActive(false)}
-          >
-            <iframe
-              title="Карта — Садовая-Спасская 19к3"
-              src={location.mapEmbedSrc}
-              loading="lazy"
-              allowFullScreen
-              className={mapActive ? undefined : styles.mapInactive}
+          <div className={styles.mapFrame}>
+            <LocationMap
+              lat={location.coordinates.lat}
+              lon={location.coordinates.lon}
+              zoom={location.coordinates.zoom}
+              title="Садовая-Спасская, 19к3"
             />
-
-            <div className={styles.mapPin} aria-hidden="true">
-              <span className={styles.mapPinPulse} />
-              <span className={styles.mapPinBadge}>
-                <Home className={styles.mapPinIcon} strokeWidth={1.8} />
-              </span>
-            </div>
-
-            {!mapActive && (
-              <button
-                type="button"
-                className={styles.mapOverlay}
-                onClick={() => setMapActive(true)}
-                aria-label="Нажмите, чтобы взаимодействовать с картой"
-              />
-            )}
           </div>
 
           <aside className={styles.locationCard}>

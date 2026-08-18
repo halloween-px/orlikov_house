@@ -12,29 +12,35 @@
 .mapFrame {
   composes: glass from "../../shared/landing/common.module.css";
   position: relative;
+  display: flex;
   border-radius: 18px;
   overflow: hidden;
   min-height: 480px;
 }
 
-.mapFrame iframe {
+.mapCanvas,
+.mapWidget {
   width: 100%;
   height: 100%;
   min-height: 480px;
+  flex: 1;
   border: 0;
+}
+
+.mapCanvas :global(.ymaps-2-1-79-map) {
+  width: 100%;
+  height: 100%;
+}
+
+.mapCanvas :global(.ymaps-2-1-79-ground-pane),
+.mapWidget {
   filter: grayscale(0.2) brightness(0.88) contrast(1.04);
 }
 
-.mapPin {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transform: translate(-50%, calc(-100% + 6px));
-  pointer-events: none;
+.mapPinMarker {
+  position: relative;
+  width: 52px;
+  height: 64px;
 }
 
 .mapPinPulse {
@@ -45,7 +51,11 @@
   height: 18px;
   border-radius: 50%;
   transform: translateX(-50%);
-  background: rgba(201, 162, 78, 0.45);
+  background: color-mix(
+    in srgb,
+    var(--color-heading-secondary) 45%,
+    transparent
+  );
   animation: mapPinPulse 2.2s ease-out infinite;
 }
 
@@ -69,7 +79,7 @@
     );
   box-shadow:
     0 10px 28px rgba(0, 0, 0, 0.45),
-    0 0 0 6px rgba(201, 162, 78, 0.18);
+    0 0 0 6px color-mix(in srgb, var(--color-heading-secondary) 18%, transparent);
 }
 
 .mapPinIcon {
@@ -84,28 +94,16 @@
     opacity: 0.7;
     transform: translateX(-50%) scale(0.7);
   }
+
   70% {
     opacity: 0;
     transform: translateX(-50%) scale(2.4);
   }
+
   100% {
     opacity: 0;
     transform: translateX(-50%) scale(2.4);
   }
-}
-
-.mapInactive {
-  pointer-events: none;
-}
-
-.mapOverlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  border: 0;
-  padding: 0;
-  background: transparent;
-  cursor: pointer;
 }
 
 .locationCard {
@@ -127,7 +125,8 @@
   }
 
   .mapFrame,
-  .mapFrame iframe {
+  .mapCanvas,
+  .mapWidget {
     min-height: 320px;
   }
 

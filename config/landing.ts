@@ -84,14 +84,17 @@ export const landingConfig = {
     ],
     mapCta: {
       label: "Открыть на карте",
-      href: "https://yandex.ru/maps/?text=%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%20%D0%A1%D0%B0%D0%B4%D0%BE%D0%B2%D0%B0%D1%8F-%D0%A1%D0%BF%D0%B0%D1%81%D1%81%D0%BA%D0%B0%D1%8F%2C%2019%D0%BA3",
+      href: "https://yandex.ru/maps/?ll=37.64741%2C55.769997&z=17&pt=37.64741,55.769997&text=%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%20%D0%A1%D0%B0%D0%B4%D0%BE%D0%B2%D0%B0%D1%8F-%D0%A1%D0%BF%D0%B0%D1%81%D1%81%D0%BA%D0%B0%D1%8F%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%2C%2019%D0%BA3",
     },
     routeCta: {
       label: "Построить маршрут",
-      href: "https://yandex.ru/maps/?rtext=~55.7694,37.6493",
+      href: "https://yandex.ru/maps/?rtext=~55.769997,37.64741",
     },
-    mapEmbedSrc:
-      "https://yandex.ru/map-widget/v1/?ll=37.6493%2C55.7694&z=16&l=map&scroll=false",
+    coordinates: {
+      lat: 55.769997,
+      lon: 37.64741,
+      zoom: 17,
+    },
   },
 
   advantages: {

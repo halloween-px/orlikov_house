@@ -25,8 +25,8 @@ export const seoConfig = {
     full: siteConfig.contacts.address.full,
   },
   geo: {
-    latitude: 55.7694,
-    longitude: 37.6493,
+    latitude: 55.769997,
+    longitude: 37.64741,
   },
   defaultOgImage: "/img/apartments/lot-6/building.webp",
   keywords: [
