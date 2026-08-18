@@ -31,7 +31,7 @@ async function sendViaResend(payload: LeadMailPayload) {
   if (!apiKey) return false;
 
   const from =
-    process.env.RESEND_FROM || "Орликов Хаус <onboarding@resend.dev>";
+    process.env.RESEND_FROM || "Орликов дом <onboarding@resend.dev>";
   const subject = `Заявка: ${payload.source} — ${payload.name}`;
   const text = [
     `Источник: ${payload.source}`,

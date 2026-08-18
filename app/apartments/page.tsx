@@ -56,7 +56,7 @@ export default function ApartmentsPage() {
         data={[
           getBreadcrumbJsonLd([
             { name: "Главная", path: "/" },
-            { name: "Апартаменты", path: "/apartments" },
+            { name: "Студии", path: "/apartments" },
           ]),
           getApartmentListJsonLd(),
         ]}
@@ -74,7 +74,7 @@ export default function ApartmentsPage() {
             className={styles.breadcrumbs}
             items={[
               { label: "Главная", href: "/" },
-              { label: "Апартаменты" },
+              { label: "Студии" },
             ]}
           />
 
@@ -91,7 +91,7 @@ export default function ApartmentsPage() {
               </LandingTitle>
               <p className={styles.subtitle}>
                 {availableCount} из {TOTAL_APARTMENTS} лотов доступны к покупке.
-                Выберите апартамент по площади, этажу и формату готовности.
+                Выберите студию по площади, этажу и формату готовности.
               </p>
             </div>
 

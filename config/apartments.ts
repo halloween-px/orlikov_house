@@ -40,7 +40,7 @@ function mediaFor(unit: number) {
 }
 
 export const FLOORS_COUNT = 4;
-/** Всего апартаментов в доме (включая лоты вне текущего каталога). */
+/** Всего студий в доме (включая лоты вне текущего каталога). */
 export const TOTAL_APARTMENTS = 24;
 
 export const finishMeta = {

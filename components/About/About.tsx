@@ -26,7 +26,7 @@ export default function About() {
           <div className={styles.aboutMedia}>
             <Image
               src={about.image}
-              alt="Интерьер апартаментов Орликов Хаус"
+              alt="Орликов дом — фасад и двор"
               fill
               className="object-cover"
               sizes="(max-width: 1100px) 100vw, 40vw"
@@ -42,22 +42,27 @@ export default function About() {
             <LandingTitle
               id="about-title"
               as="h3"
-              variant="secondary"
               measure="full"
               eyebrow={getNavLabel(about.id)}
             >
-              Камерный{" "}
-              <span className={styles.conceptTitlePrimary}>
-                дом апартаментов
+              Камерный дом{" "}
+              <span className={styles.conceptTitleAccent}>
+                премиум-класса
               </span>
             </LandingTitle>
-            <LandingText measure="full" className={styles.conceptText}>
-              {about.text}
-            </LandingText>
+            {about.text.map((paragraph) => (
+              <LandingText
+                key={paragraph}
+                measure="full"
+                className={styles.conceptText}
+              >
+                {paragraph}
+              </LandingText>
+            ))}
             <div className={styles.conceptChips}>
               <LandingChipsList
                 items={about.conceptChips}
-                ariaLabel="Концепция дома"
+                ariaLabel="О доме"
               />
             </div>
 

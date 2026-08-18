@@ -59,8 +59,8 @@
   z-index: 0;
 }
 
-.conceptTitlePrimary {
-  color: var(--color-heading-primary);
+.conceptTitleAccent {
+  color: var(--color-heading-secondary);
 }
 
 .conceptActions {

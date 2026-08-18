@@ -1,10 +1,10 @@
 export const navConfig = [
   { id: "hero", label: "Главная", href: "#hero" },
   { id: "about", label: "О доме", href: "#about" },
-  { id: "catalog", label: "Апартаменты", href: "#catalog" },
-  { id: "location", label: "Локация", href: "#location" },
+  { id: "catalog", label: "Студии", href: "#catalog" },
   { id: "advantages", label: "Преимущества", href: "#advantages" },
   { id: "lead", label: "Контакты", href: "#lead" },
+  { id: "location", label: "Локация", href: "#location" },
 ] as const;
 
 export type NavItem = (typeof navConfig)[number];

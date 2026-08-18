@@ -19,7 +19,9 @@ function HeroSlideContent({
   slide: HeroSlide;
   isActive: boolean;
 }) {
-  const [title, spetialTitle] = slide.title.split(" ");
+  const [title, ...titleRest] = slide.title.split(" ");
+  const specialTitle = titleRest.join(" ");
+
   return (
     <div
       className={`${styles.slideContent} ${isActive ? styles.slideContentActive : ""}`}
@@ -34,10 +36,17 @@ function HeroSlideContent({
       </a>
       <div className={styles.brandBlock}>
         <h1 className={styles.title}>
-          {title} <span className={styles.specialTitle}>{spetialTitle}</span>
+          {title}{" "}
+          {specialTitle ? (
+            <span className={styles.specialTitle}>{specialTitle}</span>
+          ) : null}
         </h1>
         <p className={styles.subtitle}>{slide.subtitle}</p>
-        <LandingChipsList items={slide.chips} ariaLabel="Ключевые факты" />
+        <LandingChipsList
+          items={slide.chips}
+          ariaLabel="Ключевые факты"
+          itemClassName={styles.heroChip}
+        />
       </div>
       <HeroActions
         primaryCta={slide.primaryCta}

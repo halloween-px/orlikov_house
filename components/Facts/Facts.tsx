@@ -1,5 +1,5 @@
 import {
-  Building2,
+  Hotel,
   KeyRound,
   Layers3,
   Maximize2,
@@ -11,7 +11,7 @@ import { LandingContainer } from "@/components/shared/landing";
 import styles from "./styles/facts.module.css";
 
 const iconMap = {
-  building: Building2,
+  hotel: Hotel,
   layers: Layers3,
   maximize: Maximize2,
   train: TrainFront,

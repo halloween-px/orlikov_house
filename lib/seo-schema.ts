@@ -122,7 +122,7 @@ export function getApartmentJsonLd(apartment: Apartment) {
     "@context": "https://schema.org",
     "@type": "Apartment",
     "@id": `${seoConfig.siteUrl}${path}#apartment`,
-    name: `Лот ${apartment.unit} — Орликов Хаус`,
+    name: `Лот ${apartment.unit} — Орликов дом`,
     description: apartment.description,
     url: absoluteUrl(path),
     image: absoluteUrl(apartment.preview),
@@ -166,7 +166,7 @@ export function getApartmentListJsonLd() {
       item: {
         "@type": "Apartment",
         "@id": `${seoConfig.siteUrl}/apartments/${apartment.id}#apartment`,
-        name: `Лот ${apartment.unit} — Орликов Хаус`,
+        name: `Лот ${apartment.unit} — Орликов дом`,
         description: apartment.description,
         url: absoluteUrl(`/apartments/${apartment.id}`),
         floorSize: {
@@ -203,7 +203,7 @@ export function getApartmentListJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Апартаменты Орликов Хаус",
+    name: "Студии Орликов дом",
     description: seoConfig.apartments.description,
     numberOfItems: items.length,
     itemListElement: items,
@@ -232,7 +232,7 @@ export function getFaqJsonLd() {
     mainEntity: [
       {
         "@type": "Question",
-        name: "Где находится Орликов Хаус?",
+        name: "Где находится Орликов дом?",
         acceptedAnswer: {
           "@type": "Answer",
           text: "Дом расположен по адресу Москва, ул. Садовая-Спасская, д. 19, корп. 3 — в ЦАО, в 1 минуте от метро Красные Ворота, во второй линии Садового кольца.",
@@ -240,7 +240,7 @@ export function getFaqJsonLd() {
       },
       {
         "@type": "Question",
-        name: "Какие форматы готовности апартаментов?",
+        name: "Какие форматы готовности студий?",
         acceptedAnswer: {
           "@type": "Answer",
           text: "Доступны два формата: «ремонт + сантехника» и «готов для жизни» — ремонт, сантехника, мебель и техника.",
@@ -256,7 +256,7 @@ export function getFaqJsonLd() {
       },
       {
         "@type": "Question",
-        name: "Сколько стоят апартаменты в Орликов Хаус?",
+        name: "Сколько стоят студии в Орликов дом?",
         acceptedAnswer: {
           "@type": "Answer",
           text: "Стоимость начинается от 15,3 млн ₽. Актуальные цены по лотам опубликованы в каталоге на сайте.",

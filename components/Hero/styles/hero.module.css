@@ -234,6 +234,12 @@
   font-weight: 400;
   line-height: 1.55;
   color: var(--color-subtitle);
+  white-space: pre-line;
+}
+
+.heroChip {
+  padding: 13px 20px;
+  font-size: 13px;
 }
 
 .actions {
@@ -400,6 +406,11 @@
 
   .subtitle {
     font-size: clamp(15px, 3.8vw, 18px);
+  }
+
+  .heroChip {
+    padding: 11px 16px;
+    font-size: 12px;
   }
 
   .actions {

@@ -3,19 +3,19 @@ import type { HeroSlide } from "@/types/hero";
 
 export const siteConfig = {
   brand: {
-    name: "Орликов Хаус",
+    name: "Орликов дом",
     logoLine1: "Орликов",
-    logoLine2: "Хаус",
-    tagline: "Орликов Хаус",
-    descriptionLine1: "Камерный дом апартаментов",
-    descriptionLine2: "в центре Москвы",
+    logoLine2: "дом",
+    tagline: "Орликов дом",
+    descriptionLine1: "Камерный дом премиум-класса",
+    descriptionLine2: "в тихом дворе Садового кольца",
   },
 
   meta: {
     title:
-      "Орликов Хаус — апартаменты у м. Красные Ворота в ЦАО | от 15,3 млн ₽",
+      "Орликов дом — студии у м. Красные Ворота в ЦАО | от 15,3 млн ₽",
     description:
-      "Камерный дом апартаментов в центре Москвы: Садовая-Спасская 19к3, 1 минута до м. Красные Ворота. Лоты с ремонтом и сантехникой, часть — с мебелью. Гостиничный статус, показ ежедневно.",
+      "Камерный дом премиум-класса в центре Москвы: Садовая-Спасская 19к3, 1 минута до м. Красные Ворота. Лоты с ремонтом и сантехникой, часть — с мебелью. Гостиничный статус, показ ежедневно.",
   },
 
   header: {
@@ -55,14 +55,14 @@ export const siteConfig = {
   },
 
   hero: {
-    defaultImage: "/img/apartments/apartment-2094661_1920 1.webp",
-    title: "Орликов Хаус",
-    subtitle: "Камерный дом апартаментов в центре Москвы",
+    defaultImage: "/img/apartments/lot-3/02_kitchen.webp",
+    title: "Орликов дом",
+    subtitle:
+      "Камерный дом премиум-класса\nв тихом дворе Садового кольца",
     chips: [
-      "м. Красные Ворота — 2 минуты",
-      "от 15,3 млн ₽",
-      "Топ для аренды",
-      "24 лота",
+      "1 минута до метро",
+      "Готовы для проживания",
+      "Премиум-класс · гостиничный статус",
     ],
     pdfCta: {
       label: "Скачать PDF",
@@ -70,7 +70,7 @@ export const siteConfig = {
       download: "orlikov-haus-catalog.pdf",
     },
     primaryCta: {
-      label: "Смотреть апартаменты",
+      label: "Выбрать студию",
       href: "#catalog",
     },
     secondaryCta: {
@@ -79,24 +79,24 @@ export const siteConfig = {
     },
     /** @deprecated use primaryCta */
     offersLink: {
-      label: "Смотреть апартаменты",
+      label: "Выбрать студию",
       href: "#catalog",
     },
     slides: [
       {
         id: "main",
-        label: "Орликов Хаус",
-        image: "/img/apartments/apartment-2094661_1920 1.webp",
-        title: "Орликов Хаус",
-        subtitle: "Камерный дом апартаментов в центре Москвы",
+        label: "Орликов дом",
+        image: "/img/apartments/lot-3/02_kitchen.webp",
+        title: "Орликов дом",
+        subtitle:
+          "Камерный дом премиум-класса\nв тихом дворе Садового кольца",
         chips: [
-          "м. Красные Ворота — 2 минуты",
-          "от 15,3 млн ₽",
-          "Топ для аренды",
-          "24 лота",
+          "1 минута до метро",
+          "Готовы для проживания",
+          "Премиум-класс · гостиничный статус",
         ],
         primaryCta: {
-          label: "Смотреть апартаменты",
+          label: "Выбрать студию",
           href: "#catalog",
         },
         secondaryCta: {
@@ -107,7 +107,7 @@ export const siteConfig = {
       {
         id: "location",
         label: "Локация",
-        image: "/img/landing/about.jpg",
+        image: "/img/apartments/lot-6/building.webp",
         title: "ЦАО, Красные Ворота",
         subtitle:
           "Дом расположен в тихом дворе на Садовой-Спасской, рядом с метро и Садовым кольцом",
@@ -117,13 +117,13 @@ export const siteConfig = {
         },
       },
       {
-        id: "apartments",
-        label: "Апартаменты",
-        image: "/img/slider/slide_1.jpg",
-        title: "Стильные дизайнерские апартаменты",
-        subtitle: "24 апартамента в тихом дворе Садового кольца",
+        id: "studios",
+        label: "Студии",
+        image: "/img/apartments/lot-1/1.webp",
+        title: "Студии с готовой отделкой",
+        subtitle: "24 студии в тихом дворе Садового кольца",
         primaryCta: {
-          label: "Смотреть апартаменты",
+          label: "Выбрать студию",
           href: "#catalog",
         },
       },

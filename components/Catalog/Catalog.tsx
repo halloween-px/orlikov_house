@@ -3,7 +3,6 @@
 import {
   apartmentsConfig,
   getLandingCatalogApartments,
-  getNavLabel,
   landingConfig,
 } from "@/config";
 import { Button } from "@/components/ui/Button";
@@ -30,12 +29,11 @@ export default function Catalog() {
           <LandingTitle
             id="catalog-title"
             measure="full"
-            eyebrow={getNavLabel(catalog.id)}
+            eyebrow={catalog.eyebrow}
             className={styles.catalogTitle}
           >
-            Стильные{" "}
-            <span className={styles.catalogTitleAccent}>дизайнерские</span>{" "}
-            апартаменты
+            Студии с{" "}
+            <span className={styles.catalogTitleAccent}>готовой отделкой</span>
           </LandingTitle>
 
           <LeadButton
@@ -48,7 +46,7 @@ export default function Catalog() {
         <div className={styles.catalogGrid}>
           <aside className={styles.introCard}>
             <div className={styles.introTop}>
-              <p className={styles.introTitle}>{catalog.subtitle}</p>
+              <p className={styles.introText}>{catalog.subtitle}</p>
               <p className={styles.introText}>{catalog.text}</p>
               <ul className={styles.introPoints}>
                 {catalog.points.map((point) => (

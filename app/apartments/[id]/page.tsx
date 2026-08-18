@@ -48,14 +48,14 @@ export async function generateMetadata({
 
   if (!apartment) {
     return buildPageMetadata({
-      title: "Апартамент не найден",
+      title: "Студия не найдена",
       description: seoConfig.apartments.description,
       path: "/apartments",
       noIndex: true,
     });
   }
 
-  const title = `Лот ${apartment.unit} — ${apartment.area}, ${formatApartmentFloor(apartment.floor)} | Орликов Хаус`;
+  const title = `Лот ${apartment.unit} — ${apartment.area}, ${formatApartmentFloor(apartment.floor)} | Орликов дом`;
   const description = `${apartment.description}. ${apartment.address}. Цена ${formatApartmentPrice(apartment.price)}.`;
 
   return {
@@ -89,7 +89,7 @@ export default async function ApartmentPage({ params }: PageProps) {
         data={[
           getBreadcrumbJsonLd([
             { name: "Главная", path: "/" },
-            { name: "Апартаменты", path: "/apartments" },
+            { name: "Студии", path: "/apartments" },
             { name: `Лот ${apartment.unit}`, path },
           ]),
           getApartmentJsonLd(apartment),
@@ -108,7 +108,7 @@ export default async function ApartmentPage({ params }: PageProps) {
             className={styles.breadcrumbs}
             items={[
               { label: "Главная", href: "/" },
-              { label: "Апартаменты", href: "/apartments" },
+              { label: "Студии", href: "/apartments" },
               { label: `Лот ${apartment.unit}` },
             ]}
           />
@@ -128,7 +128,7 @@ export default async function ApartmentPage({ params }: PageProps) {
             />
 
             <aside className={styles.info}>
-              <p className={styles.eyebrow}>Орликов Хаус</p>
+              <p className={styles.eyebrow}>Орликов дом</p>
               <h1 id="apartment-title" className={styles.title}>
                 Лот {apartment.unit}
               </h1>
@@ -203,7 +203,7 @@ export default async function ApartmentPage({ params }: PageProps) {
                   rounded="md"
                   fullWidth
                 >
-                  Все апартаменты
+                  Все студии
                 </Button>
               </div>
 
