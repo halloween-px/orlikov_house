@@ -55,14 +55,14 @@ export const siteConfig = {
   },
 
   hero: {
-    defaultImage: "/img/apartments/lot-3/02_kitchen.webp",
+    defaultImage: "/img/slider/hero-main.webp",
     title: "Орликов дом",
     subtitle:
       "Камерный дом премиум-класса\nв тихом дворе Садового кольца",
     chips: [
-      "1 минута до метро",
-      "Готовы для проживания",
-      "Премиум-класс · гостиничный статус",
+      "100 метров до метро",
+      "Готовые студии в центре",
+      "Под жизнь и аренду",
     ],
     pdfCta: {
       label: "Скачать PDF",
@@ -86,14 +86,14 @@ export const siteConfig = {
       {
         id: "main",
         label: "Орликов дом",
-        image: "/img/apartments/lot-3/02_kitchen.webp",
+        image: "/img/slider/hero-main.webp",
         title: "Орликов дом",
         subtitle:
           "Камерный дом премиум-класса\nв тихом дворе Садового кольца",
         chips: [
-          "1 минута до метро",
-          "Готовы для проживания",
-          "Премиум-класс · гостиничный статус",
+          "100 метров до метро",
+          "Готовые студии в центре",
+          "Под жизнь и аренду",
         ],
         primaryCta: {
           label: "Выбрать студию",

@@ -81,8 +81,8 @@
 
 .introText {
   margin: 0;
-  font-size: 13px;
-  line-height: 1.55;
+  font-size: 15px;
+  line-height: 1.6;
   color: var(--color-subtitle);
 }
 
@@ -98,8 +98,8 @@
 .introPoints li {
   position: relative;
   padding-left: 14px;
-  font-size: 13px;
-  line-height: 1.45;
+  font-size: 15px;
+  line-height: 1.5;
   color: var(--color-secondary-text);
 }
 

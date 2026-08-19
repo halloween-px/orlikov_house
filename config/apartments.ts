@@ -493,7 +493,7 @@ export const finishPackages = {
   turnkey: {
     label: finishMeta.turnkey.label,
     summary: "Ремонт, сантехника, мебель и техника",
-    extras: "+ келлер в подарок",
+    extras: "",
     items: [
       {
         title: "Кухня",
@@ -512,7 +512,7 @@ export const finishPackages = {
   renovation: {
     label: finishMeta.renovation.label,
     summary: "С ремонтом и сантехникой",
-    extras: "+ келлер в подарок",
+    extras: "",
     items: [
       {
         title: "Кухня",
