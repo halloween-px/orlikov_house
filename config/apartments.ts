@@ -465,7 +465,7 @@ const allApartmentsConfig = [
   },
 ] as const satisfies readonly Apartment[];
 
-export const apartmentsConfig = allApartmentsConfig.filter(
+export const apartmentsConfig: Apartment[] = allApartmentsConfig.filter(
   (apartment) => !TEMPORARILY_HIDDEN_UNITS.has(apartment.unit),
 );
 
