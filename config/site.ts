@@ -141,7 +141,7 @@ export const siteConfig = {
     nameLabel: "Имя",
     namePlaceholder: "Иван",
     phoneLabel: "Телефон",
-    phonePlaceholder: "+7 (999) 999-99-99",
+    phonePlaceholder: "+7 999 999-99-99",
     submitLabel: "Отправить",
     successMessage: "Мы с вами свяжемся",
   },

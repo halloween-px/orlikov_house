@@ -4,8 +4,11 @@ import { FormEvent, useEffect, useId, useRef, useState } from "react";
 import { siteConfig } from "@/config";
 import { useMainContext } from "@/context/MainProvider";
 import { useLeadChallenge } from "@/hooks/useLeadChallenge";
+import { isValidRuPhone } from "@/lib/form-input";
 import { submitLead } from "@/lib/submit-lead";
 import { Button } from "@/components/ui/Button";
+import { PhoneField } from "@/components/ui/PhoneField";
+import { TextField } from "@/components/ui/TextField";
 import styles from "./styles/lead-modal.module.css";
 
 export default function LeadModal() {
@@ -14,7 +17,7 @@ export default function LeadModal() {
   const titleId = useId();
   const nameInputRef = useRef<HTMLInputElement>(null);
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState("+7 ");
   const [website, setWebsite] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -52,7 +55,7 @@ export default function LeadModal() {
   useEffect(() => {
     if (!leadModalOpen) {
       setName("");
-      setPhone("");
+      setPhone("+7 ");
       setWebsite("");
       setSubmitted(false);
       setSubmitting(false);
@@ -65,6 +68,11 @@ export default function LeadModal() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (submitting) return;
+
+    if (!isValidRuPhone(phone)) {
+      setError("Укажите корректный телефон в формате +7 999 999-99-99");
+      return;
+    }
 
     setError("");
     setSubmitting(true);
@@ -121,31 +129,28 @@ export default function LeadModal() {
           <form className={styles.form} onSubmit={handleSubmit}>
             <label className={styles.field}>
               <span className={styles.label}>{requestForm.nameLabel}</span>
-              <input
+              <TextField
                 ref={nameInputRef}
                 className={styles.input}
-                type="text"
                 name="name"
+                mode="name"
                 value={name}
-                onChange={(event) => setName(event.target.value)}
+                onChange={setName}
                 placeholder={requestForm.namePlaceholder}
                 required
-                autoComplete="name"
                 disabled={submitting}
               />
             </label>
 
             <label className={styles.field}>
               <span className={styles.label}>{requestForm.phoneLabel}</span>
-              <input
+              <PhoneField
                 className={styles.input}
-                type="tel"
                 name="phone"
                 value={phone}
-                onChange={(event) => setPhone(event.target.value)}
+                onChange={setPhone}
                 placeholder={requestForm.phonePlaceholder}
                 required
-                autoComplete="tel"
                 disabled={submitting}
               />
             </label>

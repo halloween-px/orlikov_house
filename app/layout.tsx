@@ -3,6 +3,7 @@ import { Open_Sans, Roboto } from "next/font/google";
 import { siteConfig } from "@/config";
 import { buildPageMetadata, seoConfig } from "@/config/seo";
 import { MainProvider } from "@/context/MainProvider";
+import VisitTracker from "@/components/analytics/VisitTracker";
 import { JsonLd } from "@/components/seo";
 import {
   getApartmentComplexJsonLd,
@@ -82,7 +83,10 @@ export default function RootLayout({
             getApartmentComplexJsonLd(),
           ]}
         />
-        <MainProvider>{children}</MainProvider>
+        <MainProvider>
+          <VisitTracker />
+          {children}
+        </MainProvider>
       </body>
     </html>
   );

@@ -1,5 +1,11 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { leadConfig } from "@/config/lead";
+import {
+  isValidRuPhone,
+  sanitizeComment,
+  sanitizePersonName,
+  toE164RuPhone,
+} from "@/lib/form-input";
 
 type RateBucket = {
   count: number;
@@ -58,7 +64,10 @@ export function verifyLeadChallenge(challenge: string, now = Date.now()) {
     return { ok: false as const, reason: "Форма отправлена слишком быстро" };
   }
   if (age > leadConfig.maxFillMs) {
-    return { ok: false as const, reason: "Токен формы устарел, обновите страницу" };
+    return {
+      ok: false as const,
+      reason: "Токен формы устарел, обновите страницу",
+    };
   }
 
   return { ok: true as const };
@@ -87,7 +96,7 @@ export function checkLeadRateLimit(ip: string, now = Date.now()) {
 }
 
 export function normalizePhone(phone: string) {
-  return phone.replace(/[^\d+]/g, "").trim();
+  return toE164RuPhone(phone) || phone.replace(/[^\d+]/g, "").trim();
 }
 
 export function validateLeadPayload(input: {
@@ -100,18 +109,19 @@ export function validateLeadPayload(input: {
     return { ok: false as const, reason: "spam", silent: true };
   }
 
-  const name = typeof input.name === "string" ? input.name.trim() : "";
-  const phoneRaw = typeof input.phone === "string" ? input.phone.trim() : "";
-  const comment =
-    typeof input.comment === "string" ? input.comment.trim() : "";
+  const nameRaw = typeof input.name === "string" ? input.name : "";
+  const phoneRaw = typeof input.phone === "string" ? input.phone : "";
+  const commentRaw = typeof input.comment === "string" ? input.comment : "";
+
+  const name = sanitizePersonName(nameRaw).trim();
+  const comment = sanitizeComment(commentRaw).trim();
+  const phone = toE164RuPhone(phoneRaw);
 
   if (name.length < 2 || name.length > 80) {
     return { ok: false as const, reason: "Укажите корректное имя" };
   }
 
-  const phone = normalizePhone(phoneRaw);
-  const digits = phone.replace(/\D/g, "");
-  if (digits.length < 10 || digits.length > 15) {
+  if (!phone || !isValidRuPhone(phoneRaw)) {
     return { ok: false as const, reason: "Укажите корректный телефон" };
   }
 
@@ -125,7 +135,7 @@ export function validateLeadPayload(input: {
 
   return {
     ok: true as const,
-    data: { name, phone: phoneRaw, comment },
+    data: { name, phone, comment },
   };
 }
 

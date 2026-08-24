@@ -170,7 +170,7 @@ export const landingConfig = {
       "Оставьте контакт — менеджер отправит актуальные лоты, планировки и договорится о просмотре",
     fields: {
       name: { label: "Имя", placeholder: "Иван" },
-      phone: { label: "Телефон", placeholder: "+7 (999) 999-99-99" },
+      phone: { label: "Телефон", placeholder: "+7 999 999-99-99" },
       comment: {
         label: "Комментарий",
         placeholder: "Бюджет, метраж, формат готовности…",

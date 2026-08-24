@@ -3,8 +3,12 @@
 import { FormEvent, useState } from "react";
 import { getNavLabel, landingConfig } from "@/config";
 import { useLeadChallenge } from "@/hooks/useLeadChallenge";
+import { isValidRuPhone } from "@/lib/form-input";
 import { submitLead } from "@/lib/submit-lead";
 import { Button } from "@/components/ui/Button";
+import { PhoneField } from "@/components/ui/PhoneField";
+import { TextAreaField } from "@/components/ui/TextAreaField";
+import { TextField } from "@/components/ui/TextField";
 import {
   LandingActions,
   LandingContainer,
@@ -17,7 +21,7 @@ import styles from "./styles/contacts.module.css";
 export default function Contacts() {
   const { lead, contacts } = landingConfig;
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState("+7 ");
   const [comment, setComment] = useState("");
   const [website, setWebsite] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -28,6 +32,11 @@ export default function Contacts() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (submitting) return;
+
+    if (!isValidRuPhone(phone)) {
+      setError("Укажите корректный телефон в формате +7 999 999-99-99");
+      return;
+    }
 
     setError("");
     setSubmitting(true);
@@ -51,7 +60,7 @@ export default function Contacts() {
 
     setSubmitted(true);
     setName("");
-    setPhone("");
+    setPhone("+7 ");
     setComment("");
     setWebsite("");
     void refresh();
@@ -126,12 +135,12 @@ export default function Contacts() {
             <div className={styles.formFields}>
               <label className={styles.field}>
                 <span className={styles.label}>{lead.fields.name.label}</span>
-                <input
+                <TextField
                   className={styles.input}
-                  type="text"
                   name="name"
+                  mode="name"
                   value={name}
-                  onChange={(event) => setName(event.target.value)}
+                  onChange={setName}
                   placeholder={lead.fields.name.placeholder}
                   required
                   disabled={submitting || submitted}
@@ -140,12 +149,11 @@ export default function Contacts() {
 
               <label className={styles.field}>
                 <span className={styles.label}>{lead.fields.phone.label}</span>
-                <input
+                <PhoneField
                   className={styles.input}
-                  type="tel"
                   name="phone"
                   value={phone}
-                  onChange={(event) => setPhone(event.target.value)}
+                  onChange={setPhone}
                   placeholder={lead.fields.phone.placeholder}
                   required
                   disabled={submitting || submitted}
@@ -156,11 +164,11 @@ export default function Contacts() {
                 <span className={styles.label}>
                   {lead.fields.comment.label}
                 </span>
-                <textarea
+                <TextAreaField
                   className={styles.textarea}
                   name="comment"
                   value={comment}
-                  onChange={(event) => setComment(event.target.value)}
+                  onChange={setComment}
                   placeholder={lead.fields.comment.placeholder}
                   disabled={submitting || submitted}
                 />

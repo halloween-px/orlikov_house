@@ -5,6 +5,7 @@ import {
   validateLeadPayload,
   verifyLeadChallenge,
 } from "@/lib/lead-security";
+import { saveLead } from "@/lib/admin-data";
 import { sendLeadEmail } from "@/lib/send-lead-email";
 
 type LeadBody = {
@@ -53,6 +54,16 @@ export async function POST(request: Request) {
       typeof body.source === "string" && body.source.trim()
         ? body.source.trim().slice(0, 80)
         : "Сайт";
+
+    try {
+      await saveLead({
+        ...validated.data,
+        source,
+        ip,
+      });
+    } catch (error) {
+      console.error("[lead:db]", error);
+    }
 
     await sendLeadEmail({
       ...validated.data,
