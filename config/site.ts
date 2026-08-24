@@ -119,7 +119,7 @@ export const siteConfig = {
       {
         id: "studios",
         label: "Студии",
-        image: "/img/apartments/lot-1/1.webp",
+        image: "/img/apartments_v2/lot-1/1.webp",
         title: "Студии с готовой отделкой",
         subtitle: "24 студии в тихом дворе Садового кольца",
         primaryCta: {

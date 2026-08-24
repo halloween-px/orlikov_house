@@ -43,6 +43,9 @@ export const FLOORS_COUNT = 4;
 /** Всего студий в доме (включая лоты вне текущего каталога). */
 export const TOTAL_APARTMENTS = 24;
 
+/** Временно скрытые лоты — вернуть в каталог, убрав номер из списка. */
+export const TEMPORARILY_HIDDEN_UNITS = new Set([19, 23]);
+
 export const finishMeta = {
   renovation: {
     label: "Ремонт + сантехника",
@@ -78,7 +81,7 @@ export function getApartmentAvailability(
   return availabilityMeta[availability];
 }
 
-export const apartmentsConfig = [
+const allApartmentsConfig = [
   {
     id: "spasskaya-1",
     unit: 1,
@@ -458,6 +461,10 @@ export const apartmentsConfig = [
     ...mediaFor(24),
   },
 ] as const satisfies readonly Apartment[];
+
+export const apartmentsConfig = allApartmentsConfig.filter(
+  (apartment) => !TEMPORARILY_HIDDEN_UNITS.has(apartment.unit),
+);
 
 export type ApartmentsConfig = typeof apartmentsConfig;
 
