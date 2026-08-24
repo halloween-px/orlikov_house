@@ -117,16 +117,46 @@
   text-transform: uppercase;
 }
 
+.statusBadges {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: calc(100% - 28px);
+  pointer-events: none;
+}
+
+.statusBadges .statusBadge {
+  position: static;
+  top: auto;
+  left: auto;
+}
+
 .statusSold {
   color: #f2ece4;
   background: rgba(20, 16, 12, 0.78);
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.statusRental {
-  color: #1a140c;
-  background: color-mix(in srgb, var(--color-primary) 88%, white);
-  border: 1px solid var(--color-gold-border-active);
+.statusRental,
+.statusPromo {
+  color: #1a0a00;
+  padding: 12px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  transition: letter-spacing 0.2s ease;
+  background: linear-gradient(135deg, #f0c46a 0%, #e3aa50 55%, #c98a2e 100%);
+  border: 1px solid #f5d48a;
+  box-shadow: 0 6px 16px rgba(227, 170, 80, 0.35);
+}
+
+.gallery:hover .statusRental,
+.gallery:hover .statusPromo {
+  letter-spacing: 0.18em;
 }
 
 .thumbs {

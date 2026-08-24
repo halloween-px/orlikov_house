@@ -14,24 +14,29 @@ import "swiper/css/effect-creative";
 
 import styles from "./styles/apartment-gallery.module.css";
 
+type GalleryBadge = {
+  label: string;
+  tone: "sold" | "rental" | "promo";
+};
+
 type ApartmentGalleryProps = {
   images: readonly string[];
   alt: string;
-  badge?: {
-    label: string;
-    tone: "sold" | "rental";
-  };
+  badge?: GalleryBadge;
+  badges?: readonly GalleryBadge[];
 };
 
 export default function ApartmentGallery({
   images,
   alt,
   badge,
+  badges,
 }: ApartmentGalleryProps) {
   const gallery = images.length > 0 ? images : [];
   const [mainSwiper, setMainSwiper] = useState<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const lightbox = useLightbox({ images: gallery });
+  const statusBadges = badges ?? (badge ? [badge] : []);
 
   if (gallery.length === 0) return null;
 
@@ -94,14 +99,23 @@ export default function ApartmentGallery({
           ))}
         </Swiper>
 
-        {badge ? (
-          <span
-            className={`${styles.statusBadge} ${
-              badge.tone === "sold" ? styles.statusSold : styles.statusRental
-            }`}
-          >
-            {badge.label}
-          </span>
+        {statusBadges.length > 0 ? (
+          <div className={styles.statusBadges}>
+            {statusBadges.map((item) => (
+              <span
+                key={`${item.tone}-${item.label}`}
+                className={`${styles.statusBadge} ${
+                  item.tone === "sold"
+                    ? styles.statusSold
+                    : item.tone === "promo"
+                      ? styles.statusPromo
+                      : styles.statusRental
+                }`}
+              >
+                {item.label}
+              </span>
+            ))}
+          </div>
         ) : null}
 
         {showControls ? (

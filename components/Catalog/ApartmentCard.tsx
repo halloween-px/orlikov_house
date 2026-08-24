@@ -58,6 +58,7 @@ export default function ApartmentCard({
   const availability = apartment.availability;
   const isSold = availability === "sold";
   const isRental = availability === "rental_business";
+  const isPromo = Boolean(apartment.promo) && !isSold;
   const finish = getApartmentFinish(apartment.finish);
   const status = getApartmentAvailability(availability);
   const detailHref = `/apartments/${apartment.id}`;
@@ -119,14 +120,23 @@ export default function ApartmentCard({
           })}
         </div>
 
-        {(isSold || isRental) && (
-          <span
-            className={`${styles.statusBadge} ${
-              isSold ? styles.statusSold : styles.statusRental
-            }`}
-          >
-            {status.label}
-          </span>
+        {(isSold || isRental || isPromo) && (
+          <div className={styles.statusBadges}>
+            {isPromo ? (
+              <span className={`${styles.statusBadge} ${styles.statusPromo}`}>
+                Акция
+              </span>
+            ) : null}
+            {(isSold || isRental) && (
+              <span
+                className={`${styles.statusBadge} ${
+                  isSold ? styles.statusSold : styles.statusRental
+                }`}
+              >
+                {status.label}
+              </span>
+            )}
+          </div>
         )}
 
         {canHoverSlide ? (
@@ -175,7 +185,14 @@ export default function ApartmentCard({
           {isSold ? (
             <span className={styles.priceSold}>{status.label}</span>
           ) : (
-            formatApartmentPrice(apartment.price)
+            <>
+              {apartment.priceOld ? (
+                <span className={styles.priceOld}>
+                  {formatApartmentPrice(apartment.priceOld)}
+                </span>
+              ) : null}
+              <span>{formatApartmentPrice(apartment.price)}</span>
+            </>
           )}
         </div>
 

@@ -44,7 +44,7 @@ export const FLOORS_COUNT = 4;
 export const TOTAL_APARTMENTS = 24;
 
 /** Временно скрытые лоты — вернуть в каталог, убрав номер из списка. */
-export const TEMPORARILY_HIDDEN_UNITS = new Set([19, 23]);
+export const TEMPORARILY_HIDDEN_UNITS = new Set([19, 22, 23]);
 
 export const finishMeta = {
   renovation: {
@@ -60,7 +60,7 @@ export const finishMeta = {
 export const availabilityMeta = {
   available: { label: "В продаже" },
   sold: { label: "Продан" },
-  rental_business: { label: "Готовый арендный бизнес" },
+  rental_business: { label: "С арендатором" },
 } as const;
 
 function floorLabel(floor: number) {
@@ -94,8 +94,10 @@ const allApartmentsConfig = [
     finish: "renovation",
     finishLabel: finishMeta.renovation.label,
     description: "17,5 м² · 1 этаж · Ремонт + сантехника",
-    highlights: ["Ремонт + сантехника", "Два окна"],
-    price: 16_055_000,
+    highlights: ["Ремонт + сантехника", "Акция"],
+    price: 14_000_000,
+    priceOld: 16_054_389,
+    promo: true,
     availability: "available",
 
     address: ADDRESS,
@@ -114,7 +116,7 @@ const allApartmentsConfig = [
     finishLabel: finishMeta.turnkey.label,
     description: "17,7 м² · 1 этаж · Готов для жизни",
     highlights: ["Готов для жизни", "Два окна"],
-    price: 16_620_000,
+    price: 16_619_084,
     availability: "available",
 
     address: ADDRESS,
@@ -133,7 +135,7 @@ const allApartmentsConfig = [
     finishLabel: finishMeta.renovation.label,
     description: "22,5 м² · 1 этаж · Ремонт + сантехника",
     highlights: ["Ремонт + сантехника", "Уединённое пространство"],
-    price: 19_555_000,
+    price: 19_553_135,
     availability: "available",
 
     address: ADDRESS,
@@ -152,7 +154,7 @@ const allApartmentsConfig = [
     finishLabel: finishMeta.renovation.label,
     description: "19,5 м² · 1 этаж · Ремонт + сантехника",
     highlights: ["Ремонт + сантехника", "Два окна"],
-    price: 17_387_000,
+    price: 17_386_170,
     availability: "available",
 
     address: ADDRESS,
@@ -170,8 +172,10 @@ const allApartmentsConfig = [
     finish: "turnkey",
     finishLabel: finishMeta.turnkey.label,
     description: "18,1 м² · 1 этаж · Готов для жизни",
-    highlights: ["Готов для жизни", "Два окна"],
-    price: 18_600_000,
+    highlights: ["Готов для жизни", "Акция"],
+    price: 15_385_000,
+    priceOld: 18_599_684,
+    promo: true,
     availability: "available",
 
     address: ADDRESS,
@@ -190,7 +194,7 @@ const allApartmentsConfig = [
     finishLabel: finishMeta.renovation.label,
     description: "20,9 м² · 2 этаж · Ремонт + сантехника",
     highlights: ["Ремонт + сантехника", "Два окна"],
-    price: 18_999_000,
+    price: 18_998_671,
     availability: "available",
 
     address: ADDRESS,
@@ -209,7 +213,7 @@ const allApartmentsConfig = [
     finishLabel: finishMeta.renovation.label,
     description: "23,2 м² · 2 этаж · Ремонт + сантехника",
     highlights: ["Ремонт + сантехника", "Три окна"],
-    price: 20_420_000,
+    price: 20_419_100,
     availability: "available",
 
     address: ADDRESS,
@@ -228,7 +232,7 @@ const allApartmentsConfig = [
     finishLabel: finishMeta.renovation.label,
     description: "23,9 м² · 2 этаж · Ремонт + сантехника",
     highlights: ["Ремонт + сантехника", "Два окна"],
-    price: 20_815_000,
+    price: 20_811_862,
     availability: "available",
 
     address: ADDRESS,
@@ -247,7 +251,7 @@ const allApartmentsConfig = [
     finishLabel: finishMeta.renovation.label,
     description: "19,8 м² · 3 этаж · Ремонт + сантехника",
     highlights: ["Ремонт + сантехника", "Два окна"],
-    price: 17_230_000,
+    price: 17_227_370,
     availability: "available",
 
     address: ADDRESS,
@@ -266,7 +270,7 @@ const allApartmentsConfig = [
     finishLabel: finishMeta.turnkey.label,
     description: "23,3 м² · 3 этаж · Готов для жизни",
     highlights: ["Готов для жизни", "Два окна"],
-    price: 22_075_000,
+    price: 22_072_612,
     availability: "available",
 
     address: ADDRESS,
@@ -284,9 +288,8 @@ const allApartmentsConfig = [
     finish: "renovation",
     finishLabel: finishMeta.renovation.label,
     description: "20,4 м² · 3 этаж · Ремонт + сантехника",
-    highlights: ["Ремонт + сантехника", "Акция"],
-    price: 15_300_000,
-    promo: true,
+    highlights: ["Ремонт + сантехника", "Два окна"],
+    price: 18_147_070,
     availability: "available",
 
     address: ADDRESS,
@@ -305,7 +308,7 @@ const allApartmentsConfig = [
     finishLabel: finishMeta.turnkey.label,
     description: "21,2 м² · 3 этаж · Готов для жизни",
     highlights: ["Готов для жизни", "Два окна"],
-    price: 19_550_000,
+    price: 19_549_412,
     availability: "available",
 
     address: ADDRESS,
@@ -324,7 +327,7 @@ const allApartmentsConfig = [
     finishLabel: finishMeta.renovation.label,
     description: "22,3 м² · 3 этаж · Ремонт + сантехника",
     highlights: ["Ремонт + сантехника", "Два окна"],
-    price: 19_940_000,
+    price: 19_936_457,
     availability: "available",
 
     address: ADDRESS,
@@ -342,8 +345,8 @@ const allApartmentsConfig = [
     finish: "turnkey",
     finishLabel: finishMeta.turnkey.label,
     description: "19,3 м² · 3 этаж · Готов для жизни",
-    highlights: ["Готовый арендный бизнес", "С арендатором"],
-    price: 15_440_000,
+    highlights: ["С арендатором"],
+    price: 18_592_336,
     availability: "rental_business",
     address: ADDRESS,
     ...mediaFor(18),
@@ -361,7 +364,7 @@ const allApartmentsConfig = [
     finishLabel: finishMeta.turnkey.label,
     description: "19,8 м² · 4 этаж · Готов для жизни",
     highlights: ["Готов для жизни", "Два окна"],
-    price: 19_110_000,
+    price: 19_108_631,
     availability: "available",
 
     address: ADDRESS,
@@ -380,7 +383,7 @@ const allApartmentsConfig = [
     finishLabel: finishMeta.turnkey.label,
     description: "25,5 м² · 4 этаж · Готов для жизни",
     highlights: ["Готов для жизни", "Три окна"],
-    price: 24_100_000,
+    price: 24_091_419,
     availability: "available",
 
     address: ADDRESS,
@@ -398,8 +401,8 @@ const allApartmentsConfig = [
     finish: "turnkey",
     finishLabel: finishMeta.turnkey.label,
     description: "22,4 м² · 4 этаж · Готов для жизни",
-    highlights: ["Готовый арендный бизнес", "С арендатором"],
-    price: 20_830_000,
+    highlights: ["С арендатором", "Три окна"],
+    price: 20_829_891,
     availability: "rental_business",
     address: ADDRESS,
     ...mediaFor(21),
@@ -417,7 +420,7 @@ const allApartmentsConfig = [
     finishLabel: finishMeta.turnkey.label,
     description: "21 м² · 4 этаж · Готов для жизни",
     highlights: ["Продан"],
-    price: 20_830_000,
+    price: 19_468_151,
     availability: "sold",
     address: ADDRESS,
     ...mediaFor(22),
@@ -435,7 +438,7 @@ const allApartmentsConfig = [
     finishLabel: finishMeta.turnkey.label,
     description: "24,2 м² · 4 этаж · Готов для жизни",
     highlights: ["Готов для жизни", "Два окна"],
-    price: 22_560_000,
+    price: 22_557_717,
     availability: "available",
 
     address: ADDRESS,
@@ -454,7 +457,7 @@ const allApartmentsConfig = [
     finishLabel: finishMeta.turnkey.label,
     description: "21,2 м² · 4 этаж · Готов для жизни",
     highlights: ["Готов для жизни", "Два окна"],
-    price: 20_340_000,
+    price: 20_332_474,
     availability: "available",
 
     address: ADDRESS,

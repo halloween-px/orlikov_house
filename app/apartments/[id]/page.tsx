@@ -81,7 +81,19 @@ export default async function ApartmentPage({ params }: PageProps) {
   const gallery = getApartmentGallery(apartment);
   const isSold = apartment.availability === "sold";
   const isRental = apartment.availability === "rental_business";
+  const isPromo = Boolean(apartment.promo) && !isSold;
   const path = `/apartments/${apartment.id}`;
+  const galleryBadges = [
+    ...(isPromo ? [{ label: "Акция", tone: "promo" as const }] : []),
+    ...(isSold || isRental
+      ? [
+          {
+            label: status.label,
+            tone: (isSold ? "sold" : "rental") as "sold" | "rental",
+          },
+        ]
+      : []),
+  ];
 
   return (
     <main className={styles.page}>
@@ -117,14 +129,7 @@ export default async function ApartmentPage({ params }: PageProps) {
             <ApartmentGallery
               images={gallery}
               alt={`Лот ${apartment.unit}`}
-              badge={
-                isSold || isRental
-                  ? {
-                      label: status.label,
-                      tone: isSold ? "sold" : "rental",
-                    }
-                  : undefined
-              }
+              badges={galleryBadges}
             />
 
             <aside className={styles.info}>
@@ -157,9 +162,16 @@ export default async function ApartmentPage({ params }: PageProps) {
                 {isSold ? (
                   <p className={styles.priceSold}>{status.label}</p>
                 ) : (
-                  <p className={styles.price}>
-                    {formatApartmentPrice(apartment.price)}
-                  </p>
+                  <div className={styles.priceRow}>
+                    {apartment.priceOld ? (
+                      <p className={styles.priceOld}>
+                        {formatApartmentPrice(apartment.priceOld)}
+                      </p>
+                    ) : null}
+                    <p className={styles.price}>
+                      {formatApartmentPrice(apartment.price)}
+                    </p>
+                  </div>
                 )}
                 <p className={styles.finish}>{finish.label}</p>
               </div>

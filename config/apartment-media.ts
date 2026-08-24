@@ -164,7 +164,6 @@ const mediaByLot: Record<number, ApartmentMedia> = {
       "12.webp",
       "building.webp",
       "creative.webp",
-      "plan.webp",
     ],
   },
   15: {

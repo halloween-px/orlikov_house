@@ -89,6 +89,13 @@
   padding: 4px 0;
 }
 
+.priceRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 14px;
+}
+
 .price {
   margin: 0;
   font-family: var(--font-roboto), sans-serif;
@@ -96,6 +103,14 @@
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--color-heading-primary);
+}
+
+.priceOld {
+  margin: 0;
+  font-size: clamp(16px, 1.8vw, 20px);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-decoration: line-through;
 }
 
 .priceSold {
