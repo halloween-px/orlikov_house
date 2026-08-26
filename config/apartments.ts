@@ -27,8 +27,7 @@ export interface Apartment {
 
 const ADDRESS = "Москва, Садовая-Спасская 19к3";
 
-export const DEFAULT_APARTMENT_IMAGE =
-  "/img/apartments/apartment-2094661_1920 1.webp";
+export const DEFAULT_APARTMENT_IMAGE = "/img/apartments_v2/lot-1/1.webp";
 
 function mediaFor(unit: number) {
   return (
@@ -115,8 +114,10 @@ const allApartmentsConfig = [
     finish: "turnkey",
     finishLabel: finishMeta.turnkey.label,
     description: "17,7 м² · 1 этаж · Готов для жизни",
-    highlights: ["Готов для жизни", "Два окна"],
-    price: 16_619_084,
+    highlights: ["Готов для жизни", "Акция"],
+    price: 15_045_000,
+    priceOld: 16_619_084,
+    promo: true,
     availability: "available",
 
     address: ADDRESS,
@@ -172,10 +173,8 @@ const allApartmentsConfig = [
     finish: "turnkey",
     finishLabel: finishMeta.turnkey.label,
     description: "18,1 м² · 1 этаж · Готов для жизни",
-    highlights: ["Готов для жизни", "Акция"],
-    price: 15_385_000,
-    priceOld: 18_599_684,
-    promo: true,
+    highlights: ["Готов для жизни", "Два окна"],
+    price: 18_599_684,
     availability: "available",
 
     address: ADDRESS,

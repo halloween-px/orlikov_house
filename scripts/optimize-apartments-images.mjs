@@ -10,7 +10,7 @@
  * Флаги:
  *   --dry-run          только отчёт, без записи
  *   --keep-originals   не удалять исходные jpg/png
- *   --dir <path>       другая папка (по умолчанию public/img/apartments)
+ *   --dir <path>       другая папка (по умолчанию public/img/apartments_v2)
  */
 
 import { createHash } from "node:crypto";
@@ -18,7 +18,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
 
-const DEFAULT_DIR = path.resolve("public/img/apartments");
+const DEFAULT_DIR = path.resolve("public/img/apartments_v2");
 const MAX_EDGE = 2000;
 const WEBP_QUALITY = 90;
 const WEBP_EFFORT = 6;

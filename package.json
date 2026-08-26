@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "optimize:apartments": "node scripts/optimize-apartments-images.mjs"
+    "optimize:apartments": "node scripts/optimize-apartments-images.mjs --dir public/img/apartments_v2",
+    "normalize:apartments": "node scripts/normalize-apartments-folder.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.24.0",

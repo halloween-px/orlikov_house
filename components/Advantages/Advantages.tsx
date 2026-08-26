@@ -61,7 +61,6 @@ export default function Advantages() {
         <ol className={styles.timeline} aria-label="Ключевые преимущества">
           {advantages.cards.map((card, index) => {
             const Icon = iconMap[card.icon as AdvantageIcon];
-            const step = String(index + 1).padStart(2, "0");
 
             return (
               <li
@@ -76,7 +75,6 @@ export default function Advantages() {
                 </div>
 
                 <div className={styles.timelineBody}>
-                  <span className={styles.timelineStep}>{step}</span>
                   <div className={styles.timelineCopy}>
                     <h3 className={styles.timelineTitle}>{card.title}</h3>
                     <ul className={styles.timelinePoints}>
@@ -106,7 +104,6 @@ export default function Advantages() {
             </div>
 
             <div className={styles.timelineBody}>
-              <span className={styles.timelineStep}>{cta.step}</span>
               <div className={styles.timelineCopy}>
                 <h3 className={styles.timelineTitle}>{cta.title}</h3>
                 <ul className={styles.timelinePoints}>
