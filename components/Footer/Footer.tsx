@@ -71,9 +71,15 @@ export default function Footer() {
             </ul>
             <p className={styles.contactLine}>{contacts.address.full}</p>
             <p className={styles.contactLine}>{contacts.hours}</p>
-            <a className={styles.email} href={contacts.email.link}>
-              {contacts.email.title}
-            </a>
+            <ul className={styles.emailList}>
+              {contacts.emails.map((email) => (
+                <li key={email.link}>
+                  <a className={styles.email} href={email.link}>
+                    {email.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
 
             <div className={styles.messengers}>
               <Button

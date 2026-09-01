@@ -55,8 +55,8 @@ export async function generateMetadata({
     });
   }
 
-  const title = `Лот ${apartment.unit} — ${apartment.area}, ${formatApartmentFloor(apartment.floor)} | Орликов дом`;
-  const description = `${apartment.description}. ${apartment.address}. Цена ${formatApartmentPrice(apartment.price)}.`;
+  const title = `Купить студию ${apartment.area} в центре Москвы — лот ${apartment.unit} | Орликов дом`;
+  const description = `Купить студию в центре Москвы: лот ${apartment.unit}, ${apartment.area}, ${formatApartmentFloor(apartment.floor)}. ${apartment.description}. ${apartment.address}. Цена ${formatApartmentPrice(apartment.price)}.`;
 
   return {
     ...buildPageMetadata({

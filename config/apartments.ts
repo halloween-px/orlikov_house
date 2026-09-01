@@ -114,11 +114,11 @@ const allApartmentsConfig = [
     finish: "turnkey",
     finishLabel: finishMeta.turnkey.label,
     description: "17,7 м² · 1 этаж · Готов для жизни",
-    highlights: ["Готов для жизни", "Акция"],
+    highlights: ["Готов для жизни", "С арендатором", "Акция"],
     price: 15_045_000,
     priceOld: 16_619_084,
     promo: true,
-    availability: "available",
+    availability: "rental_business",
 
     address: ADDRESS,
     ...mediaFor(3),

@@ -119,6 +119,34 @@
   transform: translateX(2px);
 }
 
+.emailList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.emailList a {
+  display: inline-block;
+  color: var(--color-heading-primary);
+  text-decoration: none;
+  font-family: var(--font-roboto), sans-serif;
+  font-size: clamp(16px, 1.4vw, 20px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.emailList a:hover {
+  color: var(--color-heading-secondary);
+  transform: translateX(2px);
+}
+
 .metaList {
   display: grid;
   gap: 12px;

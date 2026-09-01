@@ -52,7 +52,7 @@ async function sendViaResend(payload: LeadMailPayload) {
     },
     body: JSON.stringify({
       from,
-      to: [leadConfig.toEmail],
+      to: leadConfig.toEmails,
       subject,
       text,
     }),
@@ -91,7 +91,7 @@ async function sendViaSmtp(payload: LeadMailPayload) {
 
   await transporter.sendMail({
     from: `"${leadConfig.fromName}" <${smtp.from}>`,
-    to: leadConfig.toEmail,
+    to: leadConfig.toEmails.join(", "),
     subject,
     text,
     replyTo: undefined,
@@ -106,7 +106,7 @@ export async function sendLeadEmail(payload: LeadMailPayload) {
 
   if (process.env.NODE_ENV !== "production") {
     console.info("[lead:dev]", {
-      to: leadConfig.toEmail,
+      to: leadConfig.toEmails,
       ...payload,
     });
     return { provider: "dev-log" as const };

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { siteConfig } from "./site";
+import { seoKeywords } from "./seo-keywords";
 
 const FALLBACK_SITE_URL = "https://orlikovhome.ru";
 
@@ -13,7 +14,7 @@ export const seoConfig = {
   locale: "ru_RU",
   language: "ru",
   brand: siteConfig.brand.name,
-  email: siteConfig.contacts.email.title,
+  email: siteConfig.contacts.emails.map((item) => item.title),
   phone: siteConfig.contacts.phone.title,
   phoneE164: "+79936202736",
   address: {
@@ -29,29 +30,31 @@ export const seoConfig = {
     longitude: 37.64741,
   },
   defaultOgImage: "/img/apartments_v2/lot-6/1.webp",
-  keywords: [
-    "Орликов дом",
-    "студии Красные Ворота",
-    "студии ЦАО",
-    "студии Садовая-Спасская",
-    "купить студию Москва центр",
-    "студии у метро Красные Ворота",
-    "студии для инвестиций Москва",
-    "готовый арендный бизнес Москва",
-    "камерный дом премиум-класса",
-  ],
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-48.png", type: "image/png", sizes: "48x48" },
+      { url: "/favicon-120.png", type: "image/png", sizes: "120x120" },
+      { url: "/favicon-192.png", type: "image/png", sizes: "192x192" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", type: "image/png", sizes: "180x180" },
+    ],
+    shortcut: "/favicon.ico",
+  },
+  keywords: seoKeywords,
   home: {
     title:
-      "Орликов дом — студии у м. Красные Ворота в ЦАО | от 15,3 млн ₽",
+      "Купить студию в центре Москвы — Орликов дом, ЦАО | от 15,3 млн ₽",
     description:
-      "Камерный дом премиум-класса в центре Москвы: Садовая-Спасская 19к3, 1 минута до м. Красные Ворота. Лоты с ремонтом и сантехникой, часть — с мебелью. Гостиничный статус, показ ежедневно.",
+      "Купить студию или маленькую однушку в центре Москвы: Орликов дом в ЦАО, 1 минута до м. Красные Ворота. 24 студии 17–25 м² с ремонтом и мебелью, от 15,3 млн ₽. Показ ежедневно.",
     path: "/",
   },
   apartments: {
     title:
-      "Студии Орликов дом — все лоты, цены и планировки | Красные Ворота",
+      "Купить студию в центре Москвы — каталог лотов и цены | Красные Ворота",
     description:
-      "Каталог студий Орликов дом: площади 17–25 м², этажи 1–4, форматы «ремонт + сантехника» и «готов для жизни». Актуальные цены, лоты с арендаторами и проданные объекты.",
+      "Каталог студий и маленьких однушек в центре Москвы: площади 17–25 м², ЦАО, м. Красные Ворота. Актуальные цены, планировки, готовая отделка и лоты с арендаторами.",
     path: "/apartments",
   },
 } as const;
@@ -80,6 +83,11 @@ export function buildPageMetadata({
     title,
     description,
     keywords: [...keywords],
+    icons: {
+      icon: [...seoConfig.icons.icon],
+      apple: [...seoConfig.icons.apple],
+      shortcut: seoConfig.icons.shortcut,
+    },
     authors: [{ name: seoConfig.brand }],
     creator: seoConfig.brand,
     publisher: seoConfig.brand,
@@ -115,7 +123,7 @@ export function buildPageMetadata({
           url: imageUrl,
           width: 1200,
           height: 630,
-          alt: `${seoConfig.brand} — студии в ЦАО`,
+          alt: `${seoConfig.brand} — купить студию в центре Москвы, ЦАО`,
         },
       ],
     },

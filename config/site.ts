@@ -12,9 +12,9 @@ export const siteConfig = {
   },
 
   meta: {
-    title: "Орликов дом — студии у м. Красные Ворота в ЦАО | от 15,3 млн ₽",
+    title: "Купить студию в центре Москвы — Орликов дом, ЦАО | от 15,3 млн ₽",
     description:
-      "Камерный дом премиум-класса в центре Москвы: Садовая-Спасская 19к3, 1 минута до м. Красные Ворота. Лоты с ремонтом и сантехникой, часть — с мебелью. Гостиничный статус, показ ежедневно.",
+      "Купить студию или маленькую однушку в центре Москвы: Орликов дом в ЦАО, 1 минута до м. Красные Ворота. 24 студии 17–25 м² с ремонтом и мебелью, от 15,3 млн ₽. Показ ежедневно.",
   },
 
   header: {
@@ -30,9 +30,15 @@ export const siteConfig = {
       link: "tel:+79936202736",
     },
     email: {
-      title: "info@orlikovhome.ru",
-      link: "mailto:info@orlikovhome.ru",
+      title: "yaitskayayu@yandex.ru",
+      link: "mailto:yaitskayayu@yandex.ru",
     },
+    emails: [
+      {
+        title: "yaitskayayu@yandex.ru",
+        link: "mailto:yaitskayayu@yandex.ru",
+      },
+    ],
     address: {
       title: "Садовая-Спасская 19к3",
       full: "г. Москва, ул. Садовая-Спасская, д. 19, корп. 3",
@@ -47,6 +53,7 @@ export const siteConfig = {
       { title: "youtube", icon: "youtube", link: "#" },
     ],
   } satisfies SiteParams & {
+    emails: Array<{ title: string; link: string }>;
     address: { title: string; full: string };
     metro: string;
     district: string;

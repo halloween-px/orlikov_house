@@ -16,6 +16,8 @@ export function getOrganizationJsonLd() {
     "@type": ["RealEstateAgent", "LocalBusiness"],
     "@id": `${seoConfig.siteUrl}/#organization`,
     name: seoConfig.brand,
+    description:
+      "Купить студию или маленькую однушку в центре Москвы: камерный дом премиум-класса в ЦАО у м. Красные Ворота, студии 17–25 м² с готовой отделкой.",
     url: seoConfig.siteUrl,
     logo: absoluteUrl(siteConfig.assets.logoVector),
     image: absoluteUrl(seoConfig.defaultOgImage),
@@ -69,7 +71,8 @@ export function getApartmentComplexJsonLd() {
     "@type": "ApartmentComplex",
     "@id": `${seoConfig.siteUrl}/#apartment-complex`,
     name: seoConfig.brand,
-    description: seoConfig.home.description,
+    description:
+      "Купить студию в центре Москвы: 24 готовые студии и маленькие однушки 17–25 м² в ЦАО, м. Красные Ворота, от 15,3 млн ₽.",
     url: seoConfig.siteUrl,
     image: absoluteUrl(seoConfig.defaultOgImage),
     numberOfAccommodationUnits: apartmentsConfig.length,
@@ -232,6 +235,30 @@ export function getFaqJsonLd() {
     mainEntity: [
       {
         "@type": "Question",
+        name: "Где купить студию в центре Москвы?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "В Орликов дом на Садовой-Спасской 19к3 — камерный дом в ЦАО, 1 минута от м. Красные Ворота. 24 студии 17–25 м² с готовой отделкой, показ ежедневно.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Можно ли купить маленькую однушку в центре Москвы?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Да. Студии Орликов дом — формат маленькой однушки 17–25 м² в центре Москвы: кухонная зона, санузел, готовый ремонт или полная меблировка.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Сколько стоит купить студию в центре Москвы в Орликов дом?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Стоимость начинается от 15,3 млн ₽. Актуальные цены по каждому лоту — в каталоге на сайте, можно записаться на просмотр.",
+        },
+      },
+      {
+        "@type": "Question",
         name: "Где находится Орликов дом?",
         acceptedAnswer: {
           "@type": "Answer",
@@ -252,14 +279,6 @@ export function getFaqJsonLd() {
         acceptedAnswer: {
           "@type": "Answer",
           text: "Да, в доме есть лоты с арендаторами — готовый арендный бизнес. Также действует гостиничный статус: регистрация до 5 лет и легальная аренда, включая посуточную.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Сколько стоят студии в Орликов дом?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Стоимость начинается от 15,3 млн ₽. Актуальные цены по лотам опубликованы в каталоге на сайте.",
         },
       },
     ],

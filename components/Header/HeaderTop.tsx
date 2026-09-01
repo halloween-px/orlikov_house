@@ -88,14 +88,15 @@ export default function HeaderTop() {
                 {phone.title}
               </a>
 
-              {siteParams ? (
+              {siteConfig.contacts.emails.map((email) => (
                 <a
-                  href={siteParams.email.link}
+                  key={email.link}
+                  href={email.link}
                   className={styles.mobileContactLink}
                 >
-                  {siteParams.email.title}
+                  {email.title}
                 </a>
-              ) : null}
+              ))}
 
               <div className={styles.mobileMenuActions}>
                 <Button

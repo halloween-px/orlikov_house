@@ -209,9 +209,18 @@
   color: var(--color-secondary-text);
 }
 
+.emailList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
 .email {
   width: fit-content;
-  margin-top: 4px;
+  margin-top: 0;
   color: var(--color-heading-primary);
   text-decoration: none;
   font-size: 14px;

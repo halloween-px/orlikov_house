@@ -3,6 +3,7 @@ export type { SiteConfig } from "./site";
 export { landingConfig } from "./landing";
 export type { LandingConfig } from "./landing";
 export { seoConfig, buildPageMetadata, getSiteUrl } from "./seo";
+export { seoKeywords } from "./seo-keywords";
 export { navConfig, navSectionIds, getNavLabel } from "./nav";
 export type { NavItem, NavSectionId } from "./nav";
 export {

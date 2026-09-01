@@ -102,6 +102,14 @@ export default function Contacts() {
                 ))}
               </ul>
 
+              <ul className={styles.emailList}>
+                {contacts.emails.map((emailItem) => (
+                  <li key={emailItem.link}>
+                    <a href={emailItem.link}>{emailItem.title}</a>
+                  </li>
+                ))}
+              </ul>
+
               <div className={styles.metaList}>
                 <p className={styles.metaItem}>
                   <span className={styles.metaLabel}>Адрес</span>
