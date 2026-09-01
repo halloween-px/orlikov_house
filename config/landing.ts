@@ -196,12 +196,8 @@ export const landingConfig = {
     actions: [
       { label: "Позвонить", href: "tel:+79936202736" },
       {
-        label: "Написать в WhatsApp",
-        href: "https://wa.me/79936202736",
-      },
-      {
         label: "Написать в Telegram",
-        href: "https://t.me/",
+        href: "https://t.me/y_yulia_a",
       },
     ],
   },
@@ -210,8 +206,7 @@ export const landingConfig = {
     label: "Связаться",
     items: [
       { label: "Позвонить", href: "tel:+79936202736" },
-      { label: "WhatsApp", href: "https://wa.me/79936202736" },
-      { label: "Telegram", href: "https://t.me/" },
+      { label: "Telegram", href: "https://t.me/y_yulia_a" },
       { label: "Оставить заявку", href: "#lead" },
     ],
   },

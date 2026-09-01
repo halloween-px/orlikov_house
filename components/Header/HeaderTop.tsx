@@ -1,26 +1,36 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { siteConfig } from "@/config";
 import { useMainContext } from "@/context/MainProvider";
 import { Button } from "@/components/ui/Button";
-import { Navigation } from "@/components/Navigation";
+import { Navigation, useActiveSectionTracker } from "@/components/Navigation";
 import Hamburger from "./Hamburger";
 import HeaderLogo from "./HeaderLogo";
 import styles from "./styles/header.module.css";
 
 export default function HeaderTop() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
   const { params, loadParams } = useMainContext();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  useActiveSectionTracker(isHome);
 
   useEffect(() => {
     loadParams();
   }, [loadParams]);
 
   useEffect(() => {
+    let scrolled = window.scrollY > 24;
+
     const onScroll = () => {
-      setScrolled(window.scrollY > 24);
+      const next = window.scrollY > 24;
+      if (next === scrolled) return;
+      scrolled = next;
+      setScrolled(next);
     };
 
     onScroll();

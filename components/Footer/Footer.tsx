@@ -83,16 +83,7 @@ export default function Footer() {
 
             <div className={styles.messengers}>
               <Button
-                href="https://wa.me/79936202736"
-                variant="outline"
-                size="sm"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                WhatsApp
-              </Button>
-              <Button
-                href="https://t.me/"
+                href="https://t.me/y_yulia_a"
                 variant="outline"
                 size="sm"
                 target="_blank"

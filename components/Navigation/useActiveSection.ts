@@ -9,44 +9,38 @@ const sectionIds = navConfig.map((item) => item.id);
 let activeSection: NavSectionId = sectionIds[0];
 const listeners = new Set<() => void>();
 let trackingCount = 0;
+let rafId = 0;
+let cachedOffset = 0;
 
 function subscribe(listener: () => void) {
   listeners.add(listener);
   return () => listeners.delete(listener);
 }
 
-function getSnapshot() {
+function getActiveSection() {
   return activeSection;
 }
 
-function getServerSnapshot() {
+function getServerActiveSection() {
   return sectionIds[0];
 }
 
-function syncSectionHash(id: NavSectionId) {
-  if (typeof window === "undefined") return;
-
+function isHomePath() {
   const path = window.location.pathname;
-  if (path !== "/" && path !== "") return;
-
-  const target = `${path}#${id}`;
-  const current = `${path}${window.location.hash}`;
-
-  if (current !== target) {
-    window.history.replaceState(null, "", target);
-  }
+  return path === "/" || path === "";
 }
 
 function setActiveSection(id: NavSectionId) {
   if (activeSection === id) return;
 
   activeSection = id;
-  syncSectionHash(id);
   listeners.forEach((listener) => listener());
 }
 
 function detectActiveSection() {
-  const offset = getHeaderOffset() + 24;
+  if (!isHomePath()) return;
+
+  const offset = cachedOffset;
   let current = sectionIds[0];
 
   for (const id of sectionIds) {
@@ -61,38 +55,80 @@ function detectActiveSection() {
   setActiveSection(current);
 }
 
-export function useActiveSection() {
-  const activeId = useSyncExternalStore(
-    subscribe,
-    getSnapshot,
-    getServerSnapshot,
-  );
+function refreshOffset() {
+  cachedOffset = getHeaderOffset() + 24;
+}
 
+function scheduleDetect() {
+  if (rafId) return;
+
+  rafId = requestAnimationFrame(() => {
+    rafId = 0;
+    detectActiveSection();
+  });
+}
+
+function onResize() {
+  refreshOffset();
+  scheduleDetect();
+}
+
+function startTracking() {
+  refreshOffset();
+  detectActiveSection();
+
+  window.addEventListener("scroll", scheduleDetect, { passive: true });
+  window.addEventListener("resize", onResize);
+}
+
+function stopTracking() {
+  if (rafId) {
+    cancelAnimationFrame(rafId);
+    rafId = 0;
+  }
+
+  window.removeEventListener("scroll", scheduleDetect);
+  window.removeEventListener("resize", onResize);
+}
+
+/** Запускает отслеживание скролла без подписки на состояние (без ререндеров) */
+export function useActiveSectionTracker(enabled = true) {
   useEffect(() => {
-    const onHashChange = () => {
-      detectActiveSection();
-    };
+    if (!enabled) return;
 
     trackingCount += 1;
 
     if (trackingCount === 1) {
-      detectActiveSection();
-
-      window.addEventListener("scroll", detectActiveSection, { passive: true });
-      window.addEventListener("resize", detectActiveSection);
-      window.addEventListener("hashchange", onHashChange);
+      startTracking();
     }
 
     return () => {
       trackingCount -= 1;
 
       if (trackingCount === 0) {
-        window.removeEventListener("scroll", detectActiveSection);
-        window.removeEventListener("resize", detectActiveSection);
-        window.removeEventListener("hashchange", onHashChange);
+        stopTracking();
       }
     };
-  }, []);
+  }, [enabled]);
+}
+
+/** Подписка на активность конкретного пункта — ререндер только у двух ссылок при смене секции */
+export function useIsActiveSection(sectionId: NavSectionId, enabled: boolean) {
+  return useSyncExternalStore(
+    subscribe,
+    () => enabled && getActiveSection() === sectionId,
+    () => false,
+  );
+}
+
+export function useActiveSection(enabled = true) {
+  const activeId = useSyncExternalStore(
+    subscribe,
+    getActiveSection,
+    getServerActiveSection,
+  );
+
+  useActiveSectionTracker(enabled);
 
   return activeId;
 }

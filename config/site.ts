@@ -49,7 +49,7 @@ export const siteConfig = {
     social: [
       { title: "vkontakte", icon: "vk", link: "#" },
       { title: "instagram", icon: "instagram", link: "#" },
-      { title: "telegram", icon: "telegram", link: "#" },
+      { title: "telegram", icon: "telegram", link: "https://t.me/y_yulia_a" },
       { title: "youtube", icon: "youtube", link: "#" },
     ],
   } satisfies SiteParams & {
