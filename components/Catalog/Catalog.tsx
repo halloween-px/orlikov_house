@@ -14,12 +14,17 @@ import {
 } from "@/components/shared/landing";
 import ApartmentCard from "./ApartmentCard";
 import styles from "./styles/catalog.module.css";
+import { useWindowSize } from "@/hooks/useWindowSize";
 
 const INITIAL_VISIBLE = 7;
 
 export default function Catalog() {
   const { catalog } = landingConfig;
-  const apartments = getLandingCatalogApartments(INITIAL_VISIBLE);
+  const windowWidth = useWindowSize();
+  const isMobile = windowWidth < 720;
+  const apartments = getLandingCatalogApartments(
+    !isMobile ? INITIAL_VISIBLE : 3,
+  );
   const hasMore = apartmentsConfig.length > INITIAL_VISIBLE;
 
   return (
@@ -56,7 +61,7 @@ export default function Catalog() {
             </div>
 
             <div className={styles.introBottom}>
-              {hasMore ? (
+              {hasMore && !isMobile && (
                 <Button
                   href={catalog.introCard.cta.href}
                   variant="secondary"
@@ -66,8 +71,6 @@ export default function Catalog() {
                 >
                   {catalog.introCard.cta.label}
                 </Button>
-              ) : (
-                <LeadButton variant="secondary" size="md" fullWidth />
               )}
             </div>
           </aside>
@@ -81,6 +84,28 @@ export default function Catalog() {
               delayMs={cardIndex * 40}
             />
           ))}
+          {isMobile && (
+            <div className={styles.mobileButtonActions}>
+              <Button
+                href={catalog.introCard.cta.href}
+                variant="secondary"
+                size="md"
+                fullWidth
+                prefetch={false}
+              >
+                {catalog.introCard.cta.label}
+              </Button>
+              <Button
+                href={catalog.presentationCta.href}
+                download={catalog.presentationCta.download}
+                fullWidth
+                variant="outline"
+                size="lg"
+              >
+                {catalog.presentationCta.label}
+              </Button>
+            </div>
+          )}
         </div>
       </LandingContainer>
     </LandingSection>

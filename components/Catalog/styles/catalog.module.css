@@ -120,7 +120,8 @@
   gap: 14px;
   margin-top: auto;
   padding-top: 16px;
-  border-top: 1px solid color-mix(in srgb, var(--color-gold-border) 55%, transparent);
+  border-top: 1px solid
+    color-mix(in srgb, var(--color-gold-border) 55%, transparent);
 }
 
 .catalogCard {
@@ -365,6 +366,13 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--color-text-muted);
+}
+
+.mobileButtonActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
 }
 
 @media (prefers-reduced-motion: reduce) {

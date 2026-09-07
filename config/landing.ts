@@ -68,6 +68,11 @@ export const landingConfig = {
       title: "Нужна подборка?",
       text: "Пришлём актуальные лоты по площади, бюджету и формату готовности",
     },
+    presentationCta: {
+      label: "Скачать каталог",
+      href: "/catalog.pdf",
+      download: "orlikov-haus-catalog.pdf",
+    },
   },
 
   location: {
@@ -182,9 +187,7 @@ export const landingConfig = {
     id: "contacts",
     title: "Связаться с менеджером",
     text: "Показы по договорённости. Напишите или позвоните — подберём лот по бюджету, метражу и готовности.",
-    phones: [
-      { title: "+7 (993) 620-27-36", link: "tel:+79936202736" },
-    ],
+    phones: [{ title: "+7 (993) 620-27-36", link: "tel:+79936202736" }],
     emails: [
       {
         title: "yaitskayayu@yandex.ru",
