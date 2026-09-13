@@ -8,9 +8,11 @@ export { navConfig, navSectionIds, getNavLabel } from "./nav";
 export type { NavItem, NavSectionId } from "./nav";
 export {
   apartmentsConfig,
+  allApartmentsConfig,
   getApartmentById,
   getApartmentGallery,
   getLandingCatalogApartments,
+  pickLandingCatalogApartments,
   apartmentHasPhotos,
   DEFAULT_APARTMENT_IMAGE,
   formatApartmentPrice,

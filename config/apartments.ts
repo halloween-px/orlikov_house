@@ -80,7 +80,7 @@ export function getApartmentAvailability(
   return availabilityMeta[availability];
 }
 
-const allApartmentsConfig = [
+export const allApartmentsConfig = [
   {
     id: "spasskaya-1",
     unit: 1,
@@ -492,9 +492,18 @@ export function apartmentHasPhotos(apartment: Apartment) {
 
 /** Лоты для лендинга: сначала с фото, затем без — в пределах лимита. */
 export function getLandingCatalogApartments(limit: number) {
-  const ordered = [...apartmentsConfig].sort((a, b) => a.unit - b.unit);
+  return pickLandingCatalogApartments(apartmentsConfig, limit);
+}
+
+export function pickLandingCatalogApartments(
+  apartments: readonly Apartment[],
+  limit: number,
+) {
+  const ordered = [...apartments].sort((a, b) => a.unit - b.unit);
   const withPhotos = ordered.filter(apartmentHasPhotos);
-  const withoutPhotos = ordered.filter((apartment) => !apartmentHasPhotos(apartment));
+  const withoutPhotos = ordered.filter(
+    (apartment) => !apartmentHasPhotos(apartment),
+  );
   return [...withPhotos, ...withoutPhotos].slice(0, limit);
 }
 

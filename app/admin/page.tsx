@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import {
   Area,
@@ -208,6 +209,9 @@ export default function AdminPage() {
           <p className={styles.muted}>Визиты и заявки с сайта</p>
         </div>
         <div className={styles.headerActions}>
+          <Link href="/admin/apartments" className={styles.navLink}>
+            Студии
+          </Link>
           <Button
             type="button"
             variant="outline"

@@ -1,11 +1,14 @@
 import type { MetadataRoute } from "next";
-import { apartmentsConfig } from "@/config";
 import { seoConfig } from "@/config/seo";
+import { getVisibleApartments } from "@/lib/apartments";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export const dynamic = "force-dynamic";
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date();
+  const apartments = await getVisibleApartments();
 
-  const apartmentPages = apartmentsConfig.map((apartment) => ({
+  const apartmentPages = apartments.map((apartment) => ({
     url: `${seoConfig.siteUrl}/apartments/${apartment.id}`,
     lastModified,
     changeFrequency: "weekly" as const,

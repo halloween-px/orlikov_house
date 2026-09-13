@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  apartmentsConfig,
-  getLandingCatalogApartments,
-  landingConfig,
-} from "@/config";
+import { landingConfig, pickLandingCatalogApartments, type Apartment } from "@/config";
 import { Button } from "@/components/ui/Button";
 import { LeadButton } from "@/components/Contacts";
 import {
@@ -18,14 +14,19 @@ import { useWindowSize } from "@/hooks/useWindowSize";
 
 const INITIAL_VISIBLE = 7;
 
-export default function Catalog() {
+type CatalogProps = {
+  apartments: Apartment[];
+};
+
+export default function Catalog({ apartments }: CatalogProps) {
   const { catalog } = landingConfig;
   const windowWidth = useWindowSize();
   const isMobile = windowWidth < 720;
-  const apartments = getLandingCatalogApartments(
+  const visibleApartments = pickLandingCatalogApartments(
+    apartments,
     !isMobile ? INITIAL_VISIBLE : 3,
   );
-  const hasMore = apartmentsConfig.length > INITIAL_VISIBLE;
+  const hasMore = apartments.length > INITIAL_VISIBLE;
 
   return (
     <LandingSection id={catalog.id} labelledBy="catalog-title" variant="alt">
@@ -75,7 +76,7 @@ export default function Catalog() {
             </div>
           </aside>
 
-          {apartments.map((apartment, cardIndex) => (
+          {visibleApartments.map((apartment, cardIndex) => (
             <ApartmentCard
               key={apartment.id}
               apartment={apartment}

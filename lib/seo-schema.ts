@@ -58,13 +58,13 @@ export function getOrganizationJsonLd() {
   };
 }
 
-export function getApartmentComplexJsonLd() {
-  const available = apartmentsConfig.filter(
+export function getApartmentComplexJsonLd(apartments = apartmentsConfig) {
+  const available = apartments.filter(
     (apartment) => apartment.availability !== "sold",
   );
   const prices = available.map((apartment) => apartment.price);
-  const lowPrice = Math.min(...prices);
-  const highPrice = Math.max(...prices);
+  const lowPrice = prices.length > 0 ? Math.min(...prices) : 0;
+  const highPrice = prices.length > 0 ? Math.max(...prices) : 0;
 
   return {
     "@context": "https://schema.org",
@@ -75,7 +75,7 @@ export function getApartmentComplexJsonLd() {
       "Купить студию в центре Москвы: 24 готовые студии и маленькие однушки 17–25 м² в ЦАО, м. Красные Ворота, от 15,3 млн ₽.",
     url: seoConfig.siteUrl,
     image: absoluteUrl(seoConfig.defaultOgImage),
-    numberOfAccommodationUnits: apartmentsConfig.length,
+    numberOfAccommodationUnits: apartments.length,
     address: {
       "@type": "PostalAddress",
       streetAddress: seoConfig.address.street,
@@ -160,8 +160,8 @@ export function getApartmentJsonLd(apartment: Apartment) {
   };
 }
 
-export function getApartmentListJsonLd() {
-  const items = [...apartmentsConfig]
+export function getApartmentListJsonLd(apartments = apartmentsConfig) {
+  const items = [...apartments]
     .sort((a, b) => a.unit - b.unit)
     .map((apartment, index) => ({
       "@type": "ListItem",

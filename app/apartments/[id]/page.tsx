@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
-  apartmentsConfig,
+  allApartmentsConfig,
   finishPackages,
   formatApartmentFloor,
   formatApartmentPrice,
   getApartmentAvailability,
-  getApartmentById,
   getApartmentFinish,
   getApartmentGallery,
 } from "@/config";
@@ -26,6 +25,7 @@ import {
   LandingContainer,
   LandingSection,
 } from "@/components/shared/landing";
+import { getVisibleApartmentById } from "@/lib/apartments";
 import {
   getApartmentJsonLd,
   getBreadcrumbJsonLd,
@@ -36,15 +36,17 @@ type PageProps = {
   params: Promise<{ id: string }>;
 };
 
+export const dynamic = "force-dynamic";
+
 export function generateStaticParams() {
-  return apartmentsConfig.map((apartment) => ({ id: apartment.id }));
+  return allApartmentsConfig.map((apartment) => ({ id: apartment.id }));
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { id } = await params;
-  const apartment = getApartmentById(id);
+  const apartment = await getVisibleApartmentById(id);
 
   if (!apartment) {
     return buildPageMetadata({
@@ -71,7 +73,7 @@ export async function generateMetadata({
 
 export default async function ApartmentPage({ params }: PageProps) {
   const { id } = await params;
-  const apartment = getApartmentById(id);
+  const apartment = await getVisibleApartmentById(id);
 
   if (!apartment) notFound();
 

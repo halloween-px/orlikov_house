@@ -27,6 +27,37 @@ const LeadSchema = new Schema(
 
 LeadSchema.index({ createdAt: -1 });
 
+const ApartmentOverrideSchema = new Schema(
+  {
+    apartmentId: { type: String, required: true, unique: true, maxlength: 64 },
+    title: { type: String, required: true, maxlength: 120 },
+    description: { type: String, required: true, maxlength: 300 },
+    price: { type: Number, required: true, min: 0 },
+    priceOld: { type: Number, default: null, min: 0 },
+    promo: { type: Boolean, default: false },
+    availability: {
+      type: String,
+      required: true,
+      enum: ["available", "sold", "rental_business"],
+    },
+    highlights: {
+      type: [String],
+      default: [],
+      validate: {
+        validator: (value: string[]) =>
+          Array.isArray(value) &&
+          value.length <= 12 &&
+          value.every((item) => typeof item === "string" && item.length <= 80),
+        message: "Invalid highlights",
+      },
+    },
+    hidden: { type: Boolean, default: false },
+  },
+  { timestamps: true },
+);
+
+ApartmentOverrideSchema.index({ apartmentId: 1 }, { unique: true });
+
 export type VisitDoc = InferSchemaType<typeof VisitSchema> & {
   _id: { toString(): string };
   createdAt: Date;
@@ -37,10 +68,22 @@ export type LeadDoc = InferSchemaType<typeof LeadSchema> & {
   createdAt: Date;
 };
 
+export type ApartmentOverrideDoc = InferSchemaType<
+  typeof ApartmentOverrideSchema
+> & {
+  _id: { toString(): string };
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 export const Visit =
   models.Visit || model("Visit", VisitSchema, "visits");
 
 export const Lead = models.Lead || model("Lead", LeadSchema, "leads");
+
+export const ApartmentOverride =
+  models.ApartmentOverride ||
+  model("ApartmentOverride", ApartmentOverrideSchema, "apartment_overrides");
 
 export function hashIp(ip: string) {
   const salt =

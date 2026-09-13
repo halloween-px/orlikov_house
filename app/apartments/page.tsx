@@ -1,9 +1,5 @@
 import type { Metadata } from "next";
-import {
-  apartmentsConfig,
-  landingConfig,
-  TOTAL_APARTMENTS,
-} from "@/config";
+import { landingConfig, TOTAL_APARTMENTS } from "@/config";
 import { buildPageMetadata, seoConfig } from "@/config/seo";
 import Header from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -21,12 +17,15 @@ import {
   LandingSection,
   LandingTitle,
 } from "@/components/shared/landing";
+import { getVisibleApartments } from "@/lib/apartments";
 import {
   getApartmentListJsonLd,
   getBreadcrumbJsonLd,
 } from "@/lib/seo-schema";
 import catalogStyles from "@/components/Catalog/styles/catalog.module.css";
 import styles from "./page.module.css";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   ...buildPageMetadata({
@@ -39,13 +38,11 @@ export const metadata: Metadata = {
   },
 };
 
-function getOrderedApartments() {
-  return [...apartmentsConfig].sort((a, b) => a.unit - b.unit);
-}
-
-export default function ApartmentsPage() {
+export default async function ApartmentsPage() {
   const { catalog } = landingConfig;
-  const apartments = getOrderedApartments();
+  const apartments = [...(await getVisibleApartments())].sort(
+    (a, b) => a.unit - b.unit,
+  );
   const availableCount = apartments.filter(
     (apartment) => apartment.availability !== "sold",
   ).length;
@@ -58,7 +55,7 @@ export default function ApartmentsPage() {
             { name: "Главная", path: "/" },
             { name: "Студии", path: "/apartments" },
           ]),
-          getApartmentListJsonLd(),
+          getApartmentListJsonLd(apartments),
         ]}
       />
       <Header />
