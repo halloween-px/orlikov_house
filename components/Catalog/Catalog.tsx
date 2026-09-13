@@ -1,6 +1,10 @@
 "use client";
 
-import { landingConfig, pickLandingCatalogApartments, type Apartment } from "@/config";
+import {
+  landingConfig,
+  pickLandingCatalogApartments,
+  type Apartment,
+} from "@/config";
 import { Button } from "@/components/ui/Button";
 import { LeadButton } from "@/components/Contacts";
 import {
@@ -10,7 +14,6 @@ import {
 } from "@/components/shared/landing";
 import ApartmentCard from "./ApartmentCard";
 import styles from "./styles/catalog.module.css";
-import { useWindowSize } from "@/hooks/useWindowSize";
 
 const INITIAL_VISIBLE = 7;
 
@@ -20,11 +23,9 @@ type CatalogProps = {
 
 export default function Catalog({ apartments }: CatalogProps) {
   const { catalog } = landingConfig;
-  const windowWidth = useWindowSize();
-  const isMobile = windowWidth < 720;
   const visibleApartments = pickLandingCatalogApartments(
     apartments,
-    !isMobile ? INITIAL_VISIBLE : 3,
+    INITIAL_VISIBLE,
   );
   const hasMore = apartments.length > INITIAL_VISIBLE;
 
@@ -61,8 +62,8 @@ export default function Catalog({ apartments }: CatalogProps) {
               </ul>
             </div>
 
-            <div className={styles.introBottom}>
-              {hasMore && !isMobile && (
+            <div className={`${styles.introBottom} ${styles.desktopCatalogCta}`}>
+              {hasMore ? (
                 <Button
                   href={catalog.introCard.cta.href}
                   variant="secondary"
@@ -72,7 +73,7 @@ export default function Catalog({ apartments }: CatalogProps) {
                 >
                   {catalog.introCard.cta.label}
                 </Button>
-              )}
+              ) : null}
             </div>
           </aside>
 
@@ -85,28 +86,27 @@ export default function Catalog({ apartments }: CatalogProps) {
               delayMs={cardIndex * 40}
             />
           ))}
-          {isMobile && (
-            <div className={styles.mobileButtonActions}>
-              <Button
-                href={catalog.introCard.cta.href}
-                variant="secondary"
-                size="md"
-                fullWidth
-                prefetch={false}
-              >
-                {catalog.introCard.cta.label}
-              </Button>
-              <Button
-                href={catalog.presentationCta.href}
-                download={catalog.presentationCta.download}
-                fullWidth
-                variant="outline"
-                size="lg"
-              >
-                {catalog.presentationCta.label}
-              </Button>
-            </div>
-          )}
+
+          <div className={styles.mobileButtonActions}>
+            <Button
+              href={catalog.introCard.cta.href}
+              variant="secondary"
+              size="md"
+              fullWidth
+              prefetch={false}
+            >
+              {catalog.introCard.cta.label}
+            </Button>
+            <Button
+              href={catalog.presentationCta.href}
+              download={catalog.presentationCta.download}
+              fullWidth
+              variant="outline"
+              size="lg"
+            >
+              {catalog.presentationCta.label}
+            </Button>
+          </div>
         </div>
       </LandingContainer>
     </LandingSection>

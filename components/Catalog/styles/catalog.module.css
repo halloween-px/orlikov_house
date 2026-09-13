@@ -369,7 +369,7 @@
 }
 
 .mobileButtonActions {
-  display: flex;
+  display: none;
   align-items: center;
   gap: 12px;
   margin-top: 24px;
@@ -395,5 +395,19 @@
 
   .catalogGrid {
     grid-template-columns: 1fr;
+  }
+
+  .desktopCatalogCta {
+    display: none;
+  }
+
+  /* intro + 3 cards, остальные скрываем на мобилке */
+  .catalogGrid > .catalogCard:nth-child(n + 5) {
+    display: none;
+  }
+
+  .mobileButtonActions {
+    display: flex;
+    flex-direction: column;
   }
 }
