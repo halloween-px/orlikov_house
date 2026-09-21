@@ -401,8 +401,8 @@
     display: none;
   }
 
-  /* intro + 3 cards, остальные скрываем на мобилке */
-  .catalogGrid > .catalogCard:nth-child(n + 5) {
+  /* Только главная: intro + 3 лота, остальные скрываем */
+  .catalogGridHome > .catalogCard:nth-child(n + 5) {
     display: none;
   }
 

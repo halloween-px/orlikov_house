@@ -50,7 +50,7 @@ export default function Catalog({ apartments }: CatalogProps) {
           />
         </header>
 
-        <div className={styles.catalogGrid}>
+        <div className={`${styles.catalogGrid} ${styles.catalogGridHome}`}>
           <aside className={styles.introCard}>
             <div className={styles.introTop}>
               <p className={styles.introText}>{catalog.subtitle}</p>
