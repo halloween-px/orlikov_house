@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { landingConfig, navConfig, siteConfig } from "@/config";
+import { landingConfig, navConfig, getNavHref, siteConfig } from "@/config";
 import { Button } from "@/components/ui/Button";
 import { LeadButton } from "@/components/Contacts";
 import { LandingContainer } from "@/components/shared/landing";
@@ -54,7 +54,7 @@ export default function Footer() {
             <ul className={styles.navList}>
               {navConfig.map((item) => (
                 <li key={item.id}>
-                  <Link href={`/${item.href}`}>{item.label}</Link>
+                  <Link href={getNavHref(item.href)}>{item.label}</Link>
                 </li>
               ))}
             </ul>

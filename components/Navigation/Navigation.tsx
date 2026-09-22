@@ -2,7 +2,12 @@
 
 import { memo } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { navConfig, type NavItem } from "@/config";
+import {
+  getNavHref,
+  isNavPageLink,
+  navConfig,
+  type NavItem,
+} from "@/config";
 import { scrollToSection } from "@/lib/scroll-to-section";
 import { Button } from "@/components/ui/Button";
 import { useIsActiveSection } from "./useActiveSection";
@@ -20,6 +25,7 @@ const join = (...classNames: Array<string | false | undefined>) =>
 type NavLinkProps = {
   item: NavItem;
   isHome: boolean;
+  pathname: string;
   onNavigate?: () => void;
   onLeaveHome: (href: string) => void;
 };
@@ -27,11 +33,15 @@ type NavLinkProps = {
 const NavLink = memo(function NavLink({
   item,
   isHome,
+  pathname,
   onNavigate,
   onLeaveHome,
 }: NavLinkProps) {
-  const isActive = useIsActiveSection(item.id, isHome);
-  const href = `/${item.href}`;
+  const pageLink = isNavPageLink(item.href);
+  const href = getNavHref(item.href);
+  const sectionActive = useIsActiveSection(item.id, isHome && !pageLink);
+  const pageActive = pageLink && pathname.startsWith(item.href);
+  const isActive = pageActive || sectionActive;
 
   return (
     <Button
@@ -43,11 +53,19 @@ const NavLink = memo(function NavLink({
       aria-current={isActive ? "true" : undefined}
       onClick={(event) => {
         event.preventDefault();
+
+        if (pageLink) {
+          onLeaveHome(item.href);
+          onNavigate?.();
+          return;
+        }
+
         if (!isHome) {
           onLeaveHome(`/#${item.id}`);
           onNavigate?.();
           return;
         }
+
         scrollToSection(item.id);
         onNavigate?.();
       }}
@@ -80,6 +98,7 @@ export default function Navigation({
           key={item.id}
           item={item}
           isHome={isHome}
+          pathname={pathname}
           onNavigate={onNavigate}
           onLeaveHome={(href) => router.push(href)}
         />

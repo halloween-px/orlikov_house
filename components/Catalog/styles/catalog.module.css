@@ -385,6 +385,17 @@
   .catalogGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  /* Планшет landscape (напр. 1024×768): 3 колонки на главной */
+  .catalogGridHome {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .catalogGridHome {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 720px) {
