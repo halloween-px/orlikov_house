@@ -50,6 +50,7 @@ const mediaByLot: Record<number, ApartmentMedia> = {
       "5.webp",
       "6.webp",
       "7.webp",
+      "8.webp",
     ],
   },
   5: {
@@ -94,9 +95,6 @@ const mediaByLot: Record<number, ApartmentMedia> = {
       "7.webp",
       "8.webp",
       "9.webp",
-      "10.webp",
-      "11.webp",
-      "12.webp",
     ],
   },
   9: {
@@ -113,7 +111,6 @@ const mediaByLot: Record<number, ApartmentMedia> = {
       "8.webp",
       "9.webp",
       "10.webp",
-      "11.webp",
     ],
   },
   10: {
@@ -128,10 +125,6 @@ const mediaByLot: Record<number, ApartmentMedia> = {
       "6.webp",
       "7.webp",
       "8.webp",
-      "9.webp",
-      "10.webp",
-      "11.webp",
-      "12.webp",
     ],
   },
   13: {
@@ -145,8 +138,6 @@ const mediaByLot: Record<number, ApartmentMedia> = {
       "5.webp",
       "6.webp",
       "7.webp",
-      "8.webp",
-      "9.webp",
     ],
   },
   14: {
@@ -162,7 +153,6 @@ const mediaByLot: Record<number, ApartmentMedia> = {
       "7.webp",
       "8.webp",
       "9.webp",
-      "10.webp",
     ],
   },
   15: {
@@ -221,8 +211,8 @@ const mediaByLot: Record<number, ApartmentMedia> = {
       "8.webp",
     ],
   },
-  20: {
-    folder: "lot-20",
+  19: {
+    folder: "lot-19",
     preview: "1.webp",
     files: [
       "1.webp",
@@ -234,6 +224,20 @@ const mediaByLot: Record<number, ApartmentMedia> = {
       "7.webp",
     ],
   },
+  20: {
+    folder: "lot-20",
+    preview: "1.webp",
+    files: [
+      "1.webp",
+      "2.webp",
+      "3.webp",
+      "4.webp",
+      "5.webp",
+      "6.webp",
+      "7.webp",
+      "8.webp",
+    ],
+  },
   21: {
     folder: "lot-21",
     preview: "1.webp",
@@ -241,6 +245,19 @@ const mediaByLot: Record<number, ApartmentMedia> = {
       "1.webp",
       "2.webp",
       "3.webp",
+      "4.webp",
+      "5.webp",
+      "6.webp",
+      "7.webp",
+      "8.webp",
+    ],
+  },
+  23: {
+    folder: "lot-23",
+    preview: "1.webp",
+    files: [
+      "1.webp",
+      "2.webp",
       "4.webp",
       "5.webp",
       "6.webp",
@@ -259,6 +276,7 @@ const mediaByLot: Record<number, ApartmentMedia> = {
       "5.webp",
       "6.webp",
       "7.webp",
+      "8.webp",
     ],
   },
 };

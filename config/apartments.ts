@@ -43,7 +43,7 @@ export const FLOORS_COUNT = 4;
 export const TOTAL_APARTMENTS = 24;
 
 /** Временно скрытые лоты — вернуть в каталог, убрав номер из списка. */
-export const TEMPORARILY_HIDDEN_UNITS = new Set([19, 22, 23]);
+export const TEMPORARILY_HIDDEN_UNITS = new Set([22]);
 
 export const finishMeta = {
   renovation: {
@@ -132,10 +132,10 @@ export const allApartmentsConfig = [
     area: "22,5 м²",
     rooms: "1-комн студия",
     windows: "1 окно",
-    finish: "renovation",
-    finishLabel: finishMeta.renovation.label,
-    description: "22,5 м² · 1 этаж · Ремонт + сантехника",
-    highlights: ["Ремонт + сантехника", "Уединённое пространство"],
+    finish: "turnkey",
+    finishLabel: finishMeta.turnkey.label,
+    description: "22,5 м² · 1 этаж · Готов для жизни",
+    highlights: ["Готов для жизни", "Уединённое пространство"],
     price: 19_553_135,
     availability: "available",
 
@@ -189,10 +189,10 @@ export const allApartmentsConfig = [
     area: "20,9 м²",
     rooms: "1-комн студия",
     windows: "2 окна",
-    finish: "renovation",
-    finishLabel: finishMeta.renovation.label,
-    description: "20,9 м² · 2 этаж · Ремонт + сантехника",
-    highlights: ["Ремонт + сантехника", "Два окна"],
+    finish: "turnkey",
+    finishLabel: finishMeta.turnkey.label,
+    description: "20,9 м² · 2 этаж · Готов для жизни",
+    highlights: ["Готов для жизни", "Два окна"],
     price: 18_998_671,
     availability: "available",
 
@@ -208,10 +208,10 @@ export const allApartmentsConfig = [
     area: "23,2 м²",
     rooms: "1-комн студия",
     windows: "3 окна",
-    finish: "renovation",
-    finishLabel: finishMeta.renovation.label,
-    description: "23,2 м² · 2 этаж · Ремонт + сантехника",
-    highlights: ["Ремонт + сантехника", "Три окна"],
+    finish: "turnkey",
+    finishLabel: finishMeta.turnkey.label,
+    description: "23,2 м² · 2 этаж · Готов для жизни",
+    highlights: ["Готов для жизни", "Три окна"],
     price: 20_419_100,
     availability: "available",
 
@@ -227,10 +227,10 @@ export const allApartmentsConfig = [
     area: "23,9 м²",
     rooms: "1-комн студия",
     windows: "2 окна",
-    finish: "renovation",
-    finishLabel: finishMeta.renovation.label,
-    description: "23,9 м² · 2 этаж · Ремонт + сантехника",
-    highlights: ["Ремонт + сантехника", "Два окна"],
+    finish: "turnkey",
+    finishLabel: finishMeta.turnkey.label,
+    description: "23,9 м² · 2 этаж · Готов для жизни",
+    highlights: ["Готов для жизни", "Два окна"],
     price: 20_811_862,
     availability: "available",
 
@@ -246,10 +246,10 @@ export const allApartmentsConfig = [
     area: "19,8 м²",
     rooms: "1-комн студия",
     windows: "2 окна",
-    finish: "renovation",
-    finishLabel: finishMeta.renovation.label,
-    description: "19,8 м² · 3 этаж · Ремонт + сантехника",
-    highlights: ["Ремонт + сантехника", "Два окна"],
+    finish: "turnkey",
+    finishLabel: finishMeta.turnkey.label,
+    description: "19,8 м² · 3 этаж · Готов для жизни",
+    highlights: ["Готов для жизни", "Два окна"],
     price: 17_227_370,
     availability: "available",
 
