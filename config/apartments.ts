@@ -27,7 +27,8 @@ export interface Apartment {
 
 const ADDRESS = "Москва, Садовая-Спасская 19к3";
 
-export const DEFAULT_APARTMENT_IMAGE = "/img/apartments_v2/lot-1/1.webp";
+export const DEFAULT_APARTMENT_IMAGE =
+  "/img/apartments_v2/lot-1/1.webp?v=20260922";
 
 function mediaFor(unit: number) {
   return (
