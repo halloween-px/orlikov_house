@@ -1,10 +1,7 @@
-/** Пути к фото лотов из public/img/apartments_v2 (ASCII-папки, без encodeURI — next/image кодирует сам) */
-
-/** Смена версии сбрасывает кэш /_next/image при замене файлов с теми же именами */
-const MEDIA_CACHE_VERSION = "20260922";
+/** Пути к фото лотов из public/img/apartments_v3 (ASCII-папки, без encodeURI — next/image кодирует сам) */
 
 function mediaUrl(folder: string, file: string) {
-  return `/img/apartments_v2/${folder}/${file}?v=${MEDIA_CACHE_VERSION}`;
+  return `/img/apartments_v3/${folder}/${file}`;
 }
 
 type ApartmentMedia = {

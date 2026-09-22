@@ -29,7 +29,7 @@ export const seoConfig = {
     latitude: 55.769997,
     longitude: 37.64741,
   },
-  defaultOgImage: "/img/apartments_v2/lot-6/1.webp",
+  defaultOgImage: "/img/apartments_v3/lot-6/1.webp",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },

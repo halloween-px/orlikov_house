@@ -111,7 +111,7 @@ export const siteConfig = {
       {
         id: "location",
         label: "Локация",
-        image: "/img/apartments_v2/lot-6/1.webp",
+        image: "/img/apartments_v3/lot-6/1.webp",
         title: "ЦАО, Красные Ворота",
         subtitle:
           "Дом расположен в тихом дворе на Садовой-Спасской, рядом с метро и Садовым кольцом",
@@ -123,7 +123,7 @@ export const siteConfig = {
       {
         id: "studios",
         label: "Студии",
-        image: "/img/apartments_v2/lot-1/1.webp",
+        image: "/img/apartments_v3/lot-1/1.webp",
         title: "Студии с готовой отделкой",
         subtitle: "24 студии в тихом дворе Садового кольца",
         primaryCta: {
