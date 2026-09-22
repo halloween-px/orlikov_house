@@ -48,10 +48,7 @@ function HeroSlideContent({
           itemClassName={styles.heroChip}
         />
       </div>
-      <HeroActions
-        primaryCta={slide.primaryCta}
-        secondaryCta={slide.secondaryCta}
-      />
+      <HeroActions secondaryCta={slide.secondaryCta} />
     </div>
   );
 }
