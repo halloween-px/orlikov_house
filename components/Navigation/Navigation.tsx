@@ -39,7 +39,7 @@ const NavLink = memo(function NavLink({
 }: NavLinkProps) {
   const pageLink = isNavPageLink(item.href);
   const href = getNavHref(item.href);
-  const sectionActive = useIsActiveSection(item.id, isHome && !pageLink);
+  const sectionActive = useIsActiveSection(item.id, isHome);
   const pageActive = pageLink && pathname.startsWith(item.href);
   const isActive = pageActive || sectionActive;
 
