@@ -14,6 +14,7 @@ import styles from "./styles/about.module.css";
 
 export default function About() {
   const { about } = landingConfig;
+  const { hotelStatus } = about;
 
   return (
     <LandingSection
@@ -46,9 +47,7 @@ export default function About() {
               eyebrow={getNavLabel(about.id)}
             >
               Камерный дом{" "}
-              <span className={styles.conceptTitleAccent}>
-                премиум-класса
-              </span>
+              <span className={styles.conceptTitleAccent}>премиум-класса</span>
             </LandingTitle>
             {about.text.map((paragraph) => (
               <LandingText
@@ -60,10 +59,7 @@ export default function About() {
               </LandingText>
             ))}
             <div className={styles.conceptChips}>
-              <LandingChipsList
-                items={about.conceptChips}
-                ariaLabel="О доме"
-              />
+              <LandingChipsList items={about.conceptChips} ariaLabel="О доме" />
             </div>
 
             <LandingActions className={styles.conceptActions}>
@@ -76,6 +72,75 @@ export default function About() {
                 {about.presentationCta.label}
               </Button>
             </LandingActions>
+          </div>
+        </div>
+
+        <div className={styles.hotelStatus}>
+          <LandingTitle
+            id="hotel-status-title"
+            as="h3"
+            measure="full"
+            className={styles.hotelStatusTitle}
+          >
+            {hotelStatus.title}{" "}
+            <span className={styles.conceptTitleAccent}>
+              — {hotelStatus.titleAccent}
+            </span>
+          </LandingTitle>
+
+          <div className={styles.hotelStatusGrid}>
+            <div className={styles.hotelStatusBody}>
+              <div className={styles.hotelStatusCopy}>
+                {hotelStatus.paragraphs.map((paragraph) => (
+                  <LandingText
+                    key={paragraph}
+                    measure="full"
+                    className={styles.hotelStatusText}
+                  >
+                    {paragraph}
+                  </LandingText>
+                ))}
+              </div>
+
+              <aside className={styles.hotelStatusPanel}>
+                <p className={styles.hotelStatusPanelLead}>
+                  <strong>{hotelStatus.ownershipTitle}</strong>{" "}
+                  {hotelStatus.ownershipText}
+                </p>
+                <ul className={styles.hotelStatusStats}>
+                  {hotelStatus.stats.map((stat) => (
+                    <li key={stat.label}>
+                      <span className={styles.hotelStatusStatLabel}>
+                        {stat.label}
+                      </span>
+                      <strong className={styles.hotelStatusStatValue}>
+                        {stat.value}
+                      </strong>
+                    </li>
+                  ))}
+                </ul>
+              </aside>
+
+              <LandingChipsList
+                items={hotelStatus.chips}
+                ariaLabel="Гостиничный статус"
+                className={styles.hotelStatusChips}
+              />
+
+              <p className={styles.hotelStatusFootnote}>
+                {hotelStatus.footnote}
+              </p>
+            </div>
+
+            <div className={styles.hotelStatusMedia}>
+              <Image
+                src={hotelStatus.image}
+                alt="Орликов дом — гостиничный формат"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1100px) 100vw, 42vw"
+              />
+            </div>
           </div>
         </div>
       </LandingContainer>
