@@ -5,11 +5,13 @@ import { siteConfig } from "@/config";
 import { useMainContext } from "@/context/MainProvider";
 import { Button } from "@/components/ui/Button";
 import type { ButtonProps } from "@/components/ui/Button";
+import type { LeadLot } from "@/types";
 
 type LeadButtonProps = {
   children?: ReactNode;
   /** `request` — «Оставить заявку», `viewing` — «Записаться на просмотр» */
   leadVariant?: "request" | "viewing";
+  lot?: LeadLot | null;
   variant?: ButtonProps extends { variant?: infer V } ? V : never;
   size?: "sm" | "md" | "lg";
   fullWidth?: boolean;
@@ -22,6 +24,7 @@ type LeadButtonProps = {
 export default function LeadButton({
   children,
   leadVariant = "request",
+  lot = null,
   ...props
 }: LeadButtonProps) {
   const { openLeadModal } = useMainContext();
@@ -32,7 +35,11 @@ export default function LeadButton({
       : siteConfig.requestForm.title);
 
   return (
-    <Button type="button" {...props} onClick={() => openLeadModal(leadVariant)}>
+    <Button
+      type="button"
+      {...props}
+      onClick={() => openLeadModal(leadVariant, lot)}
+    >
       {label}
     </Button>
   );

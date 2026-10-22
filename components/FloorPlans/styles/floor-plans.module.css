@@ -1,0 +1,255 @@
+.section {
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--color-gold-border) 55%, transparent);
+}
+
+.title {
+  margin-bottom: 0;
+  max-width: none;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.tab {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  min-width: 52px;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-family: var(--font-roboto), sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.tab:hover {
+  border-color: color-mix(in srgb, var(--color-heading-secondary) 55%, white);
+  color: var(--color-heading-primary);
+}
+
+.tabActive {
+  border-color: var(--color-gold-border);
+  background: rgba(227, 170, 80, 0.12);
+  color: var(--color-heading-secondary);
+}
+
+.tabSuffix {
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.85fr);
+  gap: clamp(20px, 3vw, 40px);
+  align-items: stretch;
+  min-height: 480px;
+}
+
+.planCol {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.planFrame {
+  position: relative;
+  flex: 1;
+  min-height: 420px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.planImage {
+  object-fit: contain;
+  object-position: center;
+}
+
+.disclaimer {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--color-text-muted);
+}
+
+.listCol {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+}
+
+.listTitle {
+  margin: 0 0 16px;
+  font-family: var(--font-roboto), sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-heading-secondary);
+}
+
+.listCount {
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.lotList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  max-height: min(560px, 70vh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-top: 1px solid
+    color-mix(in srgb, var(--color-gold-border) 40%, transparent);
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--color-heading-secondary) 50%, transparent)
+    transparent;
+}
+
+.lotList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.lotList::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--color-heading-secondary) 45%, transparent);
+  border-radius: 999px;
+}
+
+.lotEmpty {
+  padding: 20px 0;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+.lotRow {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 4px 16px 0;
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--color-gold-border) 28%, transparent);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s ease;
+}
+
+.lotRow:hover {
+  background: rgba(227, 170, 80, 0.06);
+}
+
+.lotNumber {
+  font-family: var(--font-roboto), sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-heading-secondary);
+  white-space: nowrap;
+}
+
+.lotMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.lotArea {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-heading-primary);
+  line-height: 1.2;
+}
+
+.lotFinish {
+  font-size: 13px;
+  line-height: 1.3;
+  color: var(--color-text-muted);
+}
+
+.lotPrice {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-heading-primary);
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 980px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .planFrame {
+    min-height: 280px;
+  }
+
+  .lotList {
+    max-height: 360px;
+  }
+}
+
+@media (max-width: 560px) {
+  .lotRow {
+    grid-template-columns: 48px minmax(0, 1fr);
+    grid-template-areas:
+      "num meta"
+      "num price";
+    gap: 6px 12px;
+  }
+
+  .lotNumber {
+    grid-area: num;
+    align-self: start;
+    padding-top: 2px;
+  }
+
+  .lotMeta {
+    grid-area: meta;
+  }
+
+  .lotPrice {
+    grid-area: price;
+    text-align: left;
+  }
+}

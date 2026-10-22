@@ -12,6 +12,11 @@ export interface SiteParams {
 
 export type LeadModalVariant = "viewing" | "request";
 
+export type LeadLot = {
+  id: string;
+  unit: number;
+};
+
 export interface MainContextValue {
   params: SiteParams[];
   loadParams: () => void;
@@ -19,6 +24,7 @@ export interface MainContextValue {
   setState: (state: { sidebar: boolean }) => void;
   leadModalOpen: boolean;
   leadModalVariant: LeadModalVariant;
-  openLeadModal: (variant?: LeadModalVariant) => void;
+  leadLot: LeadLot | null;
+  openLeadModal: (variant?: LeadModalVariant, lot?: LeadLot | null) => void;
   closeLeadModal: () => void;
 }

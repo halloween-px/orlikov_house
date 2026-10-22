@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import { getNavLabel, landingConfig } from "@/config";
 import { useLeadChallenge } from "@/hooks/useLeadChallenge";
 import { isValidRuPhone } from "@/lib/form-input";
+import { reachSiteLeadGoals } from "@/lib/metrika";
 import { submitLead } from "@/lib/submit-lead";
 import { Button } from "@/components/ui/Button";
 import { PhoneField } from "@/components/ui/PhoneField";
@@ -58,6 +59,9 @@ export default function Contacts() {
       return;
     }
 
+    if (!website.trim()) {
+      reachSiteLeadGoals({ variant: "contacts" });
+    }
     setSubmitted(true);
     setName("");
     setPhone("+7 ");

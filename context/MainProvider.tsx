@@ -8,7 +8,12 @@ import {
   type ReactNode,
 } from "react";
 import { siteConfig } from "@/config";
-import type { LeadModalVariant, MainContextValue, SiteParams } from "@/types";
+import type {
+  LeadLot,
+  LeadModalVariant,
+  MainContextValue,
+  SiteParams,
+} from "@/types";
 
 const MainContext = createContext<MainContextValue | null>(null);
 
@@ -18,15 +23,20 @@ export function MainProvider({ children }: { children: ReactNode }) {
   const [leadModalOpen, setLeadModalOpen] = useState(false);
   const [leadModalVariant, setLeadModalVariant] =
     useState<LeadModalVariant>("viewing");
+  const [leadLot, setLeadLot] = useState<LeadLot | null>(null);
 
   const loadParams = useCallback(() => {
     setParams([siteConfig.contacts]);
   }, []);
 
-  const openLeadModal = useCallback((variant: LeadModalVariant = "viewing") => {
-    setLeadModalVariant(variant);
-    setLeadModalOpen(true);
-  }, []);
+  const openLeadModal = useCallback(
+    (variant: LeadModalVariant = "viewing", lot: LeadLot | null = null) => {
+      setLeadModalVariant(variant);
+      setLeadLot(lot);
+      setLeadModalOpen(true);
+    },
+    [],
+  );
 
   const closeLeadModal = useCallback(() => {
     setLeadModalOpen(false);
@@ -41,6 +51,7 @@ export function MainProvider({ children }: { children: ReactNode }) {
         setState,
         leadModalOpen,
         leadModalVariant,
+        leadLot,
         openLeadModal,
         closeLeadModal,
       }}

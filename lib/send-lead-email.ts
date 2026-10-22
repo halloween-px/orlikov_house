@@ -1,13 +1,34 @@
 import nodemailer from "nodemailer";
 import { leadConfig } from "@/config/lead";
+import {
+  attributionLines,
+  type LeadAttribution,
+} from "@/lib/lead-attribution";
 
 export type LeadMailPayload = {
   name: string;
   phone: string;
   comment?: string;
   source: string;
+  lot?: string;
+  attribution?: LeadAttribution;
   ip: string;
 };
+
+function mailText(payload: LeadMailPayload) {
+  return [
+    `Источник формы: ${payload.source}`,
+    payload.lot ? `Лот: ${payload.lot}` : null,
+    `Имя: ${payload.name}`,
+    `Телефон: ${payload.phone}`,
+    payload.comment ? `Комментарий: ${payload.comment}` : null,
+    ...(payload.attribution ? attributionLines(payload.attribution) : []),
+    `IP: ${payload.ip}`,
+    `Время: ${new Date().toLocaleString("ru-RU", { timeZone: "Europe/Moscow" })}`,
+  ]
+    .filter(Boolean)
+    .join("\n");
+}
 
 function getSmtpConfig() {
   const host = process.env.SMTP_HOST || "smtp.yandex.ru";
@@ -33,16 +54,7 @@ async function sendViaResend(payload: LeadMailPayload) {
   const from =
     process.env.RESEND_FROM || "Орликов дом <onboarding@resend.dev>";
   const subject = `Заявка: ${payload.source} — ${payload.name}`;
-  const text = [
-    `Источник: ${payload.source}`,
-    `Имя: ${payload.name}`,
-    `Телефон: ${payload.phone}`,
-    payload.comment ? `Комментарий: ${payload.comment}` : null,
-    `IP: ${payload.ip}`,
-    `Время: ${new Date().toLocaleString("ru-RU", { timeZone: "Europe/Moscow" })}`,
-  ]
-    .filter(Boolean)
-    .join("\n");
+  const text = mailText(payload);
 
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -78,16 +90,7 @@ async function sendViaSmtp(payload: LeadMailPayload) {
   });
 
   const subject = `Заявка: ${payload.source} — ${payload.name}`;
-  const text = [
-    `Источник: ${payload.source}`,
-    `Имя: ${payload.name}`,
-    `Телефон: ${payload.phone}`,
-    payload.comment ? `Комментарий: ${payload.comment}` : null,
-    `IP: ${payload.ip}`,
-    `Время: ${new Date().toLocaleString("ru-RU", { timeZone: "Europe/Moscow" })}`,
-  ]
-    .filter(Boolean)
-    .join("\n");
+  const text = mailText(payload);
 
   await transporter.sendMail({
     from: `"${leadConfig.fromName}" <${smtp.from}>`,

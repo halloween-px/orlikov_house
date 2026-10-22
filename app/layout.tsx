@@ -4,6 +4,7 @@ import { siteConfig } from "@/config";
 import { buildPageMetadata, seoConfig } from "@/config/seo";
 import { MainProvider } from "@/context/MainProvider";
 import VisitTracker from "@/components/analytics/VisitTracker";
+import YandexMetrika from "@/components/analytics/YandexMetrika";
 import { JsonLd } from "@/components/seo";
 import {
   getApartmentComplexJsonLd,
@@ -83,6 +84,7 @@ export default function RootLayout({
             getApartmentComplexJsonLd(),
           ]}
         />
+        <YandexMetrika />
         <MainProvider>
           <VisitTracker />
           {children}

@@ -4,6 +4,7 @@ import HashScroll from "@/components/Navigation/HashScroll";
 import { Facts } from "@/components/Facts";
 import { About } from "@/components/About";
 import { Catalog } from "@/components/Catalog";
+import { FloorPlans } from "@/components/FloorPlans";
 import { Location } from "@/components/Location";
 import { Advantages } from "@/components/Advantages";
 import { Contacts, FloatingContact, LeadModal } from "@/components/Contacts";
@@ -26,6 +27,7 @@ export default async function HomePage() {
       <Hero />
       <Facts />
       <About />
+      {/* <FloorPlans apartments={apartments} /> */}
       <Catalog apartments={apartments} />
       <Advantages />
       <Contacts />

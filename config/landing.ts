@@ -101,6 +101,19 @@ export const landingConfig = {
     },
   },
 
+  floorPlans: {
+    id: "floor-plans",
+    eyebrow: "Планировки и лоты",
+    listTitle: "Доступные лоты",
+    disclaimer: "Цены, наличие и комплектация актуальны на момент просмотра.",
+    floors: [
+      { floor: 1, label: "1 этаж", plan: "/img/new_block/1.png" },
+      { floor: 2, label: "2 этаж", plan: "/img/new_block/2.png" },
+      { floor: 3, label: "3 этаж", plan: "/img/new_block/3.png" },
+      { floor: 4, label: "4 этаж", plan: "/img/new_block/4.png" },
+    ],
+  },
+
   location: {
     id: "location",
     title: "ЦАО, Красные Ворота",

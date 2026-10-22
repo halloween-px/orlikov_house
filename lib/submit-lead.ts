@@ -1,8 +1,13 @@
+"use client";
+
+import { collectAttribution } from "@/lib/metrika";
+
 export type LeadSubmitInput = {
   name: string;
   phone: string;
   comment?: string;
   source: string;
+  lot?: string;
   website?: string;
   challenge: string;
 };
@@ -33,6 +38,7 @@ export async function submitLead(
   input: LeadSubmitInput,
 ): Promise<LeadSubmitResult> {
   try {
+    const attribution = await collectAttribution();
     const response = await fetch("/api/lead", {
       method: "POST",
       headers: {
@@ -43,8 +49,10 @@ export async function submitLead(
         phone: input.phone,
         comment: input.comment || "",
         source: input.source,
+        lot: input.lot || "",
         website: input.website || "",
         challenge: input.challenge,
+        attribution,
       }),
     });
 

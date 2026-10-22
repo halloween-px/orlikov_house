@@ -6,6 +6,7 @@ import {
   verifyLeadChallenge,
 } from "@/lib/lead-security";
 import { saveLead } from "@/lib/admin-data";
+import { sanitizeAttribution } from "@/lib/lead-attribution";
 import { sendLeadEmail } from "@/lib/send-lead-email";
 
 type LeadBody = {
@@ -13,8 +14,10 @@ type LeadBody = {
   phone?: unknown;
   comment?: unknown;
   source?: unknown;
+  lot?: unknown;
   challenge?: unknown;
   website?: unknown;
+  attribution?: unknown;
 };
 
 export async function POST(request: Request) {
@@ -54,11 +57,18 @@ export async function POST(request: Request) {
       typeof body.source === "string" && body.source.trim()
         ? body.source.trim().slice(0, 80)
         : "Сайт";
+    const lot =
+      typeof body.lot === "string"
+        ? body.lot.replace(/[^\d]/g, "").slice(0, 8)
+        : "";
+    const attribution = sanitizeAttribution(body.attribution);
 
     try {
       await saveLead({
         ...validated.data,
         source,
+        lot,
+        ...attribution,
         ip,
       });
     } catch (error) {
@@ -68,6 +78,8 @@ export async function POST(request: Request) {
     await sendLeadEmail({
       ...validated.data,
       source,
+      lot,
+      attribution,
       ip,
     });
 

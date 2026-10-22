@@ -38,10 +38,30 @@ type AdminStats = {
     phone: string;
     comment: string;
     source: string;
+    lot: string;
+    utmSource: string;
+    utmCampaign: string;
+    utmContent: string;
+    metrikaClientId: string;
     visitor: string;
     createdAt: string;
   }>;
 };
+
+function formatLeadAds(lead: {
+  utmSource: string;
+  utmCampaign: string;
+  utmContent: string;
+  metrikaClientId: string;
+}) {
+  const campaign = [lead.utmSource, lead.utmCampaign, lead.utmContent]
+    .filter(Boolean)
+    .join(" · ");
+  const client = lead.metrikaClientId
+    ? `ClientID ${lead.metrikaClientId}`
+    : "";
+  return [campaign, client].filter(Boolean).join(" · ");
+}
 
 function formatDateTime(iso: string) {
   return new Date(iso).toLocaleString("ru-RU", {
@@ -323,15 +343,21 @@ export default function AdminPage() {
                       </td>
                     </tr>
                   ) : (
-                    stats.recentLeads.map((lead) => (
+                    stats.recentLeads.map((lead) => {
+                      const ads = formatLeadAds(lead);
+                      return (
                       <tr key={lead.id}>
                         <td>{formatDateTime(lead.createdAt)}</td>
                         <td>{lead.name}</td>
                         <td>{lead.phone}</td>
-                        <td>{lead.source}</td>
+                        <td>
+                          <div>{lead.source}</div>
+                          {ads ? <div className={styles.muted}>{ads}</div> : null}
+                        </td>
                         <td>{lead.comment || "—"}</td>
                       </tr>
-                    ))
+                      );
+                    })
                   )}
                 </tbody>
               </table>

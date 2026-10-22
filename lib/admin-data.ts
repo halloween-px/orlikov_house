@@ -38,6 +38,14 @@ export async function saveLead(input: {
   phone: string;
   comment?: string;
   source: string;
+  lot?: string;
+  utmSource?: string;
+  utmMedium?: string;
+  utmCampaign?: string;
+  utmContent?: string;
+  utmTerm?: string;
+  yclid?: string;
+  metrikaClientId?: string;
   ip: string;
 }) {
   if (!isMongoConfigured()) return null;
@@ -48,6 +56,14 @@ export async function saveLead(input: {
     phone: input.phone.slice(0, 32),
     comment: (input.comment || "").slice(0, 1000),
     source: input.source.slice(0, 80),
+    lot: (input.lot || "").slice(0, 8),
+    utmSource: (input.utmSource || "").slice(0, 200),
+    utmMedium: (input.utmMedium || "").slice(0, 200),
+    utmCampaign: (input.utmCampaign || "").slice(0, 200),
+    utmContent: (input.utmContent || "").slice(0, 200),
+    utmTerm: (input.utmTerm || "").slice(0, 200),
+    yclid: (input.yclid || "").slice(0, 64),
+    metrikaClientId: (input.metrikaClientId || "").slice(0, 32),
     ipHash: hashIp(input.ip || "unknown"),
   });
 }
@@ -124,6 +140,11 @@ export async function getAdminStats() {
       phone: lead.phone,
       comment: lead.comment || "",
       source: lead.source,
+      lot: lead.lot || "",
+      utmSource: lead.utmSource || "",
+      utmCampaign: lead.utmCampaign || "",
+      utmContent: lead.utmContent || "",
+      metrikaClientId: lead.metrikaClientId || "",
       visitor: shortIpHash(String(lead.ipHash || "")),
       createdAt: new Date(lead.createdAt as Date).toISOString(),
     })),

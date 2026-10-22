@@ -5,6 +5,7 @@ import { siteConfig } from "@/config";
 import { useMainContext } from "@/context/MainProvider";
 import { useLeadChallenge } from "@/hooks/useLeadChallenge";
 import { isValidRuPhone } from "@/lib/form-input";
+import { reachSiteLeadGoals } from "@/lib/metrika";
 import { submitLead } from "@/lib/submit-lead";
 import { Button } from "@/components/ui/Button";
 import { PhoneField } from "@/components/ui/PhoneField";
@@ -12,7 +13,8 @@ import { TextField } from "@/components/ui/TextField";
 import styles from "./styles/lead-modal.module.css";
 
 export default function LeadModal() {
-  const { leadModalOpen, leadModalVariant, closeLeadModal } = useMainContext();
+  const { leadModalOpen, leadModalVariant, leadLot, closeLeadModal } =
+    useMainContext();
   const { requestForm } = siteConfig;
   const titleId = useId();
   const nameInputRef = useRef<HTMLInputElement>(null);
@@ -29,10 +31,11 @@ export default function LeadModal() {
       ? requestForm.requestTitle
       : requestForm.title;
 
+  const lotLabel = leadLot ? ` · лот ${leadLot.unit}` : "";
   const source =
-    leadModalVariant === "request"
+    (leadModalVariant === "request"
       ? "Модалка: оставить заявку"
-      : "Модалка: запись на просмотр";
+      : "Модалка: запись на просмотр") + lotLabel;
 
   useEffect(() => {
     if (!leadModalOpen) return;
@@ -81,6 +84,7 @@ export default function LeadModal() {
       name,
       phone,
       source,
+      lot: leadLot ? String(leadLot.unit) : "",
       website,
       challenge,
     });
@@ -93,6 +97,12 @@ export default function LeadModal() {
       return;
     }
 
+    if (!website.trim()) {
+      reachSiteLeadGoals({
+        variant: leadModalVariant,
+        lot: leadLot ? String(leadLot.unit) : "",
+      });
+    }
     setSubmitted(true);
   };
 

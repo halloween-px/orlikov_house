@@ -1,6 +1,7 @@
 export const navConfig = [
   { id: "hero", label: "Главная", href: "#hero" },
   { id: "about", label: "О доме", href: "#about" },
+  // { id: "floor-plans", label: "Планировки", href: "#floor-plans" },
   { id: "catalog", label: "Студии", href: "/apartments" },
   { id: "advantages", label: "Преимущества", href: "#advantages" },
   { id: "lead", label: "Контакты", href: "#lead" },

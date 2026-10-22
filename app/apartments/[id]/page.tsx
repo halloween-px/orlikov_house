@@ -19,6 +19,7 @@ import {
 } from "@/components/Contacts";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import ApartmentGallery from "@/components/Catalog/ApartmentGallery";
+import LotOpenTracker from "@/components/analytics/LotOpenTracker";
 import { Button } from "@/components/ui/Button";
 import { JsonLd } from "@/components/seo";
 import {
@@ -109,6 +110,7 @@ export default async function ApartmentPage({ params }: PageProps) {
           getApartmentJsonLd(apartment),
         ]}
       />
+      <LotOpenTracker unit={apartment.unit} />
       <Header />
 
       <LandingSection
@@ -204,6 +206,7 @@ export default async function ApartmentPage({ params }: PageProps) {
                 {!isSold ? (
                   <LeadButton
                     leadVariant="viewing"
+                    lot={{ id: apartment.id, unit: apartment.unit }}
                     variant="secondary"
                     size="lg"
                     rounded="md"

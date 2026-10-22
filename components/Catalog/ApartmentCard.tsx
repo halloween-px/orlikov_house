@@ -207,7 +207,12 @@ export default function ApartmentCard({
               variant="secondary"
               size="md"
               fullWidth
-              onClick={() => openLeadModal("viewing")}
+              onClick={() =>
+                openLeadModal("viewing", {
+                  id: apartment.id,
+                  unit: apartment.unit,
+                })
+              }
             >
               {requestLabel}
             </Button>
