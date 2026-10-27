@@ -1,4 +1,13 @@
+import mongoose from "mongoose";
 import { connectMongo, isMongoConfigured } from "@/lib/mongo";
+import {
+  isLeadStatus,
+  normalizeAnswers,
+  type AdminLead,
+  type LeadAnswer,
+  type LeadOrigin,
+  type LeadStatus,
+} from "@/lib/lead-crm";
 import { Lead, Visit, hashIp, shortIpHash } from "@/lib/models";
 
 function startOfDay(date: Date) {
@@ -33,12 +42,64 @@ export async function saveVisit(input: {
   });
 }
 
+type StoredLead = {
+  _id: { toString(): string };
+  createdAt?: Date;
+  name?: string;
+  phone?: string;
+  comment?: string;
+  source?: string;
+  lot?: string;
+  channel?: string;
+  answers?: unknown;
+  origin?: string;
+  status?: string;
+  managerComment?: string;
+  utmSource?: string;
+  utmMedium?: string;
+  utmCampaign?: string;
+  utmContent?: string;
+  utmTerm?: string;
+  yclid?: string;
+  metrikaClientId?: string;
+};
+
+function mapAdminLead(lead: StoredLead): AdminLead {
+  const origin: LeadOrigin = lead.origin === "quiz" ? "quiz" : "site";
+  const status: LeadStatus = isLeadStatus(lead.status) ? lead.status : "new";
+
+  return {
+    id: String(lead._id),
+    createdAt: new Date(lead.createdAt || Date.now()).toISOString(),
+    origin,
+    name: lead.name || "",
+    phone: lead.phone || "",
+    channel: lead.channel || "",
+    source: lead.source || "",
+    lot: lead.lot || "",
+    comment: lead.comment || "",
+    answers: normalizeAnswers(lead.answers),
+    utmSource: lead.utmSource || "",
+    utmMedium: lead.utmMedium || "",
+    utmCampaign: lead.utmCampaign || "",
+    utmContent: lead.utmContent || "",
+    utmTerm: lead.utmTerm || "",
+    yclid: lead.yclid || "",
+    metrikaClientId: lead.metrikaClientId || "",
+    status,
+    managerComment: lead.managerComment || "",
+  };
+}
+
 export async function saveLead(input: {
   name: string;
   phone: string;
   comment?: string;
   source: string;
   lot?: string;
+  channel?: string;
+  answers?: LeadAnswer[];
+  origin?: LeadOrigin;
   utmSource?: string;
   utmMedium?: string;
   utmCampaign?: string;
@@ -57,6 +118,11 @@ export async function saveLead(input: {
     comment: (input.comment || "").slice(0, 1000),
     source: input.source.slice(0, 80),
     lot: (input.lot || "").slice(0, 8),
+    channel: (input.channel || "").slice(0, 80),
+    answers: normalizeAnswers(input.answers),
+    origin: input.origin === "quiz" ? "quiz" : "site",
+    status: "new",
+    managerComment: "",
     utmSource: (input.utmSource || "").slice(0, 200),
     utmMedium: (input.utmMedium || "").slice(0, 200),
     utmCampaign: (input.utmCampaign || "").slice(0, 200),
@@ -66,6 +132,46 @@ export async function saveLead(input: {
     metrikaClientId: (input.metrikaClientId || "").slice(0, 32),
     ipHash: hashIp(input.ip || "unknown"),
   });
+}
+
+export async function listAdminLeads() {
+  await connectMongo();
+
+  const [docs, total] = await Promise.all([
+    Lead.find().sort({ createdAt: -1 }).limit(1000).lean(),
+    Lead.countDocuments(),
+  ]);
+
+  return {
+    leads: docs.map((lead) => mapAdminLead(lead as StoredLead)),
+    total,
+  };
+}
+
+export async function updateAdminLead(
+  id: string,
+  patch: {
+    status?: LeadStatus;
+    managerComment?: string;
+  },
+) {
+  if (!mongoose.isValidObjectId(id)) return null;
+  await connectMongo();
+
+  const $set: Record<string, string> = {};
+  if (patch.status) $set.status = patch.status;
+  if (patch.managerComment !== undefined) {
+    $set.managerComment = patch.managerComment.slice(0, 2000);
+  }
+  if (Object.keys($set).length === 0) return null;
+
+  const updated = await Lead.findByIdAndUpdate(
+    id,
+    { $set },
+    { new: true, runValidators: true },
+  ).lean();
+
+  return updated ? mapAdminLead(updated as StoredLead) : null;
 }
 
 export async function getAdminStats() {

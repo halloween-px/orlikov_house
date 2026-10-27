@@ -14,13 +14,44 @@ const VisitSchema = new Schema(
 VisitSchema.index({ createdAt: -1 });
 VisitSchema.index({ path: 1, createdAt: -1 });
 
+const LeadAnswerSchema = new Schema(
+  {
+    label: { type: String, required: true, maxlength: 120 },
+    value: { type: String, required: true, maxlength: 300 },
+  },
+  { _id: false },
+);
+
 const LeadSchema = new Schema(
   {
-    name: { type: String, required: true, maxlength: 80 },
+    name: { type: String, default: "", maxlength: 80 },
     phone: { type: String, required: true, maxlength: 32 },
     comment: { type: String, default: "", maxlength: 1000 },
     source: { type: String, required: true, maxlength: 80 },
     lot: { type: String, default: "", maxlength: 8 },
+    channel: { type: String, default: "", maxlength: 80 },
+    answers: { type: [LeadAnswerSchema], default: [] },
+    origin: {
+      type: String,
+      enum: ["site", "quiz"],
+      default: "site",
+    },
+    status: {
+      type: String,
+      enum: [
+        "new",
+        "in_progress",
+        "no_answer",
+        "viewing_scheduled",
+        "viewing_done",
+        "no_show",
+        "not_fit",
+        "reserved",
+        "deal",
+      ],
+      default: "new",
+    },
+    managerComment: { type: String, default: "", maxlength: 2000 },
     utmSource: { type: String, default: "", maxlength: 200 },
     utmMedium: { type: String, default: "", maxlength: 200 },
     utmCampaign: { type: String, default: "", maxlength: 200 },
@@ -30,7 +61,7 @@ const LeadSchema = new Schema(
     metrikaClientId: { type: String, default: "", maxlength: 32 },
     ipHash: { type: String, required: true, maxlength: 64 },
   },
-  { timestamps: { createdAt: true, updatedAt: false } },
+  { timestamps: true },
 );
 
 LeadSchema.index({ createdAt: -1 });

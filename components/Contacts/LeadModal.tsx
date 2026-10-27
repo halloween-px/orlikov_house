@@ -23,6 +23,7 @@ export default function LeadModal() {
   const [website, setWebsite] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const submittingRef = useRef(false);
   const [error, setError] = useState("");
   const { challenge, ready, refresh } = useLeadChallenge(leadModalOpen);
 
@@ -61,6 +62,7 @@ export default function LeadModal() {
       setPhone("+7 ");
       setWebsite("");
       setSubmitted(false);
+      submittingRef.current = false;
       setSubmitting(false);
       setError("");
     }
@@ -70,13 +72,14 @@ export default function LeadModal() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (submitting) return;
+    if (submittingRef.current) return;
 
     if (!isValidRuPhone(phone)) {
       setError("Укажите корректный телефон в формате +7 999 999-99-99");
       return;
     }
 
+    submittingRef.current = true;
     setError("");
     setSubmitting(true);
 
@@ -89,9 +92,9 @@ export default function LeadModal() {
       challenge,
     });
 
-    setSubmitting(false);
-
     if (!result.ok) {
+      submittingRef.current = false;
+      setSubmitting(false);
       setError(result.error);
       void refresh();
       return;
@@ -103,6 +106,7 @@ export default function LeadModal() {
         lot: leadLot ? String(leadLot.unit) : "",
       });
     }
+    setSubmitting(false);
     setSubmitted(true);
   };
 

@@ -229,6 +229,9 @@ export default function AdminPage() {
           <p className={styles.muted}>Визиты и заявки с сайта</p>
         </div>
         <div className={styles.headerActions}>
+          <Link href="/admin/leads" className={styles.navLink}>
+            Заявки
+          </Link>
           <Link href="/admin/apartments" className={styles.navLink}>
             Студии
           </Link>
@@ -323,7 +326,12 @@ export default function AdminPage() {
           </section>
 
           <section className={styles.panel}>
-            <h2 className={styles.panelTitle}>Заявки</h2>
+            <div className={styles.panelHead}>
+              <h2 className={styles.panelTitle}>Заявки</h2>
+              <Link href="/admin/leads" className={styles.navLink}>
+                Работать с заявками
+              </Link>
+            </div>
             <div className={styles.tableWrap}>
               <table className={styles.table}>
                 <thead>

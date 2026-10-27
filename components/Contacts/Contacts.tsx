@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { getNavLabel, landingConfig } from "@/config";
 import { useLeadChallenge } from "@/hooks/useLeadChallenge";
 import { isValidRuPhone } from "@/lib/form-input";
@@ -27,18 +27,20 @@ export default function Contacts() {
   const [website, setWebsite] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const submittingRef = useRef(false);
   const [error, setError] = useState("");
   const { challenge, ready, refresh } = useLeadChallenge(true);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (submitting) return;
+    if (submittingRef.current) return;
 
     if (!isValidRuPhone(phone)) {
       setError("Укажите корректный телефон в формате +7 999 999-99-99");
       return;
     }
 
+    submittingRef.current = true;
     setError("");
     setSubmitting(true);
 
@@ -51,9 +53,9 @@ export default function Contacts() {
       challenge,
     });
 
-    setSubmitting(false);
-
     if (!result.ok) {
+      submittingRef.current = false;
+      setSubmitting(false);
       setError(result.error);
       void refresh();
       return;
@@ -62,6 +64,7 @@ export default function Contacts() {
     if (!website.trim()) {
       reachSiteLeadGoals({ variant: "contacts" });
     }
+    setSubmitting(false);
     setSubmitted(true);
     setName("");
     setPhone("+7 ");

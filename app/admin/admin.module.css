@@ -18,6 +18,7 @@
   display: flex;
   gap: 10px;
   flex-shrink: 0;
+  flex-wrap: wrap;
 }
 
 .title {
@@ -281,6 +282,163 @@
 .badgeMuted {
   color: rgba(255, 255, 255, 0.7);
   background: rgba(255, 255, 255, 0.08);
+}
+
+.panelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.panelHead .panelTitle {
+  margin-bottom: 0;
+}
+
+.leadsPage {
+  max-width: 1480px;
+}
+
+.demoNote {
+  margin: 0 0 16px;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.search {
+  max-width: 320px;
+}
+
+.leadsTable {
+  min-width: 1280px;
+}
+
+.leadsTable .textarea {
+  min-width: 220px;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 140px;
+  overflow-wrap: anywhere;
+}
+
+.answerList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 180px;
+}
+
+.answerList li {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.answerLabel {
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.phoneLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.phoneLink:hover {
+  color: var(--color-heading-secondary);
+}
+
+.badgeSite,
+.badgeQuiz {
+  display: inline-flex;
+  width: fit-content;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.badgeSite {
+  color: #f5f0e8;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.badgeQuiz {
+  color: #1a1208;
+  background: var(--color-heading-secondary);
+}
+
+.statusSelect {
+  min-width: 180px;
+}
+
+.status_new {
+  border-color: rgba(227, 170, 80, 0.75);
+}
+
+.status_in_progress {
+  border-color: #7eb6ff;
+}
+
+.status_no_answer {
+  border-color: #e0a060;
+}
+
+.status_viewing_scheduled {
+  border-color: #8fd0ff;
+}
+
+.status_viewing_done {
+  border-color: #9ad7b0;
+}
+
+.status_no_show {
+  border-color: #e08a7a;
+}
+
+.status_not_fit {
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.status_reserved {
+  border-color: #d4b06a;
+}
+
+.status_deal {
+  border-color: #6dce8b;
+  background: rgba(56, 140, 84, 0.18);
+}
+
+.saveHint,
+.rowError {
+  margin: 6px 0 0;
+  font-size: 12px;
+}
+
+.saveHint {
+  color: #b8f0c8;
+}
+
+.rowError {
+  color: #ffb4a8;
 }
 
 @media (max-width: 980px) {

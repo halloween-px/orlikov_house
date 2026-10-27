@@ -286,6 +286,9 @@ export default function AdminApartmentsPage() {
           <Link href="/admin" className={styles.navLink}>
             Аналитика
           </Link>
+          <Link href="/admin/leads" className={styles.navLink}>
+            Заявки
+          </Link>
           <Button
             type="button"
             variant="outline"
