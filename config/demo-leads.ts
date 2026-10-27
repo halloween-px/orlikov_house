@@ -34,9 +34,9 @@ export const demoLeads: AdminLead[] = [
     comment: "",
     answers: [
       { label: "Цель покупки", value: "Для сдачи в аренду" },
-      { label: "Вид апартаментов", value: "Двухуровневые апартаменты" },
+      { label: "Комплектация", value: "С мебелью и техникой" },
       { label: "Бюджет", value: "17–20 млн ₽" },
-      { label: "Способ оплаты", value: "Рассрочка 0%" },
+      { label: "Способ оплаты", value: "Рассрочка" },
     ],
     utmSource: "yandex",
     utmMedium: "cpc",
@@ -81,9 +81,9 @@ export const demoLeads: AdminLead[] = [
     comment: "",
     answers: [
       { label: "Цель покупки", value: "Для личных целей" },
-      { label: "Вид апартаментов", value: "Стандартные апартаменты" },
+      { label: "Комплектация", value: "Без мебели, с ремонтом" },
       { label: "Бюджет", value: "14–17 млн ₽" },
-      { label: "Способ оплаты", value: "Единоразовая оплата" },
+      { label: "Способ оплаты", value: "Наличные" },
     ],
     utmSource: "google",
     utmMedium: "cpc",
