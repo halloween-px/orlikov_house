@@ -41,19 +41,3 @@ export function sanitizeAttribution(input: unknown): LeadAttribution {
     metrikaClientId: clip(source.metrikaClientId, 32).replace(/[^\d]/g, ""),
   };
 }
-
-export function attributionLines(attribution: LeadAttribution) {
-  return [
-    attribution.utmSource
-      ? `Рекламный источник: ${attribution.utmSource}`
-      : null,
-    attribution.utmMedium ? `Канал: ${attribution.utmMedium}` : null,
-    attribution.utmCampaign ? `Кампания: ${attribution.utmCampaign}` : null,
-    attribution.utmContent ? `Объявление: ${attribution.utmContent}` : null,
-    attribution.utmTerm ? `Ключевая фраза: ${attribution.utmTerm}` : null,
-    attribution.yclid ? `yclid: ${attribution.yclid}` : null,
-    attribution.metrikaClientId
-      ? `ClientID Метрики: ${attribution.metrikaClientId}`
-      : null,
-  ].filter((line): line is string => Boolean(line));
-}

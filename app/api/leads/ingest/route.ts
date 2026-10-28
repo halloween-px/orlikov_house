@@ -5,7 +5,7 @@ import { sanitizeAttribution } from "@/lib/lead-attribution";
 import { normalizeAnswers } from "@/lib/lead-crm";
 import { isMongoConfigured } from "@/lib/mongo";
 import {
-  quizLeadTelegramLines,
+  quizLeadTelegramText,
   sendLeadTelegram,
 } from "@/lib/send-lead-telegram";
 
@@ -80,7 +80,7 @@ export async function POST(request: Request) {
   }
 
   await sendLeadTelegram(
-    quizLeadTelegramLines({
+    quizLeadTelegramText({
       phone,
       channel,
       answers,

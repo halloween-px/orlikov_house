@@ -1,12 +1,58 @@
-import {
-  attributionLines,
-  type LeadAttribution,
-} from "@/lib/lead-attribution";
+import type { LeadAttribution } from "@/lib/lead-attribution";
 import type { LeadAnswer } from "@/lib/lead-crm";
 
 const TELEGRAM_TEXT_LIMIT = 4000;
 
-export async function sendLeadTelegram(lines: Array<string | null | undefined>) {
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function field(label: string, value: string) {
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+  return `<b>${escapeHtml(label)}</b>\n${escapeHtml(trimmed)}`;
+}
+
+function phoneField(phone: string) {
+  const digits = phone.replace(/\D/g, "");
+  const safePhone = escapeHtml(phone.trim());
+  if (!digits) return field("Телефон", phone);
+  return `<b>Телефон</b>\n<a href="tel:+${digits}">${safePhone}</a>`;
+}
+
+function attributionBlock(attribution?: LeadAttribution) {
+  if (!attribution) return null;
+
+  const lines = [
+    [attribution.utmSource, attribution.utmMedium].filter(Boolean).join(" · "),
+    attribution.utmCampaign ? `Кампания: ${attribution.utmCampaign}` : "",
+    attribution.utmContent ? `Объявление: ${attribution.utmContent}` : "",
+    attribution.utmTerm ? `Фраза: ${attribution.utmTerm}` : "",
+  ].filter(Boolean);
+
+  if (lines.length === 0) return null;
+  return `<b>Реклама</b>\n${lines.map((line) => escapeHtml(line)).join("\n")}`;
+}
+
+function sentAt() {
+  const time = new Date().toLocaleString("ru-RU", {
+    timeZone: "Europe/Moscow",
+    day: "numeric",
+    month: "long",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  return `<i>${escapeHtml(time)} · МСК</i>`;
+}
+
+function message(blocks: Array<string | null>) {
+  return blocks.filter((block): block is string => Boolean(block)).join("\n\n");
+}
+
+export async function sendLeadTelegram(text: string) {
   const token = process.env.TELEGRAM_BOT_TOKEN?.trim() || "";
   const chatId = process.env.TELEGRAM_CHAT_ID?.trim() || "";
 
@@ -17,11 +63,6 @@ export async function sendLeadTelegram(lines: Array<string | null | undefined>) 
     return;
   }
 
-  const text = lines
-    .filter((line): line is string => Boolean(line))
-    .join("\n")
-    .slice(0, TELEGRAM_TEXT_LIMIT);
-
   try {
     const response = await fetch(
       `https://api.telegram.org/bot${token}/sendMessage`,
@@ -30,7 +71,8 @@ export async function sendLeadTelegram(lines: Array<string | null | undefined>) 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           chat_id: chatId,
-          text,
+          text: text.slice(0, TELEGRAM_TEXT_LIMIT),
+          parse_mode: "HTML",
           disable_web_page_preview: true,
         }),
         signal: AbortSignal.timeout(8000),
@@ -46,7 +88,7 @@ export async function sendLeadTelegram(lines: Array<string | null | undefined>) 
   }
 }
 
-export function siteLeadTelegramLines(input: {
+export function siteLeadTelegramText(input: {
   source: string;
   lot?: string;
   name: string;
@@ -54,28 +96,30 @@ export function siteLeadTelegramLines(input: {
   comment?: string;
   attribution?: LeadAttribution;
 }) {
-  return [
-    "Новая заявка с сайта",
-    `Источник: ${input.source}`,
-    input.lot ? `Лот: ${input.lot}` : null,
-    `Имя: ${input.name}`,
-    `Телефон: ${input.phone}`,
-    input.comment ? `Комментарий: ${input.comment}` : null,
-    ...(input.attribution ? attributionLines(input.attribution) : []),
-  ];
+  return message([
+    "<b>Новая заявка · сайт</b>",
+    field("Имя", input.name),
+    phoneField(input.phone),
+    field("Откуда", input.source),
+    input.lot ? field("Лот", input.lot) : null,
+    input.comment ? field("Комментарий", input.comment) : null,
+    attributionBlock(input.attribution),
+    sentAt(),
+  ]);
 }
 
-export function quizLeadTelegramLines(input: {
+export function quizLeadTelegramText(input: {
   phone: string;
   channel?: string;
   answers: LeadAnswer[];
   attribution?: LeadAttribution;
 }) {
-  return [
-    "Новая заявка с квиза",
-    `Телефон: ${input.phone}`,
-    input.channel ? `Куда связаться: ${input.channel}` : null,
-    ...input.answers.map((answer) => `${answer.label}: ${answer.value}`),
-    ...(input.attribution ? attributionLines(input.attribution) : []),
-  ];
+  return message([
+    "<b>Новая заявка · квиз</b>",
+    phoneField(input.phone),
+    input.channel ? field("Куда связаться", input.channel) : null,
+    ...input.answers.map((answer) => field(answer.label, answer.value)),
+    attributionBlock(input.attribution),
+    sentAt(),
+  ]);
 }

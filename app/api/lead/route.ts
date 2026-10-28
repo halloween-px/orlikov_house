@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
 import {
   checkLeadRateLimit,
   getRequestIp,
@@ -7,10 +7,9 @@ import {
 } from "@/lib/lead-security";
 import { saveLead } from "@/lib/admin-data";
 import { sanitizeAttribution } from "@/lib/lead-attribution";
-import { sendLeadEmail } from "@/lib/send-lead-email";
 import {
   sendLeadTelegram,
-  siteLeadTelegramLines,
+  siteLeadTelegramText,
 } from "@/lib/send-lead-telegram";
 
 type LeadBody = {
@@ -79,23 +78,17 @@ export async function POST(request: Request) {
       console.error("[lead:db]", error);
     }
 
-    await sendLeadEmail({
-      ...validated.data,
-      source,
-      lot,
-      attribution,
-      ip,
-    });
-
-    await sendLeadTelegram(
-      siteLeadTelegramLines({
-        source,
-        lot,
-        name: validated.data.name,
-        phone: validated.data.phone,
-        comment: validated.data.comment,
-        attribution,
-      }),
+    after(() =>
+      sendLeadTelegram(
+        siteLeadTelegramText({
+          source,
+          lot,
+          name: validated.data.name,
+          phone: validated.data.phone,
+          comment: validated.data.comment,
+          attribution,
+        }),
+      ),
     );
 
     return NextResponse.json({ ok: true });
