@@ -4,6 +4,10 @@ import { saveLead } from "@/lib/admin-data";
 import { sanitizeAttribution } from "@/lib/lead-attribution";
 import { normalizeAnswers } from "@/lib/lead-crm";
 import { isMongoConfigured } from "@/lib/mongo";
+import {
+  quizLeadTelegramLines,
+  sendLeadTelegram,
+} from "@/lib/send-lead-telegram";
 
 function secretMatches(provided: string, expected: string) {
   const left = Buffer.from(provided);
@@ -74,6 +78,15 @@ export async function POST(request: Request) {
       { status: 500 },
     );
   }
+
+  await sendLeadTelegram(
+    quizLeadTelegramLines({
+      phone,
+      channel,
+      answers,
+      attribution,
+    }),
+  );
 
   return NextResponse.json({ ok: true });
 }

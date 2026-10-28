@@ -8,6 +8,10 @@ import {
 import { saveLead } from "@/lib/admin-data";
 import { sanitizeAttribution } from "@/lib/lead-attribution";
 import { sendLeadEmail } from "@/lib/send-lead-email";
+import {
+  sendLeadTelegram,
+  siteLeadTelegramLines,
+} from "@/lib/send-lead-telegram";
 
 type LeadBody = {
   name?: unknown;
@@ -82,6 +86,17 @@ export async function POST(request: Request) {
       attribution,
       ip,
     });
+
+    await sendLeadTelegram(
+      siteLeadTelegramLines({
+        source,
+        lot,
+        name: validated.data.name,
+        phone: validated.data.phone,
+        comment: validated.data.comment,
+        attribution,
+      }),
+    );
 
     return NextResponse.json({ ok: true });
   } catch (error) {
