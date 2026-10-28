@@ -1,4 +1,4 @@
-import { after, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import {
   checkLeadRateLimit,
   getRequestIp,
@@ -78,17 +78,15 @@ export async function POST(request: Request) {
       console.error("[lead:db]", error);
     }
 
-    after(() =>
-      sendLeadTelegram(
-        siteLeadTelegramText({
-          source,
-          lot,
-          name: validated.data.name,
-          phone: validated.data.phone,
-          comment: validated.data.comment,
-          attribution,
-        }),
-      ),
+    await sendLeadTelegram(
+      siteLeadTelegramText({
+        source,
+        lot,
+        name: validated.data.name,
+        phone: validated.data.phone,
+        comment: validated.data.comment,
+        attribution,
+      }),
     );
 
     return NextResponse.json({ ok: true });
