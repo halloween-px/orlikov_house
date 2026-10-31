@@ -1,3 +1,4 @@
+import { getSiteUrl } from "@/config/seo";
 import type { LeadAttribution } from "@/lib/lead-attribution";
 import type { LeadAnswer } from "@/lib/lead-crm";
 
@@ -35,6 +36,11 @@ function attributionBlock(attribution?: LeadAttribution) {
 
   if (lines.length === 0) return null;
   return `<b>Реклама</b>\n${lines.map((line) => escapeHtml(line)).join("\n")}`;
+}
+
+function adminLeadsLink() {
+  const href = escapeHtml(`${getSiteUrl()}/admin/leads`);
+  return `<a href="${href}">${href}</a>`;
 }
 
 function sentAt() {
@@ -104,6 +110,7 @@ export function siteLeadTelegramText(input: {
     input.lot ? field("Лот", input.lot) : null,
     input.comment ? field("Комментарий", input.comment) : null,
     attributionBlock(input.attribution),
+    adminLeadsLink(),
     sentAt(),
   ]);
 }
@@ -120,6 +127,7 @@ export function quizLeadTelegramText(input: {
     input.channel ? field("Куда связаться", input.channel) : null,
     ...input.answers.map((answer) => field(answer.label, answer.value)),
     attributionBlock(input.attribution),
+    adminLeadsLink(),
     sentAt(),
   ]);
 }
