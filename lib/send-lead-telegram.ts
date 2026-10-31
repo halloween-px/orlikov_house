@@ -1,6 +1,7 @@
-import { getSiteUrl } from "@/config/seo";
 import type { LeadAttribution } from "@/lib/lead-attribution";
 import type { LeadAnswer } from "@/lib/lead-crm";
+
+const ADMIN_LEADS_URL = "https://orlikovhouse.ru/admin/leads";
 
 const TELEGRAM_TEXT_LIMIT = 4000;
 
@@ -39,7 +40,7 @@ function attributionBlock(attribution?: LeadAttribution) {
 }
 
 function adminLeadsLink() {
-  const href = escapeHtml(`${getSiteUrl()}/admin/leads`);
+  const href = escapeHtml(ADMIN_LEADS_URL);
   return `<a href="${href}">${href}</a>`;
 }
 
